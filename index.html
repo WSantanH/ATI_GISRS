@@ -1,27 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IntegraEdu - Educação e trânsito integrados</title>
     <style>
-        body, h1, h3, h6, p {
+        body {
+            background: linear-gradient(180deg, #fffde7 0%, #ffe082 100%);
+            margin: 0;
+            min-height: 100vh;
+        }
+        main {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 60px auto 0 auto;
+            background: rgba(255, 249, 196, 0.95);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            padding: 32px 28px 24px 28px;
+            min-height: 500px;
+        }
+        h1 {
             font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
-            letter-spacing: 1px;
+            font-size: 2.4rem;
+            color: #fbc02d;
+            text-shadow: 2px 2px 8px #fff9c4;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+        h3 {
+            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+            font-size: 1.3rem;
+            color: #795548;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        p {
+            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+            font-size: 1.05rem;
+            color: #333;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        h6 {
+            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+            font-size: 0.95rem;
+            color: #616161;
+            margin-bottom: 4px;
+            text-align: right;
         }
         .bg-animado {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            z-index: -1;
+            z-index: 0;
             overflow: hidden;
         }
-        .carro, .livro, .lapis {
+        .carro, .livro, .lapis, .cone, .arvore, .nuvem, .pedestre {
             position: absolute;
             animation-timing-function: linear;
+            filter: drop-shadow(2px 4px 6px #ffe082);
         }
         .carro {
-            left: -120px; top: 70vh;
+            left: -120px; top: 72vh;
             animation: moverCarro 8s infinite;
         }
         @keyframes moverCarro {
@@ -29,56 +72,295 @@
             100% { left: 100vw; }
         }
         .livro {
-            left: 10vw; top: 20vh;
+            left: 8vw; top: 18vh;
             animation: flutuarLivro 6s infinite alternate;
         }
         @keyframes flutuarLivro {
-            0% { top: 20vh; }
-            100% { top: 25vh; }
+            0% { top: 18vh; }
+            100% { top: 24vh; }
         }
         .lapis {
-            left: 80vw; top: 60vh;
+            left: 82vw; top: 55vh;
             animation: girarLapis 5s infinite linear;
         }
         @keyframes girarLapis {
             0% { transform: rotate(0deg);}
             100% { transform: rotate(360deg);}
         }
+        /* Estrada com faixa amarela */
+        .estrada {
+            position:absolute;
+            bottom:0;left:0;
+            width:100vw;height:20vh;
+        }
+        .videos-palestras {
+            margin-top: 32px;
+            padding: 20px;
+            background: #fffde7;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(251,192,45,0.10);
+            text-align: center;
+            border: 2px dashed #fbc02d;
+            width: 340px;
+            max-width: 90vw;
+            position: fixed; /* Alterado para fixo */
+            left: 24px;      /* Mais afastado do canto */
+            top: 80px;       /* Ajuste vertical */
+            z-index: 10;     /* Garantir que fique acima do fundo */
+        }
+        .videos-palestras h2 {
+            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+            color: #fbc02d;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .videos-placeholder {
+            margin: 18px auto 0 auto;
+            padding: 32px 0;
+            background: #fff9c4;
+            border-radius: 10px;
+            color: #795548;
+            font-size: 1.1rem;
+            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+            box-shadow: 0 2px 8px rgba(251,192,45,0.08);
+            width: 80%;
+            max-width: 400px;
+        }
+        .nuvem {
+            position: absolute;
+            left: 60vw;
+            top: 8vh;
+            animation: moverNuvem 18s linear infinite;
+            opacity: 0.8;
+        }
+        @keyframes moverNuvem {
+            0% { left: 60vw; }
+            100% { left: -10vw; }
+        }
+        .cone {
+            position: absolute;
+            animation: piscarCone 2s infinite alternate;
+            z-index: 2;
+        }
+        @keyframes piscarCone {
+            0% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+        .arvore {
+            position: absolute;
+            animation: balancarArvore 4s infinite alternate;
+            z-index: 2;
+        }
+        @keyframes balancarArvore {
+            0% { transform: rotate(-2deg);}
+            100% { transform: rotate(2deg);}
+        }
+        .pedestre {
+            position: absolute;
+            left: 80vw;
+            top: 75vh;
+            animation: moverPedestre 10s linear infinite;
+            z-index: 2;
+        }
+        @keyframes moverPedestre {
+            0% { left: 80vw; }
+            100% { left: 10vw; }
+        }
     </style>
 </head>
-<body style="background: linear-gradient(180deg, #fffde7 0%, #fff9c4 100%);">
-<h1>IntegraEdu - Educação e trânsito integrados</h1>
-<h3>Bem-vindo ao IntegraEdu, onde a educação e o trânsito se encontram para criar um futuro mais seguro e consciente.</h3>
-<p>Este é um projeto de exemplo para demonstrar a integração entre educação e trânsito, promovendo a conscientização e segurança no tráfego.</p>
-<p>Para mais informações, visite nosso site oficial ou entre em contato conosco.</p>
+<body>
+    <!-- Botões de login/cadastro -->
+    <div id="auth-buttons" style="
+        position: fixed;
+        top: 24px;
+        right: 32px;
+        z-index: 100;
+        display: flex;
+        gap: 12px;
+    ">
+        <button onclick="showForm('login')" style="
+            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+            background: #fbc02d;
+            color: #795548;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(251,192,45,0.12);
+            transition: background 0.2s;
+        " onmouseover="this.style.background='#ffe082'" onmouseout="this.style.background='#fbc02d'">Logar</button>
+        <button onclick="showForm('cadastro')" style="
+            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+            background: #fffde7;
+            color: #795548;
+            border: 2px solid #fbc02d;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(251,192,45,0.12);
+            transition: background 0.2s;
+        " onmouseover="this.style.background='#ffe082'" onmouseout="this.style.background='#fffde7'">Cadastrar</button>
+    </div>
 
-<!-- Fundo animado -->
-<div class="bg-animado">
-    <!-- Estrada -->
-    <svg style="position:absolute;bottom:0;left:0;width:100vw;height:20vh;" viewBox="0 0 100 20" preserveAspectRatio="none">
-        <rect x="0" y="10" width="100" height="10" fill="#444"/>
-        <rect x="0" y="14" width="100" height="2" fill="#fff" opacity="0.3"/>
-        <rect x="0" y="18" width="100" height="2" fill="#fff" opacity="0.3"/>
-    </svg>
-    <!-- Carro animado -->
-    <svg class="carro" viewBox="0 0 100 50" width="100" height="50">
-        <rect x="10" y="20" width="80" height="20" fill="#2196f3" />
-        <circle cx="25" cy="45" r="8" fill="#555" />
-        <circle cx="75" cy="45" r="8" fill="#555" />
-        <rect x="30" y="10" width="40" height="15" fill="#fffde7" />
-    </svg>
-    <!-- Livro animado -->
-    <svg class="livro" viewBox="0 0 60 40" width="60" height="40">
-        <rect x="5" y="10" width="50" height="25" fill="#fffde7" stroke="#795548" stroke-width="2"/>
-        <line x1="30" y1="10" x2="30" y2="35" stroke="#795548" stroke-width="2"/>
-        <rect x="5" y="10" width="50" height="5" fill="#ffe082"/>
-    </svg>
-    <!-- Lápis animado -->
-    <svg class="lapis" viewBox="0 0 30 80" width="30" height="80">
-        <rect x="10" y="10" width="10" height="60" fill="#ffeb3b" stroke="#333" stroke-width="2"/>
-        <polygon points="10,10 20,10 15,0" fill="#fbc02d"/>
-        <rect x="10" y="70" width="10" height="10" fill="#bdbdbd"/>
-    </svg>
-</div>
+    <div id="auth-form" style="
+        display: none;
+        position: fixed;
+        top: 70px;
+        right: 32px;
+        z-index: 101;
+        background: #fffde7;
+        border: 2px solid #fbc02d;
+        border-radius: 14px;
+        box-shadow: 0 4px 16px rgba(251,192,45,0.10);
+        padding: 24px 32px;
+        min-width: 260px;
+        font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+    ">
+        <form id="form-login" style="display:none;" onsubmit="return submitAuth()">
+            <h3 style="color:#fbc02d;">Login</h3>
+            <input type="text" placeholder="Usuário" required style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #fbc02d;">
+            <input type="password" placeholder="Senha" required style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #fbc02d;">
+            <button type="submit" style="width:100%;background:#fbc02d;color:#795548;border:none;border-radius:8px;padding:10px;font-size:1rem;cursor:pointer;">Entrar</button>
+        </form>
+        <form id="form-cadastro" style="display:none;" onsubmit="return submitAuth()">
+            <h3 style="color:#fbc02d;">Cadastro</h3>
+            <input type="text" placeholder="Nome" required style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #fbc02d;">
+            <input type="email" placeholder="E-mail" required style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #fbc02d;">
+            <input type="password" placeholder="Senha" required style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #fbc02d;">
+            <button type="submit" style="width:100%;background:#fbc02d;color:#795548;border:none;border-radius:8px;padding:10px;font-size:1rem;cursor:pointer;">Cadastrar</button>
+        </form>
+    </div>
+
+    <!-- Área do usuário (após login) -->
+    <div id="user-area" style="
+        position: fixed;
+        top: 24px;
+        right: 32px;
+        z-index: 101;
+        display: none;
+        align-items: center;
+        gap: 14px;
+    ">
+        <img id="user-photo" src="https://ui-avatars.com/api/?name=Usuário&background=fbc02d&color=795548&size=64" alt="Foto do usuário" style="
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid #fbc02d;
+            box-shadow: 0 2px 8px rgba(251,192,45,0.12);
+            object-fit: cover;
+            background: #fffde7;
+        ">
+        <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="trocarFoto(event)">
+        <button onclick="document.getElementById('photo-input').click()" style="
+            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+            background: #fffde7;
+            color: #795548;
+            border: 2px solid #fbc02d;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(251,192,45,0.12);
+            transition: background 0.2s;
+        " onmouseover="this.style.background='#ffe082'" onmouseout="this.style.background='#fffde7'">Trocar foto</button>
+    </div>
+
+    <script>
+        function showForm(tipo) {
+            document.getElementById('auth-buttons').style.display = 'none';
+            document.getElementById('auth-form').style.display = 'block';
+            document.getElementById('form-login').style.display = tipo === 'login' ? 'block' : 'none';
+            document.getElementById('form-cadastro').style.display = tipo === 'cadastro' ? 'block' : 'none';
+        }
+        function submitAuth() {
+            document.getElementById('auth-form').style.display = 'none';
+            document.getElementById('user-area').style.display = 'flex';
+            return false;
+        }
+        function trocarFoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('user-photo').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
+    <main>
+        <h1>IntegraEdu - Educação e trânsito integrados</h1>
+        <h3>Bem-vindo ao IntegraEdu, onde a educação e o trânsito se encontram para criar um futuro mais seguro e consciente.</h3>
+        <p>Este é um projeto de exemplo para demonstrar a integração entre educação e trânsito, promovendo a conscientização e segurança no tráfego.</p>
+        <p>Para mais informações, visite nosso site oficial ou entre em contato conosco.</p>
+        <h6>Desenvolvido por: Wayllahn e Gislândia.</h6>
+        <h6>Data: Outubro de 2025</h6>
+
+        <!-- Área para vídeos de palestras -->
+        <section class="videos-palestras">
+            <h2>Vídeos de Palestras</h2>
+            <p>Em breve você encontrará aqui vídeos de palestras sobre educação e trânsito.</p>
+            <div class="videos-placeholder">
+                <span>Área reservada para vídeos</span>
+            </div>
+        </section>
+    </main>
+    <!-- Fundo animado -->
+    <div class="bg-animado">
+        <!-- Estrada com faixa amarela -->
+        <svg class="estrada" viewBox="0 0 100 20" preserveAspectRatio="none">
+            <rect x="0" y="10" width="100" height="10" fill="#444"/>
+            <rect x="0" y="14" width="100" height="2" fill="#fbc02d" opacity="0.7"/>
+            <rect x="0" y="18" width="100" height="2" fill="#fff" opacity="0.3"/>
+        </svg>
+        <!-- Carro animado -->
+        <svg class="carro" viewBox="0 0 100 50" width="100" height="50">
+            <rect x="10" y="20" width="80" height="20" fill="#2196f3" rx="8" />
+            <circle cx="25" cy="45" r="8" fill="#555" />
+            <circle cx="75" cy="45" r="8" fill="#555" />
+            <rect x="30" y="10" width="40" height="15" fill="#fffde7" rx="6" />
+            <rect x="60" y="25" width="18" height="7" fill="#fbc02d" rx="3"/>
+        </svg>
+        <!-- Livro animado -->
+        <svg class="livro" viewBox="0 0 60 40" width="60" height="40">
+            <rect x="5" y="10" width="50" height="25" fill="#fffde7" stroke="#795548" stroke-width="2" rx="5"/>
+            <line x1="30" y1="10" x2="30" y2="35" stroke="#795548" stroke-width="2"/>
+            <rect x="5" y="10" width="50" height="5" fill="#ffe082"/>
+        </svg>
+        <!-- Lápis animado -->
+        <svg class="lapis" viewBox="0 0 30 80" width="30" height="80">
+            <rect x="10" y="10" width="10" height="60" fill="#ffeb3b" stroke="#333" stroke-width="2" rx="5"/>
+            <polygon points="10,10 20,10 15,0" fill="#fbc02d"/>
+            <rect x="10" y="70" width="10" height="10" fill="#bdbdbd" rx="3"/>
+        </svg>
+        <!-- Cone de trânsito animado -->
+        <svg class="cone" viewBox="0 0 30 40" width="30" height="40" style="left: 40vw; top: 80vh;">
+            <polygon points="15,5 25,35 5,35" fill="#ff9800"/>
+            <rect x="5" y="35" width="20" height="5" fill="#795548"/>
+            <rect x="10" y="25" width="10" height="5" fill="#fff"/>
+        </svg>
+        <!-- Árvore animada -->
+        <svg class="arvore" viewBox="0 0 40 60" width="40" height="60" style="left: 10vw; top: 60vh;">
+            <rect x="18" y="40" width="4" height="20" fill="#795548"/>
+            <circle cx="20" cy="35" r="15" fill="#388e3c"/>
+        </svg>
+        <!-- Nuvem animada -->
+        <svg class="nuvem" viewBox="0 0 60 30" width="60" height="30">
+            <ellipse cx="30" cy="15" rx="20" ry="12" fill="#fff"/>
+            <ellipse cx="15" cy="15" rx="10" ry="8" fill="#fff"/>
+            <ellipse cx="45" cy="15" rx="10" ry="8" fill="#fff"/>
+        </svg>
+        <!-- Pedestre animado -->
+        <svg class="pedestre" viewBox="0 0 30 60" width="30" height="60">
+            <circle cx="15" cy="10" r="8" fill="#ffe082"/>
+            <rect x="10" y="18" width="10" height="25" fill="#2196f3"/>
+            <rect x="10" y="43" width="4" height="15" fill="#795548"/>
+            <rect x="16" y="43" width="4" height="15" fill="#795548"/>
+        </svg>
+    </div>
 </body>
 </html>
