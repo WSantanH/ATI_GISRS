@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntegraEdu - Educação e trânsito integrados</title>
+    <style>
+        body, h1, h3, h6, p {
+            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+            letter-spacing: 1px;
+        }
+        .bg-animado {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .carro, .livro, .lapis {
+            position: absolute;
+            animation-timing-function: linear;
+        }
+        .carro {
+            left: -120px; top: 70vh;
+            animation: moverCarro 8s infinite;
+        }
+        @keyframes moverCarro {
+            0% { left: -120px; }
+            100% { left: 100vw; }
+        }
+        .livro {
+            left: 10vw; top: 20vh;
+            animation: flutuarLivro 6s infinite alternate;
+        }
+        @keyframes flutuarLivro {
+            0% { top: 20vh; }
+            100% { top: 25vh; }
+        }
+        .lapis {
+            left: 80vw; top: 60vh;
+            animation: girarLapis 5s infinite linear;
+        }
+        @keyframes girarLapis {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+        }
+    </style>
+</head>
+<body style="background: linear-gradient(180deg, #fffde7 0%, #fff9c4 100%);">
+<h1>IntegraEdu - Educação e trânsito integrados</h1>
+<h3>Bem-vindo ao IntegraEdu, onde a educação e o trânsito se encontram para criar um futuro mais seguro e consciente.</h3>
+<p>Este é um projeto de exemplo para demonstrar a integração entre educação e trânsito, promovendo a conscientização e segurança no tráfego.</p>
+<p>Para mais informações, visite nosso site oficial ou entre em contato conosco.</p>
+
+<!-- Fundo animado -->
+<div class="bg-animado">
+    <!-- Estrada -->
+    <svg style="position:absolute;bottom:0;left:0;width:100vw;height:20vh;" viewBox="0 0 100 20" preserveAspectRatio="none">
+        <rect x="0" y="10" width="100" height="10" fill="#444"/>
+        <rect x="0" y="14" width="100" height="2" fill="#fff" opacity="0.3"/>
+        <rect x="0" y="18" width="100" height="2" fill="#fff" opacity="0.3"/>
+    </svg>
+    <!-- Carro animado -->
+    <svg class="carro" viewBox="0 0 100 50" width="100" height="50">
+        <rect x="10" y="20" width="80" height="20" fill="#2196f3" />
+        <circle cx="25" cy="45" r="8" fill="#555" />
+        <circle cx="75" cy="45" r="8" fill="#555" />
+        <rect x="30" y="10" width="40" height="15" fill="#fffde7" />
+    </svg>
+    <!-- Livro animado -->
+    <svg class="livro" viewBox="0 0 60 40" width="60" height="40">
+        <rect x="5" y="10" width="50" height="25" fill="#fffde7" stroke="#795548" stroke-width="2"/>
+        <line x1="30" y1="10" x2="30" y2="35" stroke="#795548" stroke-width="2"/>
+        <rect x="5" y="10" width="50" height="5" fill="#ffe082"/>
+    </svg>
+    <!-- Lápis animado -->
+    <svg class="lapis" viewBox="0 0 30 80" width="30" height="80">
+        <rect x="10" y="10" width="10" height="60" fill="#ffeb3b" stroke="#333" stroke-width="2"/>
+        <polygon points="10,10 20,10 15,0" fill="#fbc02d"/>
+        <rect x="10" y="70" width="10" height="10" fill="#bdbdbd"/>
+    </svg>
+</div>
+</body>
+</html>
