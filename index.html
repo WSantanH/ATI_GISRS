@@ -188,7 +188,7 @@
         }
 
         #user-area {
-            flex-direction: row;
+            flex-direction: column;
         }
 
         #user-photo {
@@ -338,6 +338,7 @@
         display: none;
         align-items: center;
         gap: 14px;
+        flex-direction: column;
     ">
         <img id="user-photo" src="https://ui-avatars.com/api/?name=Usuário&background=fbc02d&color=795548&size=64" alt="Foto do usuário" style="
             width: 48px;
@@ -360,10 +361,36 @@
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(251,192,45,0.12);
             transition: background 0.2s;
+            margin-bottom: 8px;
         " onmouseover="this.style.background='#ffe082'" onmouseout="this.style.background='#fffde7'">Trocar foto</button>
+        <button onclick="deslogar()" style="
+            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+            background: #fbc02d;
+            color: #795548;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(251,192,45,0.12);
+            transition: background 0.2s;
+        " onmouseover="this.style.background='#ffe082'" onmouseout="this.style.background='#fbc02d'">Deslogar</button>
     </div>
 
     <script>
+        // Ao carregar a página, verifica se há dados salvos
+        window.onload = function() {
+            const userLogged = localStorage.getItem('userLogged');
+            const userPhoto = localStorage.getItem('userPhoto');
+            if (userLogged === 'true') {
+                document.getElementById('auth-buttons').style.display = 'none';
+                document.getElementById('user-area').style.display = 'flex';
+                if (userPhoto) {
+                    document.getElementById('user-photo').src = userPhoto;
+                }
+            }
+        };
+
         function showForm(tipo) {
             document.getElementById('auth-buttons').style.display = 'none';
             document.getElementById('auth-form').style.display = 'block';
@@ -373,6 +400,7 @@
         function submitAuth() {
             document.getElementById('auth-form').style.display = 'none';
             document.getElementById('user-area').style.display = 'flex';
+            localStorage.setItem('userLogged', 'true');
             return false;
         }
         function trocarFoto(event) {
@@ -381,9 +409,16 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById('user-photo').src = e.target.result;
+                    localStorage.setItem('userPhoto', e.target.result);
                 }
                 reader.readAsDataURL(file);
             }
+        }
+        function deslogar() {
+            document.getElementById('user-area').style.display = 'none';
+            document.getElementById('auth-buttons').style.display = 'flex';
+            localStorage.removeItem('userLogged');
+            localStorage.removeItem('userPhoto');
         }
     </script>
 
