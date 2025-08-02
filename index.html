@@ -167,6 +167,56 @@
             0% { left: 80vw; }
             100% { left: 10vw; }
         }
+        #auth-buttons,
+        #user-area,
+        #auth-form {
+            position: fixed;
+            top: 2vw;
+            right: 2vw;
+            z-index: 101;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        #auth-form {
+            flex-direction: column;
+            min-width: 220px;
+            max-width: 90vw;
+            padding: 16px 8vw;
+        }
+
+        #user-area {
+            flex-direction: row;
+        }
+
+        #user-photo {
+            width: 44px;
+            height: 44px;
+            min-width: 32px;
+            min-height: 32px;
+        }
+
+        @media (max-width: 600px) {
+            #auth-buttons,
+            #user-area,
+            #auth-form {
+                top: 12px;
+                right: 12px;
+                gap: 8px;
+                padding: 8px 2vw;
+                font-size: 0.95rem;
+            }
+            #user-photo {
+                width: 32px;
+                height: 32px;
+            }
+            #auth-form {
+                min-width: 160px;
+                padding: 12px 2vw;
+            }
+        }
     </style>
 </head>
 <body>
