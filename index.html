@@ -119,6 +119,117 @@
         " onmouseover="this.style.background='#ffe082'" onmouseout="this.style.background='#fbc02d'">Deslogar</button>
     </div>
 
+    <!-- Modal do Manual de Trânsito -->
+    <div id="manual-modal" style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 200;
+        overflow-y: auto;
+    ">
+        <div style="
+            background: #fffde7;
+            margin: 20px auto;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: relative;
+            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+        ">
+            <button onclick="fecharManual()" style="
+                position: absolute;
+                top: 15px;
+                right: 20px;
+                background: #ff5722;
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 35px;
+                height: 35px;
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: bold;
+            ">✕</button>
+            
+            <h1 style="color: #fbc02d; text-align: center; margin-bottom: 25px;">📖 Manual do Trânsito</h1>
+            
+            <div style="color: #333; line-height: 1.6; text-align: left;">
+                <h2 style="color: #795548; border-bottom: 2px solid #fbc02d; padding-bottom: 10px;">🚦 Regras Básicas de Trânsito</h2>
+                
+                <h3 style="color: #ff9800;">🚗 Para Motoristas:</h3>
+                <ul style="margin-left: 20px;">
+                    <li>Sempre use o cinto de segurança</li>
+                    <li>Respeite os limites de velocidade</li>
+                    <li>Não use celular enquanto dirige</li>
+                    <li>Mantenha distância segura do veículo da frente</li>
+                    <li>Pare completamente no sinal vermelho</li>
+                    <li>Use setas para indicar mudanças de direção</li>
+                    <li>Não dirija sob efeito de álcool ou drogas</li>
+                    <li>Dê preferência a pedestres na faixa</li>
+                </ul>
+
+                <h3 style="color: #ff9800;">🚶 Para Pedestres:</h3>
+                <ul style="margin-left: 20px;">
+                    <li>Atravesse sempre na faixa de pedestres</li>
+                    <li>Olhe para os dois lados antes de atravessar</li>
+                    <li>Aguarde o sinal verde para pedestres</li>
+                    <li>Evite usar celular ao atravessar</li>
+                    <li>Use roupas claras à noite</li>
+                    <li>Caminhe na calçada, sempre que possível</li>
+                </ul>
+
+                <h3 style="color: #ff9800;">🚲 Para Ciclistas:</h3>
+                <ul style="margin-left: 20px;">
+                    <li>Use sempre capacete de proteção</li>
+                    <li>Ande na ciclovia ou ciclofaixa</li>
+                    <li>Sinalize suas intenções com gestos</li>
+                    <li>Use roupas coloridas e equipamentos reflexivos</li>
+                    <li>Respeite os semáforos</li>
+                </ul>
+
+                <h2 style="color: #795548; border-bottom: 2px solid #fbc02d; padding-bottom: 10px; margin-top: 30px;">⚠️ Principais Infrações</h2>
+                
+                <div style="background: #fff9c4; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <h4 style="color: #d32f2f;">🚫 Infrações Gravíssimas:</h4>
+                    <ul>
+                        <li>Dirigir sob efeito de álcool</li>
+                        <li>Excesso de velocidade superior a 50% do limite</li>
+                        <li>Avançar sinal vermelho</li>
+                        <li>Dirigir sem CNH</li>
+                    </ul>
+                </div>
+
+                <h2 style="color: #795548; border-bottom: 2px solid #fbc02d; padding-bottom: 10px; margin-top: 30px;">📋 Documentos Obrigatórios</h2>
+                <ul style="margin-left: 20px;">
+                    <li>CNH (Carteira Nacional de Habilitação)</li>
+                    <li>CRLV (Certificado de Registro e Licenciamento)</li>
+                    <li>Comprovante de seguro DPVAT</li>
+                </ul>
+
+                <h2 style="color: #795548; border-bottom: 2px solid #fbc02d; padding-bottom: 10px; margin-top: 30px;">🆘 Em Caso de Acidentes</h2>
+                <ol style="margin-left: 20px;">
+                    <li>Mantenha a calma e sinalize o local</li>
+                    <li>Verifique se há feridos</li>
+                    <li>Acione o SAMU (192) se necessário</li>
+                    <li>Chame a Polícia Militar (190)</li>
+                    <li>Entre em contato com o seguro</li>
+                    <li>Fotografe os danos e a posição dos veículos</li>
+                </ol>
+
+                <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center;">
+                    <h3 style="color: #2e7d32;">💡 Lembre-se:</h3>
+                    <p style="margin: 0; font-weight: bold;">A segurança no trânsito é responsabilidade de todos!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Ao carregar a página, verifica se há dados salvos
         window.onload = function() {
@@ -162,6 +273,24 @@
             localStorage.removeItem('userLogged');
             localStorage.removeItem('userPhoto');
         }
+        
+        function abrirManual() {
+            document.getElementById('manual-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Impede scroll da página
+        }
+        
+        function fecharManual() {
+            document.getElementById('manual-modal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restaura scroll da página
+        }
+        
+        // Fechar modal clicando fora dele
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('manual-modal');
+            if (event.target === modal) {
+                fecharManual();
+            }
+        });
     </script>
 
     <main>
@@ -178,6 +307,9 @@
 
         <!-- Área para vídeos de palestras -->
         <section class="videos-palestras">
+            <button id="manual-transito-btn" onclick="abrirManual()">
+                📖 Manual do Trânsito
+            </button>
             <div style="text-align: center; margin-bottom: 15px; font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif; font-size: clamp(1rem, 3vw, 1.2rem); color: #795548; font-weight: bold; word-break: break-all;">
                 📞 75 9983 32864
             </div>

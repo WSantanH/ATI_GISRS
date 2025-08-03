@@ -143,6 +143,34 @@ h6 {
     z-index: 10;
 }
 
+/* Botão Manual do Trânsito */
+#manual-transito-btn {
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+    cursor: pointer;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(76,175,80,0.3);
+    transition: all 0.3s ease;
+    font-weight: bold;
+    width: 100%;
+    max-width: 200px;
+}
+
+#manual-transito-btn:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(76,175,80,0.4);
+}
+
+#manual-transito-btn:active {
+    transform: translateY(0);
+}
+
 /* Posição fixa apenas para PC */
 @media (min-width: 1025px) {
     .videos-palestras {
