@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IntegraEdu - Educação e trânsito integrados</title>
+    <meta name="description" content="IntegraEdu - Educação em trânsito integrada para um futuro mais seguro. Manual do trânsito, vídeos educativos e dicas de segurança viária.">
+    <meta name="keywords" content="educação trânsito, segurança viária, manual trânsito, direção defensiva, pedestres, ciclistas">
+    <meta name="author" content="Wayllahn e Gislândia">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="IntegraEdu - Educação e trânsito integrados">
+    <meta property="og:description" content="Educação em trânsito integrada para um futuro mais seguro">
+    <meta property="og:image" content="img/palestra.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="IntegraEdu - Educação e trânsito integrados">
+    <meta property="twitter:description" content="Educação em trânsito integrada para um futuro mais seguro">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -250,6 +267,15 @@
     </div>
 
     <script>
+        // Loading screen
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease-in-out';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
         // Ao carregar a página, verifica se há dados salvos
         window.onload = function() {
             const userLogged = localStorage.getItem('userLogged');
@@ -382,12 +408,212 @@
                 fecharManual();
             }
         });
+        
+        // Botão voltar ao topo
+        window.addEventListener('scroll', function() {
+            const backToTopBtn = document.getElementById('back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+        
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Função para controlar o scroll dos vídeos
+        function scrollVideos(direction) {
+            const container = document.getElementById('videos-container');
+            const scrollAmount = 340; // Largura de um card + gap
+            
+            if (direction === 'left') {
+                container.scrollBy({
+                    left: -scrollAmount,
+                    behavior: 'smooth'
+                });
+            } else {
+                container.scrollBy({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Atualizar indicador de scroll
+            updateScrollIndicator();
+        }
+
+        // Função para atualizar o indicador de scroll
+        function updateScrollIndicator() {
+            const container = document.getElementById('videos-container');
+            const indicator = document.getElementById('scroll-indicator');
+            
+            if (container && indicator) {
+                const maxScroll = container.scrollWidth - container.clientWidth;
+                const currentScroll = container.scrollLeft;
+                const scrollPercentage = maxScroll > 0 ? (currentScroll / maxScroll) * 100 : 0;
+                
+                // Atualizar a largura do indicador baseado na posição do scroll
+                const maxWidth = 60;
+                const minWidth = 20;
+                const currentWidth = minWidth + ((maxWidth - minWidth) * (scrollPercentage / 100));
+                
+                indicator.style.width = currentWidth + 'px';
+                indicator.style.background = `linear-gradient(90deg, #fbc02d ${scrollPercentage}%, #ffe082 ${scrollPercentage}%)`;
+            }
+        }
+
+        // Event listener para o scroll do container de vídeos
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('videos-container');
+            if (container) {
+                container.addEventListener('scroll', updateScrollIndicator);
+                
+                // Inicializar o indicador
+                updateScrollIndicator();
+                
+                // Adicionar suporte para scroll com touch/swipe em dispositivos móveis
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+
+                container.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    container.style.cursor = 'grabbing';
+                    startX = e.pageX - container.offsetLeft;
+                    scrollLeft = container.scrollLeft;
+                });
+
+                container.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    container.style.cursor = 'grab';
+                });
+
+                container.addEventListener('mouseup', () => {
+                    isDown = false;
+                    container.style.cursor = 'grab';
+                });
+
+                container.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - container.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    container.scrollLeft = scrollLeft - walk;
+                });
+            }
+        });
     </script>
 
-    <main>
+    <!-- Botão voltar ao topo -->
+    <button id="back-to-top" onclick="scrollToTop()" style="
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 99;
+        background: #fbc02d;
+        color: #795548;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        font-size: 20px;
+        box-shadow: 0 4px 15px rgba(251,192,45,0.3);
+        transition: all 0.3s ease;
+    " onmouseover="this.style.background='#ffe082'" onmouseout="this.style.background='#fbc02d'">↑</button>
+
+    <!-- Menu de Navegação -->
+    <nav style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 253, 231, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 50;
+        padding: 15px 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    ">
+        <div style="
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        ">
+            <a href="#inicio" style="
+                color: #795548;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 8px 16px;
+                border-radius: 20px;
+                transition: all 0.3s ease;
+                font-size: clamp(0.9rem, 2vw, 1rem);
+            " onmouseover="this.style.background='#fbc02d'; this.style.color='white'" onmouseout="this.style.background='transparent'; this.style.color='#795548'">🏠 Início</a>
+            
+            <a href="#videos" style="
+                color: #795548;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 8px 16px;
+                border-radius: 20px;
+                transition: all 0.3s ease;
+                font-size: clamp(0.9rem, 2vw, 1rem);
+            " onmouseover="this.style.background='#fbc02d'; this.style.color='white'" onmouseout="this.style.background='transparent'; this.style.color='#795548'">🎥 Vídeos</a>
+            
+            <a href="#dicas" style="
+                color: #795548;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 8px 16px;
+                border-radius: 20px;
+                transition: all 0.3s ease;
+                font-size: clamp(0.9rem, 2vw, 1rem);
+            " onmouseover="this.style.background='#fbc02d'; this.style.color='white'" onmouseout="this.style.background='transparent'; this.style.color='#795548'">💡 Dicas</a>
+            
+            <a href="#contato" style="
+                color: #795548;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 8px 16px;
+                border-radius: 20px;
+                transition: all 0.3s ease;
+                font-size: clamp(0.9rem, 2vw, 1rem);
+            " onmouseover="this.style.background='#fbc02d'; this.style.color='white'" onmouseout="this.style.background='transparent'; this.style.color='#795548'">📞 Contato</a>
+        </div>
+    </nav>
+
+    <main id="inicio">
         <h1>IntegraEdu - Educação e trânsito integrados</h1>
         <h3>Bem-vindo ao IntegraEdu, onde a educação e o trânsito se encontram para criar um futuro mais seguro e consciente.</h3>
         <p>Este é um projeto de exemplo para demonstrar a integração entre educação e trânsito, promovendo a conscientização e segurança no tráfego.</p>
+        
+        <!-- Seção Sobre o Projeto -->
+        <section id="sobre" style="margin: 40px 0; padding: 25px; background: rgba(255,255,255,0.7); border-radius: 15px; border-left: 5px solid #fbc02d;">
+            <h2 style="color: #795548; margin-bottom: 20px; text-align: center;">🎯 Nossos Objetivos</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; text-align: left;">
+                <div style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <h4 style="color: #fbc02d; margin-bottom: 10px;">🛡️ Segurança Viária</h4>
+                    <p style="margin: 0; font-size: 0.95rem;">Promover a educação no trânsito, conscientizando motoristas e pedestres sobre a importância da segurança viária</p>
+                </div>
+                <div style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <h4 style="color: #fbc02d; margin-bottom: 10px;">💙 Salvar Vidas</h4>
+                    <p style="margin: 0; font-size: 0.95rem;">Nosso objetivo é reduzir acidentes e salvar vidas através de informações acessíveis e educativas</p>
+                </div>
+                <div style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <h4 style="color: #fbc02d; margin-bottom: 10px;">📚 Recursos Educativos</h4>
+                    <p style="margin: 0; font-size: 0.95rem;">Oferecemos vídeos de palestras, dicas de segurança e informações sobre legislação de trânsito</p>
+                </div>
+            </div>
+        </section>
+
         <h1>Porque criamos este site?</h1>
         <li>Para promover a educação no trânsito, conscientizando motoristas e pedestres sobre a importância da segurança viária;</li>
         <li>Nosso objetivo é reduzir acidentes e salvar vidas através de informações acessíveis e educativas;</li>
@@ -397,22 +623,262 @@
         <h6>Data: Agosto de 2025</h6>
 
         <!-- Área para vídeos de palestras -->
-        <section class="videos-palestras">
+        <section class="videos-palestras" id="videos">
             <button id="manual-transito-btn" onclick="abrirManual()">
                 📖 Manual do Trânsito
             </button>
             <div style="text-align: center; margin-bottom: 15px; font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif; font-size: clamp(1rem, 3vw, 1.2rem); color: #795548; font-weight: bold; word-break: break-all;">
                 📞 75 9983 32864
             </div>
-            <h2>Vídeos de Palestras</h2>
+            <h2>🎥 Vídeos de Palestras</h2>
             <p>Em breve você encontrará aqui vídeos de palestras sobre educação e trânsito.</p>
-            <div class="videos-placeholder">
-                <img src="img/palestra.jpg"
-                     alt="Palestra sobre educação e trânsito"
-                     style="width:100%;max-width:400px;border-radius:12px;box-shadow:0 2px 8px rgba(251,192,45,0.12);margin:0 auto;display:block;">
+            
+            <!-- Container com scroll horizontal para vídeos -->
+            <div style="
+                position: relative;
+                margin: 30px 0;
+                overflow: hidden;
+                border-radius: 15px;
+                padding: 10px 0;
+            ">
+                <!-- Botões de navegação -->
+                <button id="scroll-left" onclick="scrollVideos('left')" style="
+                    position: absolute;
+                    left: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    z-index: 10;
+                    background: rgba(251, 192, 45, 0.9);
+                    color: #795548;
+                    border: none;
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                    cursor: pointer;
+                    font-size: 18px;
+                    font-weight: bold;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                " onmouseover="this.style.background='rgba(255, 224, 130, 0.9)'" onmouseout="this.style.background='rgba(251, 192, 45, 0.9)'">❮</button>
+                
+                <button id="scroll-right" onclick="scrollVideos('right')" style="
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    z-index: 10;
+                    background: rgba(251, 192, 45, 0.9);
+                    color: #795548;
+                    border: none;
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                    cursor: pointer;
+                    font-size: 18px;
+                    font-weight: bold;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                " onmouseover="this.style.background='rgba(255, 224, 130, 0.9)'" onmouseout="this.style.background='rgba(251, 192, 45, 0.9)'">❯</button>
+                
+                <!-- Container scrollável dos vídeos -->
+                <div id="videos-container" style="
+                    display: flex;
+                    gap: 20px;
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    padding: 20px 60px;
+                    scroll-behavior: smooth;
+                    scrollbar-width: thin;
+                    scrollbar-color: #fbc02d #fffde7;
+                    -webkit-overflow-scrolling: touch;
+                ">
+                    <div style="
+                        background: #fff;
+                        padding: 20px;
+                        border-radius: 15px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                        text-align: center;
+                        min-width: 320px;
+                        flex-shrink: 0;
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'">
+                        <img src="img/palestra.jpg" alt="Palestra sobre educação e trânsito" style="width:100%; max-width:280px; height: 180px; object-fit: cover; border-radius:12px; margin-bottom: 15px;">
+                        <h4 style="color: #795548; margin: 15px 0 10px 0;">Fundamentos da Educação no Trânsito</h4>
+                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Aprenda os conceitos básicos sobre segurança viária e responsabilidade no trânsito.</p>
+                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                    </div>
+                    
+                    <div style="
+                        background: #fff;
+                        padding: 20px;
+                        border-radius: 15px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                        text-align: center;
+                        min-width: 320px;
+                        flex-shrink: 0;
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'">
+                        <div style="width: 100%; height: 180px; background: linear-gradient(45deg, #ffe082, #fbc02d); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                            <span style="font-size: 3rem;">🚗</span>
+                        </div>
+                        <h4 style="color: #795548; margin: 15px 0 10px 0;">Direção Defensiva</h4>
+                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Técnicas essenciais para uma direção mais segura e responsável.</p>
+                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                    </div>
+                    
+                    <div style="
+                        background: #fff;
+                        padding: 20px;
+                        border-radius: 15px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                        text-align: center;
+                        min-width: 320px;
+                        flex-shrink: 0;
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'">
+                        <div style="width: 100%; height: 180px; background: linear-gradient(45deg, #e8f5e8, #4caf50); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                            <span style="font-size: 3rem;">🚶‍♂️</span>
+                        </div>
+                        <h4 style="color: #795548; margin: 15px 0 10px 0;">Segurança do Pedestre</h4>
+                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Dicas importantes para pedestres circularem com segurança nas vias.</p>
+                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                    </div>
+
+                    <div style="
+                        background: #fff;
+                        padding: 20px;
+                        border-radius: 15px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                        text-align: center;
+                        min-width: 320px;
+                        flex-shrink: 0;
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'">
+                        <div style="width: 100%; height: 180px; background: linear-gradient(45deg, #fff3e0, #ff9800); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                            <span style="font-size: 3rem;">🚲</span>
+                        </div>
+                        <h4 style="color: #795548; margin: 15px 0 10px 0;">Segurança para Ciclistas</h4>
+                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Equipamentos e práticas essenciais para ciclistas urbanos.</p>
+                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                    </div>
+
+                    <div style="
+                        background: #fff;
+                        padding: 20px;
+                        border-radius: 15px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                        text-align: center;
+                        min-width: 320px;
+                        flex-shrink: 0;
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'">
+                        <div style="width: 100%; height: 180px; background: linear-gradient(45deg, #fce4ec, #e91e63); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                            <span style="font-size: 3rem;">⚠️</span>
+                        </div>
+                        <h4 style="color: #795548; margin: 15px 0 10px 0;">Primeiros Socorros no Trânsito</h4>
+                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Como agir em situações de emergência e acidentes de trânsito.</p>
+                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                    </div>
+                </div>
+                
+                <!-- Indicador de scroll -->
+                <div style="
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 15px;
+                    gap: 8px;
+                ">
+                    <div id="scroll-indicator" style="
+                        height: 4px;
+                        background: #fbc02d;
+                        border-radius: 2px;
+                        width: 60px;
+                        transition: all 0.3s ease;
+                    "></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Dicas Rápidas -->
+        <section id="dicas" style="margin: 40px 0; padding: 25px; background: rgba(255,255,255,0.7); border-radius: 15px;">
+            <h2 style="color: #795548; text-align: center; margin-bottom: 25px;">💡 Dicas Rápidas de Segurança</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                <div style="background: #fff3e0; padding: 15px; border-radius: 10px; border-left: 4px solid #ff9800;">
+                    <h4 style="color: #ff9800; margin: 0 0 10px 0;">🔧 Antes de Sair</h4>
+                    <p style="margin: 0; font-size: 0.9rem;">Verifique pneus, freios, luzes e documentos</p>
+                </div>
+                <div style="background: #e3f2fd; padding: 15px; border-radius: 10px; border-left: 4px solid #2196f3;">
+                    <h4 style="color: #2196f3; margin: 0 0 10px 0;">⚡ Durante o Trajeto</h4>
+                    <p style="margin: 0; font-size: 0.9rem;">Mantenha atenção total e evite distrações</p>
+                </div>
+                <div style="background: #e8f5e8; padding: 15px; border-radius: 10px; border-left: 4px solid #4caf50;">
+                    <h4 style="color: #4caf50; margin: 0 0 10px 0;">🛑 Em Emergências</h4>
+                    <p style="margin: 0; font-size: 0.9rem;">Mantenha calma e siga os protocolos de segurança</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Contato -->
+        <section id="contato" style="margin: 40px 0; padding: 25px; background: rgba(255,255,255,0.7); border-radius: 15px; text-align: center;">
+            <h2 style="color: #795548; margin-bottom: 20px;">📞 Entre em Contato</h2>
+            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 20px 0;">
+                <div style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); min-width: 200px;">
+                    <h4 style="color: #4caf50; margin: 0 0 10px 0;">📱 WhatsApp</h4>
+                    <p style="margin: 0; font-weight: bold; color: #795548;">75 9983 32864</p>
+                </div>
+                <div style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); min-width: 200px;">
+                    <h4 style="color: #2196f3; margin: 0 0 10px 0;">📧 E-mail</h4>
+                    <p style="margin: 0; font-weight: bold; color: #795548;">contato@integraedu.com</p>
+                </div>
             </div>
         </section>
     </main>
+    
+    <!-- Footer -->
+    <footer style="
+        background: rgba(121, 85, 72, 0.9);
+        color: #fffde7;
+        padding: 40px 20px 20px 20px;
+        text-align: center;
+        margin-top: 60px;
+    ">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 30px;">
+                <div>
+                    <h3 style="color: #fbc02d; margin-bottom: 15px;">🎓 IntegraEdu</h3>
+                    <p style="font-size: 0.9rem; line-height: 1.6;">Educação e trânsito integrados para um futuro mais seguro e consciente.</p>
+                </div>
+                <div>
+                    <h4 style="color: #fbc02d; margin-bottom: 15px;">📞 Contato</h4>
+                    <p style="font-size: 0.9rem; margin: 5px 0;">WhatsApp: 75 9983 32864</p>
+                    <p style="font-size: 0.9rem; margin: 5px 0;">E-mail: contato@integraedu.com</p>
+                </div>
+                <div>
+                    <h4 style="color: #fbc02d; margin-bottom: 15px;">🔗 Links Úteis</h4>
+                    <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
+                        <a href="docs/manual-transito-2022.pdf" target="_blank" style="color: #fffde7; text-decoration: none; font-size: 0.9rem;">📖 Manual do Trânsito</a>
+                        <a href="#videos" style="color: #fffde7; text-decoration: none; font-size: 0.9rem;">🎥 Vídeos Educativos</a>
+                        <a href="#dicas" style="color: #fffde7; text-decoration: none; font-size: 0.9rem;">💡 Dicas de Segurança</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="border-top: 1px solid rgba(251,192,45,0.3); padding-top: 20px;">
+                <p style="margin: 0; font-size: 0.9rem; color: #ffe082;">
+                    © 2024 IntegraEdu - Desenvolvido por Wayllahn e Gislândia | Todos os direitos reservados
+                </p>
+                <p style="margin: 10px 0 0 0; font-size: 0.8rem; color: #ffecb3;">
+                    💚 Juntos por um trânsito mais seguro
+                </p>
+            </div>
+        </div>
+    </footer>
     <!-- Fundo animado -->
     <div class="bg-animado">
         <!-- Estrada com faixa amarela -->
