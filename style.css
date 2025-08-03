@@ -1,0 +1,466 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(180deg, #fffde7 0%, #ffe082 100%);
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+    overflow-x: hidden;
+}
+
+main {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 80px auto 40px auto;
+    background: rgba(255, 249, 196, 0.95);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 32px 28px 24px 28px;
+    min-height: 500px;
+}
+
+h1 {
+    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    color: #fbc02d;
+    text-shadow: 2px 2px 8px #fff9c4;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+h3 {
+    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    color: #795548;
+    margin-bottom: 18px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+p, li {
+    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+    font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+    color: #333;
+    margin-bottom: 12px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+li {
+    text-align: left;
+    margin-left: 20px;
+    margin-bottom: 8px;
+}
+
+h6 {
+    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+    font-size: clamp(0.8rem, 2vw, 0.95rem);
+    color: #616161;
+    margin-bottom: 4px;
+    text-align: right;
+    line-height: 1.3;
+}
+
+.bg-animado {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.carro, .livro, .lapis, .cone, .arvore, .nuvem, .pedestre {
+    position: absolute;
+    animation-timing-function: linear;
+    filter: drop-shadow(2px 4px 6px #ffe082);
+}
+
+.carro {
+    left: -120px; 
+    top: 72vh;
+    animation: moverCarro 8s infinite;
+    width: clamp(60px, 10vw, 100px);
+    height: auto;
+}
+
+@keyframes moverCarro {
+    0% { left: -120px; }
+    100% { left: 100vw; }
+}
+
+.livro {
+    left: 8vw; 
+    top: 18vh;
+    animation: flutuarLivro 6s infinite alternate;
+    width: clamp(40px, 8vw, 60px);
+    height: auto;
+}
+
+@keyframes flutuarLivro {
+    0% { top: 18vh; }
+    100% { top: 24vh; }
+}
+
+.lapis {
+    left: 82vw; 
+    top: 55vh;
+    animation: girarLapis 5s infinite linear;
+    width: clamp(20px, 5vw, 30px);
+    height: auto;
+}
+
+@keyframes girarLapis {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+}
+
+/* Estrada com faixa amarela */
+.estrada {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 20vh;
+    min-height: 100px;
+}
+
+.videos-palestras {
+    margin: 32px auto 0 auto;
+    padding: 20px;
+    background: #fffde7;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(251,192,45,0.10);
+    text-align: center;
+    border: 2px dashed #fbc02d;
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Posição fixa apenas para PC */
+@media (min-width: 1025px) {
+    .videos-palestras {
+        position: fixed;
+        left: 24px;
+        top: 80px;
+        width: 340px;
+        max-width: 340px;
+        margin: 0;
+    }
+}
+
+.videos-palestras h2 {
+    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+    color: #fbc02d;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.videos-placeholder {
+    margin: 18px auto 0 auto;
+    padding: 20px 0;
+    background: #fff9c4;
+    border-radius: 10px;
+    color: #795548;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+    box-shadow: 0 2px 8px rgba(251,192,45,0.08);
+    width: 100%;
+}
+
+.videos-placeholder img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(251,192,45,0.12);
+    margin: 0 auto;
+    display: block;
+}
+
+.nuvem {
+    position: absolute;
+    left: 60vw;
+    top: 8vh;
+    animation: moverNuvem 18s linear infinite;
+    opacity: 0.8;
+    width: clamp(40px, 8vw, 60px);
+    height: auto;
+}
+
+@keyframes moverNuvem {
+    0% { left: 60vw; }
+    100% { left: -10vw; }
+}
+
+.cone {
+    position: absolute;
+    animation: piscarCone 2s infinite alternate;
+    z-index: 2;
+    width: clamp(20px, 5vw, 30px);
+    height: auto;
+}
+
+@keyframes piscarCone {
+    0% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+.arvore {
+    position: absolute;
+    animation: balancarArvore 4s infinite alternate;
+    z-index: 2;
+    width: clamp(30px, 6vw, 40px);
+    height: auto;
+}
+
+@keyframes balancarArvore {
+    0% { transform: rotate(-2deg);}
+    100% { transform: rotate(2deg);}
+}
+
+.pedestre {
+    position: absolute;
+    left: 80vw;
+    top: 75vh;
+    animation: moverPedestre 10s linear infinite;
+    z-index: 2;
+    width: clamp(20px, 5vw, 30px);
+    height: auto;
+}
+
+@keyframes moverPedestre {
+    0% { left: 80vw; }
+    100% { left: 10vw; }
+}
+
+/* Botões de autenticação responsivos */
+#auth-buttons,
+#user-area,
+#auth-form {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 101;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#auth-buttons button,
+#user-area button,
+#auth-form button {
+    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: clamp(0.8rem, 2.5vw, 1rem);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(251,192,45,0.12);
+    transition: background 0.2s;
+    border: none;
+    white-space: nowrap;
+}
+
+#auth-form {
+    flex-direction: column;
+    min-width: 240px;
+    max-width: calc(100vw - 32px);
+    padding: 20px;
+    background: #fffde7;
+    border: 2px solid #fbc02d;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(251,192,45,0.10);
+}
+
+#auth-form input {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #fbc02d;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+}
+
+#user-area {
+    flex-direction: column;
+}
+
+#user-photo {
+    width: 48px;
+    height: 48px;
+    min-width: 32px;
+    min-height: 32px;
+    border-radius: 50%;
+    border: 2px solid #fbc02d;
+    box-shadow: 0 2px 8px rgba(251,192,45,0.12);
+    object-fit: cover;
+    background: #fffde7;
+}
+
+/* Media Queries para responsividade */
+
+/* Tablets e dispositivos médios */
+@media (max-width: 1024px) {
+    main {
+        margin: 60px 20px 40px 20px;
+        padding: 24px 20px;
+        max-width: none;
+    }
+    
+    .videos-palestras {
+        max-width: 100%;
+    }
+    
+    #auth-buttons,
+    #user-area,
+    #auth-form {
+        top: 12px;
+        right: 12px;
+    }
+}
+
+/* Smartphones e dispositivos pequenos */
+@media (max-width: 768px) {
+    main {
+        margin: 80px 16px 40px 16px;
+        padding: 20px 16px;
+        border-radius: 12px;
+    }
+    
+    h1 {
+        letter-spacing: 0.5px;
+        margin-bottom: 16px;
+    }
+    
+    li {
+        margin-left: 16px;
+        text-align: left;
+    }
+    
+    .videos-palestras {
+        padding: 16px;
+        border-radius: 10px;
+        margin: 24px auto 0 auto;
+    }
+    
+    .videos-placeholder {
+        padding: 16px 0;
+    }
+    
+    #auth-buttons,
+    #user-area,
+    #auth-form {
+        top: 8px;
+        right: 8px;
+        gap: 8px;
+    }
+    
+    #auth-buttons button,
+    #user-area button {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+    
+    #auth-form {
+        min-width: 200px;
+        padding: 16px;
+        top: 60px;
+    }
+    
+    #user-photo {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Dispositivos muito pequenos */
+@media (max-width: 480px) {
+    main {
+        margin: 70px 12px 30px 12px;
+        padding: 16px 12px;
+    }
+    
+    h1 {
+        margin-bottom: 12px;
+    }
+    
+    h3 {
+        margin-bottom: 12px;
+    }
+    
+    p, li {
+        margin-bottom: 8px;
+    }
+    
+    .videos-palestras {
+        padding: 12px;
+        margin: 20px auto 0 auto;
+    }
+    
+    .videos-placeholder {
+        padding: 12px 0;
+    }
+    
+    #auth-buttons,
+    #user-area {
+        top: 6px;
+        right: 6px;
+        gap: 6px;
+    }
+    
+    #auth-buttons button,
+    #user-area button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+    
+    #auth-form {
+        min-width: 180px;
+        padding: 12px;
+        top: 50px;
+        right: 6px;
+    }
+    
+    #auth-form input {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    
+    #user-photo {
+        width: 36px;
+        height: 36px;
+    }
+    
+    /* Ocultar algumas animações em dispositivos muito pequenos para melhor performance */
+    .carro, .livro, .lapis, .nuvem {
+        animation-duration: 12s; /* Animações mais lentas */
+    }
+    
+    .pedestre {
+        display: none; /* Ocultar pedestre em telas muito pequenas */
+    }
+}
+
+/* Dispositivos em modo paisagem */
+@media (max-height: 600px) and (orientation: landscape) {
+    main {
+        margin: 40px auto 20px auto;
+        max-width: 90vw;
+    }
+    
+    #auth-buttons,
+    #user-area,
+    #auth-form {
+        top: 8px;
+        right: 8px;
+    }
+}
