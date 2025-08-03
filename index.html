@@ -159,6 +159,25 @@
             
             <h1 style="color: #fbc02d; text-align: center; margin-bottom: 25px;">📖 Manual do Trânsito</h1>
             
+            <div style="text-align: center; margin-bottom: 20px;">
+                <a href="docs/manual-transito-2022.pdf" target="_blank" style="
+                    background: #2196f3;
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: bold;
+                    display: inline-block;
+                    margin-bottom: 15px;
+                    box-shadow: 0 4px 12px rgba(33,150,243,0.3);
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.background='#1976d2'" onmouseout="this.style.background='#2196f3'">
+                    📄 Abrir Manual Oficial PDF
+                </a>
+                <br>
+                <small style="color: #666;">Clique no botão acima para acessar o Manual Brasileiro de Trânsito completo</small>
+            </div>
+            
             <div style="color: #333; line-height: 1.6; text-align: left;">
                 <h2 style="color: #795548; border-bottom: 2px solid #fbc02d; padding-bottom: 10px;">🚦 Regras Básicas de Trânsito</h2>
                 
@@ -275,8 +294,11 @@
         }
         
         function abrirManual() {
-            document.getElementById('manual-modal').style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Impede scroll da página
+            // Caminho para o PDF do Manual Brasileiro de Trânsito na pasta do projeto
+            const pdfPath = 'docs/manual-transito-2022.pdf';
+            
+            // Abre o PDF em uma nova aba
+            window.open(pdfPath, '_blank');
         }
         
         function fecharManual() {
