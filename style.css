@@ -31,6 +31,33 @@
     100% { transform: rotate(360deg); }
 }
 
+@keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-10px); }
+}
+
+@keyframes slideInRight {
+    0% { 
+        opacity: 0; 
+        transform: translateX(20px); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateX(0); 
+    }
+}
+
+@keyframes slideInLeft {
+    0% { 
+        opacity: 0; 
+        transform: translateX(-20px); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateX(0); 
+    }
+}
+
 @keyframes fadeInUp {
     0% { 
         opacity: 0; 
@@ -343,6 +370,85 @@ button:active {
     backdrop-filter: blur(20px) !important;
     border: 1px solid rgba(255, 255, 255, 0.3) !important;
     box-shadow: var(--shadow-heavy) !important;
+}
+
+/* Melhorias específicas do chatbot */
+#chatbot {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    z-index: 1000 !important;
+}
+
+#chat-messages {
+    scrollbar-width: thin !important;
+    scrollbar-color: var(--primary-color) transparent !important;
+}
+
+#chat-messages::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+#chat-messages::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-radius: 3px !important;
+}
+
+#chat-messages::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary-color), var(--accent-color)) !important;
+    border-radius: 3px !important;
+}
+
+#chat-messages::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--primary-dark), var(--accent-color)) !important;
+}
+
+/* Responsividade do chatbot */
+@media (max-width: 768px) {
+    #chatbot {
+        bottom: 15px !important;
+        right: 15px !important;
+    }
+    
+    #chat-window {
+        width: calc(100vw - 30px) !important;
+        max-width: 350px !important;
+        height: 70vh !important;
+        bottom: 75px !important;
+        right: 0 !important;
+    }
+    
+    #chat-toggle {
+        width: 55px !important;
+        height: 55px !important;
+        font-size: 1.3rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #chatbot {
+        bottom: 10px !important;
+        right: 10px !important;
+    }
+    
+    #chat-window {
+        width: calc(100vw - 20px) !important;
+        height: 65vh !important;
+        bottom: 70px !important;
+        left: 10px !important;
+        right: auto !important;
+    }
+    
+    #chat-toggle {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.2rem !important;
+    }
+    
+    #chat-messages {
+        height: calc(65vh - 200px) !important;
+        padding: 15px !important;
+    }
 }
 
 /* Containers de scroll melhorados */

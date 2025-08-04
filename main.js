@@ -398,7 +398,7 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Sistema de Chatbot
+// Sistema de Chatbot Melhorado
 function toggleChat() {
     const chatWindow = document.getElementById('chat-window');
     const isVisible = chatWindow.style.display === 'block';
@@ -406,11 +406,14 @@ function toggleChat() {
     
     if (!isVisible) {
         document.getElementById('chat-input').focus();
+        // Adicionar animação de entrada
+        chatWindow.style.animation = 'fadeInUp 0.3s ease-out';
     }
 }
 
 function handleChatKeyPress(event) {
     if (event.key === 'Enter') {
+        event.preventDefault();
         sendChatMessage();
     }
 }
@@ -423,29 +426,67 @@ function sendChatMessage() {
         addChatMessage(message, 'user');
         input.value = '';
         
+        // Mostrar indicador de digitação
+        showTypingIndicator();
+        
         // Simular resposta do bot após um delay
         setTimeout(() => {
+            hideTypingIndicator();
             const response = getChatResponse(message);
             addChatMessage(response, 'bot');
-        }, 1000);
+        }, 1500);
     }
 }
 
 function chatQuestion(topic) {
     const questions = {
         velocidade: "Quais são os limites de velocidade nas vias urbanas?",
-        multas: "Quanto custa a multa por excesso de velocidade?",
+        multas: "Quanto custam as multas de trânsito mais comuns?",
         documentos: "Quais documentos devo portar ao dirigir?"
     };
     
     const question = questions[topic];
     if (question) {
-        addChatMessage(question, 'user');
-        
-        setTimeout(() => {
-            const response = getChatResponse(question);
-            addChatMessage(response, 'bot');
-        }, 1000);
+        // Simular que o usuário digitou a pergunta
+        document.getElementById('chat-input').value = question;
+        sendChatMessage();
+    }
+}
+
+function showTypingIndicator() {
+    const messagesContainer = document.getElementById('chat-messages');
+    const typingDiv = document.createElement('div');
+    typingDiv.id = 'typing-indicator';
+    typingDiv.style.cssText = `
+        background: rgba(76, 175, 80, 0.1);
+        padding: 15px;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        margin-right: 20px;
+        border-left: 4px solid #4caf50;
+        display: flex;
+        align-items: center;
+        animation: pulse 1s infinite;
+    `;
+    
+    typingDiv.innerHTML = `
+        <span style="font-size: 1.2rem; margin-right: 10px;">🤖</span>
+        <div style="display: flex; gap: 4px;">
+            <div style="width: 8px; height: 8px; background: #4caf50; border-radius: 50%; animation: typing 1.4s infinite;"></div>
+            <div style="width: 8px; height: 8px; background: #4caf50; border-radius: 50%; animation: typing 1.4s infinite 0.2s;"></div>
+            <div style="width: 8px; height: 8px; background: #4caf50; border-radius: 50%; animation: typing 1.4s infinite 0.4s;"></div>
+        </div>
+        <span style="margin-left: 10px; color: #4caf50; font-size: 0.9rem;">Digitando...</span>
+    `;
+    
+    messagesContainer.appendChild(typingDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function hideTypingIndicator() {
+    const typingIndicator = document.getElementById('typing-indicator');
+    if (typingIndicator) {
+        typingIndicator.remove();
     }
 }
 
@@ -455,51 +496,153 @@ function addChatMessage(message, sender) {
     
     if (sender === 'user') {
         messageDiv.style.cssText = `
-            background: #e3f2fd;
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            margin-left: 20px;
+            background: linear-gradient(135deg, #2196f3, #64b5f6);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 20px 20px 5px 20px;
+            margin-bottom: 15px;
+            margin-left: 40px;
             text-align: right;
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+            font-size: 0.95rem;
+            line-height: 1.4;
+            animation: slideInRight 0.3s ease-out;
         `;
     } else {
         messageDiv.style.cssText = `
             background: white;
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            margin-right: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px;
+            border-radius: 20px 20px 20px 5px;
+            margin-bottom: 15px;
+            margin-right: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 4px solid #4caf50;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            animation: slideInLeft 0.3s ease-out;
         `;
+        
+        // Adicionar ícone do bot
+        const botIcon = document.createElement('div');
+        botIcon.style.cssText = `
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4caf50;
+        `;
+        botIcon.innerHTML = '<span style="font-size: 1.2rem; margin-right: 8px;">🤖</span>Assistente IA';
+        messageDiv.appendChild(botIcon);
     }
     
-    messageDiv.textContent = message;
+    const textDiv = document.createElement('div');
+    textDiv.innerHTML = message.replace(/\n/g, '<br>');
+    messageDiv.appendChild(textDiv);
+    
     messagesContainer.appendChild(messageDiv);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
 function getChatResponse(message) {
-    const responses = {
-        velocidade: "🚗 Limites de velocidade:\n• Vias urbanas: 60 km/h\n• Vias coletoras: 40 km/h\n• Vias locais: 30 km/h\n• Rodovias: 110 km/h\n• Autoestradas: 120 km/h",
-        multas: "💰 Valores de multas mais comuns:\n• Excesso até 20%: R$ 130,16\n• Excesso 20-50%: R$ 195,23\n• Excesso acima 50%: R$ 880,41\n• Celular: R$ 293,47\n• Álcool: R$ 2.934,70"
-    };
-    
     const lowerMessage = message.toLowerCase();
     
+    // Respostas específicas melhoradas
     if (lowerMessage.includes('velocidade') || lowerMessage.includes('limite')) {
-        return responses.velocidade;
+        return `🚗 <strong>Limites de Velocidade no Brasil:</strong><br><br>
+        • <strong>Vias urbanas arteriais:</strong> 60 km/h<br>
+        • <strong>Vias urbanas coletoras:</strong> 40 km/h<br>
+        • <strong>Vias urbanas locais:</strong> 30 km/h<br>
+        • <strong>Rodovias de pista dupla:</strong> 110 km/h<br>
+        • <strong>Rodovias de pista simples:</strong> 100 km/h<br>
+        • <strong>Autoestradas:</strong> 120 km/h<br><br>
+        ⚠️ <em>Sempre observe a sinalização local!</em>`;
+        
     } else if (lowerMessage.includes('multa') || lowerMessage.includes('excesso')) {
-        return responses.multas;
+        return `💰 <strong>Valores de Multas Atualizados:</strong><br><br>
+        • <strong>Excesso até 20%:</strong> R$ 130,16 (4 pontos)<br>
+        • <strong>Excesso 20% a 50%:</strong> R$ 195,23 (5 pontos)<br>
+        • <strong>Excesso acima 50%:</strong> R$ 880,41 (7 pontos)<br>
+        • <strong>Celular ao volante:</strong> R$ 293,47 (7 pontos)<br>
+        • <strong>Álcool:</strong> R$ 2.934,70 (suspensão CNH)<br>
+        • <strong>Sem cinto:</strong> R$ 195,23 (5 pontos)<br><br>
+        📱 <em>Precisa calcular uma multa específica? Use nossa calculadora no site!</em>`;
+        
     } else if (lowerMessage.includes('documento') || lowerMessage.includes('cnh') || lowerMessage.includes('crlv')) {
-        return responses.documentos;
+        return `📋 <strong>Documentos Obrigatórios:</strong><br><br>
+        • <strong>CNH</strong> (Carteira Nacional de Habilitação)<br>
+        • <strong>CRLV</strong> (Certificado de Registro e Licenciamento)<br>
+        • <strong>Documento de identidade</strong> (RG ou equivalente)<br><br>
+        📱 <strong>CNH Digital:</strong> Aceita em todo território nacional<br>
+        🔒 <strong>Dica:</strong> Mantenha sempre os documentos atualizados e dentro da validade!`;
+        
     } else if (lowerMessage.includes('cinto')) {
-        return "🔒 O cinto de segurança é obrigatório para todos os ocupantes do veículo. A multa por não usar é de R$ 195,23 (infração grave).";
+        return `🔒 <strong>Cinto de Segurança - Lei Obrigatória:</strong><br><br>
+        • <strong>Obrigatório</strong> para todos os ocupantes<br>
+        • <strong>Multa:</strong> R$ 195,23 (infração grave)<br>
+        • <strong>Pontos:</strong> 5 pontos na CNH<br><br>
+        ⚡ <strong>Importante:</strong> O cinto reduz em 45% o risco de morte em acidentes!`;
+        
     } else if (lowerMessage.includes('celular') || lowerMessage.includes('telefone')) {
-        return "📱 Usar celular ao volante é infração gravíssima. Multa de R$ 293,47 + 7 pontos na CNH + suspensão do direito de dirigir.";
-    } else if (lowerMessage.includes('álcool') || lowerMessage.includes('bebida')) {
-        return "🍺 Dirigir sob efeito de álcool: multa de R$ 2.934,70 + suspensão da CNH + apreensão do veículo. Lei Seca é rigorosa!";
+        return `📱 <strong>Celular ao Volante - PROIBIDO:</strong><br><br>
+        • <strong>Multa:</strong> R$ 293,47 (infração gravíssima)<br>
+        • <strong>Pontos:</strong> 7 pontos na CNH<br>
+        • <strong>Suspensão:</strong> Direito de dirigir suspenso<br><br>
+        🎧 <strong>Alternativa:</strong> Use viva-voz ou Bluetooth!`;
+        
+    } else if (lowerMessage.includes('álcool') || lowerMessage.includes('bebida') || lowerMessage.includes('bafômetro')) {
+        return `🚫 <strong>Lei Seca - Tolerância Zero:</strong><br><br>
+        • <strong>Multa:</strong> R$ 2.934,70<br>
+        • <strong>Suspensão:</strong> CNH por 12 meses<br>
+        • <strong>Apreensão:</strong> Veículo retido<br>
+        • <strong>Prisão:</strong> Possível detenção<br><br>
+        🚖 <strong>Use:</strong> Uber, táxi ou transporte público!`;
+        
+    } else if (lowerMessage.includes('sinal') || lowerMessage.includes('semáforo') || lowerMessage.includes('vermelho')) {
+        return `🚦 <strong>Semáforos e Sinalizações:</strong><br><br>
+        • <strong>Vermelho:</strong> PARE obrigatório<br>
+        • <strong>Amarelo:</strong> Atenção, prepare para parar<br>
+        • <strong>Verde:</strong> Siga com atenção<br><br>
+        ⚠️ <strong>Avançar sinal vermelho:</strong> R$ 880,41 + 7 pontos!`;
+        
+    } else if (lowerMessage.includes('pedestre') || lowerMessage.includes('faixa')) {
+        return `🚶‍♂️ <strong>Prioridade do Pedestre:</strong><br><br>
+        • <strong>Faixa de pedestres:</strong> Sempre dê preferência<br>
+        • <strong>Multa por não dar preferência:</strong> R$ 293,47<br>
+        • <strong>Pontos:</strong> 7 pontos na CNH<br><br>
+        ❤️ <strong>Lembre-se:</strong> Vida humana não tem preço!`;
+        
+    } else if (lowerMessage.includes('estacionamento') || lowerMessage.includes('estacionar')) {
+        return `🅿️ <strong>Regras de Estacionamento:</strong><br><br>
+        • <strong>Fila dupla:</strong> R$ 195,23<br>
+        • <strong>Vaga de deficiente:</strong> R$ 293,47<br>
+        • <strong>Local proibido:</strong> R$ 195,23<br><br>
+        📍 <strong>Sempre:</strong> Respeite as sinalizações!`;
+        
+    } else if (lowerMessage.includes('criança') || lowerMessage.includes('cadeirinha')) {
+        return `👶 <strong>Transporte de Crianças:</strong><br><br>
+        • <strong>Até 10 anos:</strong> Banco traseiro obrigatório<br>
+        • <strong>Cadeirinha apropriada:</strong> Conforme idade/peso<br>
+        • <strong>Multa:</strong> R$ 293,47 (infração gravíssima)<br><br>
+        🛡️ <strong>Segurança</strong> das crianças em primeiro lugar!`;
+        
+    } else if (lowerMessage.includes('oi') || lowerMessage.includes('olá') || lowerMessage.includes('bom dia') || lowerMessage.includes('boa tarde') || lowerMessage.includes('boa noite')) {
+        return `👋 <strong>Olá! Seja bem-vindo!</strong><br><br>
+        Sou seu assistente inteligente de trânsito. Posso ajudar com:<br><br>
+        🚗 Regras de trânsito<br>
+        💰 Valores de multas<br>
+        📋 Documentação obrigatória<br>
+        🛡️ Dicas de segurança<br><br>
+        💡 <strong>Dica:</strong> Use os botões de sugestão ou digite sua dúvida!`;
+        
     } else {
-        return "🤖 Olá! Sou seu assistente de trânsito. Posso ajudar com dúvidas sobre velocidade, multas, documentos e segurança viária. Digite sua pergunta ou use os botões de atalho!";
+        return `🤔 <strong>Desculpe, não entendi sua pergunta.</strong><br><br>
+        Posso ajudar com temas relacionados a:<br><br>
+        • Limites de velocidade<br>
+        • Valores de multas<br>
+        • Documentos obrigatórios<br>
+        • Regras de trânsito<br>
+        • Segurança no trânsito<br><br>
+        💡 <strong>Tente reformular</strong> sua pergunta ou use os botões de sugestão!`;
     }
 }
 
