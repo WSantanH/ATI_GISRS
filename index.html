@@ -4,510 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IntegraEdu - Educação e trânsito integrados</title>
-    <meta name="description" content="IntegraEdu - Educação em trânsito integrada para um futuro mais seguro. Manual do trânsito, vídeos educativos e dicas de segurança viária.">
-    <meta name="keywords" content="educação trânsito, segurança viária, manual trânsito, direção defensiva, pedestres, ciclistas">
-    <meta name="author" content="Wayllahn e Gislândia">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="">
-    <meta property="og:title" content="IntegraEdu - Educação e trânsito integrados">
-    <meta property="og:description" content="Educação em trânsito integrada para um futuro mais seguro">
-    <meta property="og:image" content="img/palestra.jpg">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="IntegraEdu - Educação e trânsito integrados">
-    <meta property="twitter:description" content="Educação em trânsito integrada para um futuro mais seguro">
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Botões de login/cadastro -->
-    <div id="auth-buttons" style="
-        position: fixed;
-        top: 24px;
-        right: 32px;
-        z-index: 100;
-        display: flex;
-        gap: 12px;
-    ">
-        <button onclick="showForm('login')" style="
-            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
-            background: #fbc02d;
-            color: #795548;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 22px;
-            font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(251,192,45,0.12);
-            transition: background 0.2s;
-        " onmouseover="this.style.background='#ffe082'" onmouseout="this.style.background='#fbc02d'">Logar</button>
-        <button onclick="showForm('cadastro')" style="
-            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
-            background: #fffde7;
-            color: #795548;
-            border: 2px solid #fbc02d;
-            border-radius: 8px;
-            padding: 10px 22px;
-            font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(251,192,45,0.12);
-            transition: background 0.2s;
-        " onmouseover="this.style.background='#ffe082'" onmouseout="this.style.background='#fffde7'">Cadastrar</button>
-    </div>
-
-    <div id="auth-form" style="
-        display: none;
-        position: fixed;
-        top: 70px;
-        right: 32px;
-        z-index: 101;
-        background: #fffde7;
-        border: 2px solid #fbc02d;
-        border-radius: 14px;
-        box-shadow: 0 4px 16px rgba(251,192,45,0.10);
-        padding: 24px 32px;
-        min-width: 260px;
-        font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
-    ">
-        <form id="form-login" style="display:none;" onsubmit="return submitAuth()">
-            <h3 style="color:#fbc02d;">Login</h3>
-            <input type="text" placeholder="Usuário" required style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #fbc02d;">
-            <input type="password" placeholder="Senha" required style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #fbc02d;">
-            <button type="submit" style="width:100%;background:#fbc02d;color:#795548;border:none;border-radius:8px;padding:10px;font-size:1rem;cursor:pointer;">Entrar</button>
-        </form>
-        <form id="form-cadastro" style="display:none;" onsubmit="return submitAuth()">
-            <h3 style="color:#fbc02d;">Cadastro</h3>
-            <input type="text" placeholder="Nome" required style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #fbc02d;">
-            <input type="email" placeholder="E-mail" required style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #fbc02d;">
-            <input type="password" placeholder="Senha" required style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #fbc02d;">
-            <button type="submit" style="width:100%;background:#fbc02d;color:#795548;border:none;border-radius:8px;padding:10px;font-size:1rem;cursor:pointer;">Cadastrar</button>
-        </form>
-    </div>
-
-    <!-- Área do usuário (após login) -->
-    <div id="user-area" style="
-        position: fixed;
-        top: 24px;
-        right: 32px;
-        z-index: 101;
-        display: none;
-        align-items: center;
-        gap: 14px;
-        flex-direction: column;
-    ">
-        <img id="user-photo" src="https://ui-avatars.com/api/?name=Usuário&background=fbc02d&color=795548&size=64" alt="Foto do usuário" style="
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 2px solid #fbc02d;
-            box-shadow: 0 2px 8px rgba(251,192,45,0.12);
-            object-fit: cover;
-            background: #fffde7;
-        ">
-        <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="trocarFoto(event)">
-        <button onclick="document.getElementById('photo-input').click()" style="
-            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
-            background: #fffde7;
-            color: #795548;
-            border: 2px solid #fbc02d;
-            border-radius: 8px;
-            padding: 8px 16px;
-            font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(251,192,45,0.12);
-            transition: background 0.2s;
-            margin-bottom: 8px;
-        " onmouseover="this.style.background='#ffe082'" onmouseout="this.style.background='#fffde7'">Trocar foto</button>
-        <button onclick="deslogar()" style="
-            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
-            background: #fbc02d;
-            color: #795548;
-            border: none;
-            border-radius: 8px;
-            padding: 8px 16px;
-            font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(251,192,45,0.12);
-            transition: background 0.2s;
-        " onmouseover="this.style.background='#ffe082'" onmouseout="this.style.background='#fbc02d'">Deslogar</button>
-    </div>
-
-    <!-- Modal do Manual de Trânsito -->
-    <div id="manual-modal" style="
-        display: none;
+    <!-- Tela de Loading -->
+    <div id="loading-screen" style="
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.5);
-        z-index: 200;
-        overflow-y: auto;
+        background: linear-gradient(135deg, #fbc02d, #ffe082);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        color: #795548;
+        font-family: Arial, sans-serif;
     ">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <div style="font-size: 5rem; margin-bottom: 20px;">🚗📚</div>
+            <h1 style="margin: 0; font-size: 2.5rem; font-weight: bold;">IntegraEdu</h1>
+            <p style="margin: 10px 0; font-size: 1.2rem; opacity: 0.8;">Educação e trânsito integrados</p>
+        </div>
+        
+        <!-- Spinner animado -->
         <div style="
-            background: #fffde7;
-            margin: 20px auto;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 800px;
-            width: 90%;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            position: relative;
-            font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
-        ">
-            <button onclick="fecharManual()" style="
-                position: absolute;
-                top: 15px;
-                right: 20px;
-                background: #ff5722;
-                color: white;
-                border: none;
-                border-radius: 50%;
-                width: 35px;
-                height: 35px;
-                cursor: pointer;
-                font-size: 18px;
-                font-weight: bold;
-            ">✕</button>
-            
-            <h1 style="color: #fbc02d; text-align: center; margin-bottom: 25px;">📖 Manual do Trânsito</h1>
-            
-            <div style="text-align: center; margin-bottom: 20px;">
-                <a href="docs/manual-transito-2022.pdf" target="_blank" style="
-                    background: #2196f3;
-                    color: white;
-                    padding: 12px 24px;
-                    border-radius: 8px;
-                    text-decoration: none;
-                    font-weight: bold;
-                    display: inline-block;
-                    margin-bottom: 15px;
-                    box-shadow: 0 4px 12px rgba(33,150,243,0.3);
-                    transition: all 0.3s ease;
-                " onmouseover="this.style.background='#1976d2'" onmouseout="this.style.background='#2196f3'">
-                    📄 Abrir Manual Oficial PDF
-                </a>
-                <br>
-                <small style="color: #666;">Clique no botão acima para acessar o Manual Brasileiro de Trânsito completo</small>
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(121, 85, 72, 0.3);
+            border-top: 6px solid #795548;
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+            margin-bottom: 20px;
+        "></div>
+        
+        <p style="font-size: 1rem; opacity: 0.7;">Carregando conteúdo educativo...</p>
+    </div>
+
+    <!-- Chatbot Assistente -->
+    <div id="chatbot" style="position: fixed; bottom: 30px; left: 30px; z-index: 1000;">
+        <button id="chat-toggle" onclick="toggleChat()" style="width: 60px; height: 60px; border-radius: 50%; background: #4caf50; color: white; border: none; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3); transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">💬</button>
+        <div id="chat-window" style="display: none; width: 320px; height: 400px; background: white; border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.2); position: absolute; bottom: 70px; left: 0; overflow: hidden;">
+            <div style="background: linear-gradient(45deg, #4caf50, #66bb6a); padding: 15px; color: white;">
+                <h4 style="margin: 0; font-size: 1.1rem;">🤖 Assistente de Trânsito</h4>
+                <p style="margin: 5px 0 0 0; font-size: 0.8rem; opacity: 0.9;">Tire suas dúvidas sobre trânsito</p>
             </div>
-            
-            <div style="color: #333; line-height: 1.6; text-align: left;">
-                <h2 style="color: #795548; border-bottom: 2px solid #fbc02d; padding-bottom: 10px;">🚦 Regras Básicas de Trânsito</h2>
-                
-                <h3 style="color: #ff9800;">🚗 Para Motoristas:</h3>
-                <ul style="margin-left: 20px;">
-                    <li>Sempre use o cinto de segurança</li>
-                    <li>Respeite os limites de velocidade</li>
-                    <li>Não use celular enquanto dirige</li>
-                    <li>Mantenha distância segura do veículo da frente</li>
-                    <li>Pare completamente no sinal vermelho</li>
-                    <li>Use setas para indicar mudanças de direção</li>
-                    <li>Não dirija sob efeito de álcool ou drogas</li>
-                    <li>Dê preferência a pedestres na faixa</li>
-                </ul>
-
-                <h3 style="color: #ff9800;">🚶 Para Pedestres:</h3>
-                <ul style="margin-left: 20px;">
-                    <li>Atravesse sempre na faixa de pedestres</li>
-                    <li>Olhe para os dois lados antes de atravessar</li>
-                    <li>Aguarde o sinal verde para pedestres</li>
-                    <li>Evite usar celular ao atravessar</li>
-                    <li>Use roupas claras à noite</li>
-                    <li>Caminhe na calçada, sempre que possível</li>
-                </ul>
-
-                <h3 style="color: #ff9800;">🚲 Para Ciclistas:</h3>
-                <ul style="margin-left: 20px;">
-                    <li>Use sempre capacete de proteção</li>
-                    <li>Ande na ciclovia ou ciclofaixa</li>
-                    <li>Sinalize suas intenções com gestos</li>
-                    <li>Use roupas coloridas e equipamentos reflexivos</li>
-                    <li>Respeite os semáforos</li>
-                </ul>
-
-                <h2 style="color: #795548; border-bottom: 2px solid #fbc02d; padding-bottom: 10px; margin-top: 30px;">⚠️ Principais Infrações</h2>
-                
-                <div style="background: #fff9c4; padding: 15px; border-radius: 8px; margin: 15px 0;">
-                    <h4 style="color: #d32f2f;">🚫 Infrações Gravíssimas:</h4>
-                    <ul>
-                        <li>Dirigir sob efeito de álcool</li>
-                        <li>Excesso de velocidade superior a 50% do limite</li>
-                        <li>Avançar sinal vermelho</li>
-                        <li>Dirigir sem CNH</li>
+            <div id="chat-messages" style="height: 250px; overflow-y: auto; padding: 15px; background: #f9f9f9;">
+                <div style="background: white; padding: 10px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <p style="margin: 0; font-size: 0.9rem; color: #333;">👋 Olá! Sou seu assistente de trânsito. Posso ajudar com:</p>
+                    <ul style="margin: 10px 0 0 15px; font-size: 0.8rem; color: #666;">
+                        <li>Regras de trânsito</li>
+                        <li>Valores de multas</li>
+                        <li>Documentação</li>
+                        <li>Dicas de segurança</li>
                     </ul>
                 </div>
-
-                <h2 style="color: #795548; border-bottom: 2px solid #fbc02d; padding-bottom: 10px; margin-top: 30px;">📋 Documentos Obrigatórios</h2>
-                <ul style="margin-left: 20px;">
-                    <li>CNH (Carteira Nacional de Habilitação)</li>
-                    <li>CRLV (Certificado de Registro e Licenciamento)</li>
-                    <li>Comprovante de seguro DPVAT</li>
-                </ul>
-
-                <h2 style="color: #795548; border-bottom: 2px solid #fbc02d; padding-bottom: 10px; margin-top: 30px;">🆘 Em Caso de Acidentes</h2>
-                <ol style="margin-left: 20px;">
-                    <li>Mantenha a calma e sinalize o local</li>
-                    <li>Verifique se há feridos</li>
-                    <li>Acione o SAMU (192) se necessário</li>
-                    <li>Chame a Polícia Militar (190)</li>
-                    <li>Entre em contato com o seguro</li>
-                    <li>Fotografe os danos e a posição dos veículos</li>
-                </ol>
-
-                <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center;">
-                    <h3 style="color: #2e7d32;">💡 Lembre-se:</h3>
-                    <p style="margin: 0; font-weight: bold;">A segurança no trânsito é responsabilidade de todos!</p>
+            </div>
+            <div style="padding: 15px; background: white; border-top: 1px solid #eee;">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
+                    <button onclick="chatQuestion('velocidade')" style="background: #e8f5e8; color: #4caf50; border: 1px solid #4caf50; border-radius: 15px; padding: 5px 10px; cursor: pointer; font-size: 0.8rem;">Velocidade</button>
+                    <button onclick="chatQuestion('multas')" style="background: #ffebee; color: #f44336; border: 1px solid #f44336; border-radius: 15px; padding: 5px 10px; cursor: pointer; font-size: 0.8rem;">Multas</button>
+                    <button onclick="chatQuestion('documentos')" style="background: #e3f2fd; color: #2196f3; border: 1px solid #2196f3; border-radius: 15px; padding: 5px 10px; cursor: pointer; font-size: 0.8rem;">Documentos</button>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="chat-input" placeholder="Digite sua dúvida..." style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 20px; font-size: 0.9rem;" onkeypress="handleChatKeyPress(event)">
+                    <button onclick="sendChatMessage()" style="background: #4caf50; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; font-size: 1rem;">📤</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        // Loading screen
-        window.addEventListener('load', function() {
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease-in-out';
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 100);
-        });
-
-        // Ao carregar a página, verifica se há dados salvos
-        window.onload = function() {
-            const userLogged = localStorage.getItem('userLogged');
-            const userPhoto = localStorage.getItem('userPhoto');
-            if (userLogged === 'true') {
-                document.getElementById('auth-buttons').style.display = 'none';
-                document.getElementById('user-area').style.display = 'flex';
-                if (userPhoto) {
-                    document.getElementById('user-photo').src = userPhoto;
-                }
-            }
-        };
-
-        function showForm(tipo) {
-            document.getElementById('auth-buttons').style.display = 'none';
-            document.getElementById('auth-form').style.display = 'block';
-            document.getElementById('form-login').style.display = tipo === 'login' ? 'block' : 'none';
-            document.getElementById('form-cadastro').style.display = tipo === 'cadastro' ? 'block' : 'none';
-        }
-        function submitAuth() {
-            document.getElementById('auth-form').style.display = 'none';
-            document.getElementById('user-area').style.display = 'flex';
-            localStorage.setItem('userLogged', 'true');
-            return false;
-        }
-        function trocarFoto(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('user-photo').src = e.target.result;
-                    localStorage.setItem('userPhoto', e.target.result);
-                }
-                reader.readAsDataURL(file);
-            }
-        }
-        function deslogar() {
-            document.getElementById('user-area').style.display = 'none';
-            document.getElementById('auth-buttons').style.display = 'flex';
-            localStorage.removeItem('userLogged');
-            localStorage.removeItem('userPhoto');
-        }
-        
-        function abrirManual() {
-            // Verifica se é dispositivo móvel
-            const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            
-            if (isMobile) {
-                // Para celular: abre o modal com iframe do PDF
-                mostrarPDFNoModal();
-            } else {
-                // Para desktop: abre em nova aba
-                window.open('docs/manual-transito-2022.pdf', '_blank');
-            }
-        }
-        
-        function mostrarPDFNoModal() {
-            // Cria o conteúdo do modal com iframe do PDF
-            const modalContent = document.querySelector('#manual-modal > div');
-            modalContent.innerHTML = `
-                <button onclick="fecharManual()" style="
-                    position: absolute;
-                    top: 15px;
-                    right: 20px;
-                    background: #ff5722;
-                    color: white;
-                    border: none;
-                    border-radius: 50%;
-                    width: 35px;
-                    height: 35px;
-                    cursor: pointer;
-                    font-size: 18px;
-                    font-weight: bold;
-                    z-index: 210;
-                ">✕</button>
-                
-                <h1 style="color: #fbc02d; text-align: center; margin-bottom: 15px; font-size: 1.5rem;">📖 Manual do Trânsito</h1>
-                
-                <div style="width: 100%; height: 70vh; border: 2px solid #fbc02d; border-radius: 8px; overflow: hidden;">
-                    <iframe 
-                        src="docs/manual-transito-2022.pdf" 
-                        style="width: 100%; height: 100%; border: none;"
-                        type="application/pdf">
-                        <p>Seu navegador não suporta PDFs. 
-                        <a href="docs/manual-transito-2022.pdf" target="_blank" style="color: #fbc02d;">Clique aqui para baixar o PDF</a></p>
-                    </iframe>
-                </div>
-                
-                <div style="text-align: center; margin-top: 15px;">
-                    <a href="docs/manual-transito-2022.pdf" download="Manual-Transito-2022.pdf" style="
-                        background: #4caf50;
-                        color: white;
-                        padding: 10px 20px;
-                        border-radius: 8px;
-                        text-decoration: none;
-                        font-weight: bold;
-                        display: inline-block;
-                        margin: 5px;
-                        font-size: 0.9rem;
-                    ">📥 Baixar PDF</a>
-                    
-                    <a href="docs/manual-transito-2022.pdf" target="_blank" style="
-                        background: #2196f3;
-                        color: white;
-                        padding: 10px 20px;
-                        border-radius: 8px;
-                        text-decoration: none;
-                        font-weight: bold;
-                        display: inline-block;
-                        margin: 5px;
-                        font-size: 0.9rem;
-                    ">🔗 Abrir em Nova Aba</a>
-                </div>
-            `;
-            
-            // Mostra o modal
-            document.getElementById('manual-modal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function fecharManual() {
-            document.getElementById('manual-modal').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restaura scroll da página
-        }
-        
-        // Fechar modal clicando fora dele
-        document.addEventListener('click', function(event) {
-            const modal = document.getElementById('manual-modal');
-            if (event.target === modal) {
-                fecharManual();
-            }
-        });
-        
-        // Botão voltar ao topo
-        window.addEventListener('scroll', function() {
-            const backToTopBtn = document.getElementById('back-to-top');
-            if (window.pageYOffset > 300) {
-                backToTopBtn.style.display = 'block';
-            } else {
-                backToTopBtn.style.display = 'none';
-            }
-        });
-        
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        // Função para controlar o scroll dos vídeos
-        function scrollVideos(direction) {
-            const container = document.getElementById('videos-container');
-            const scrollAmount = 340; // Largura de um card + gap
-            
-            if (direction === 'left') {
-                container.scrollBy({
-                    left: -scrollAmount,
-                    behavior: 'smooth'
-                });
-            } else {
-                container.scrollBy({
-                    left: scrollAmount,
-                    behavior: 'smooth'
-                });
-            }
-            
-            // Atualizar indicador de scroll
-            updateScrollIndicator();
-        }
-
-        // Função para atualizar o indicador de scroll
-        function updateScrollIndicator() {
-            const container = document.getElementById('videos-container');
-            const indicator = document.getElementById('scroll-indicator');
-            
-            if (container && indicator) {
-                const maxScroll = container.scrollWidth - container.clientWidth;
-                const currentScroll = container.scrollLeft;
-                const scrollPercentage = maxScroll > 0 ? (currentScroll / maxScroll) * 100 : 0;
-                
-                // Atualizar a largura do indicador baseado na posição do scroll
-                const maxWidth = 60;
-                const minWidth = 20;
-                const currentWidth = minWidth + ((maxWidth - minWidth) * (scrollPercentage / 100));
-                
-                indicator.style.width = currentWidth + 'px';
-                indicator.style.background = `linear-gradient(90deg, #fbc02d ${scrollPercentage}%, #ffe082 ${scrollPercentage}%)`;
-            }
-        }
-
-        // Event listener para o scroll do container de vídeos
-        document.addEventListener('DOMContentLoaded', function() {
-            const container = document.getElementById('videos-container');
-            if (container) {
-                container.addEventListener('scroll', updateScrollIndicator);
-                
-                // Inicializar o indicador
-                updateScrollIndicator();
-                
-                // Adicionar suporte para scroll com touch/swipe em dispositivos móveis
-                let isDown = false;
-                let startX;
-                let scrollLeft;
-
-                container.addEventListener('mousedown', (e) => {
-                    isDown = true;
-                    container.style.cursor = 'grabbing';
-                    startX = e.pageX - container.offsetLeft;
-                    scrollLeft = container.scrollLeft;
-                });
-
-                container.addEventListener('mouseleave', () => {
-                    isDown = false;
-                    container.style.cursor = 'grab';
-                });
-
-                container.addEventListener('mouseup', () => {
-                    isDown = false;
-                    container.style.cursor = 'grab';
-                });
-
-                container.addEventListener('mousemove', (e) => {
-                    if (!isDown) return;
-                    e.preventDefault();
-                    const x = e.pageX - container.offsetLeft;
-                    const walk = (x - startX) * 2;
-                    container.scrollLeft = scrollLeft - walk;
-                });
-            }
-        });
-    </script>
 
     <!-- Botão voltar ao topo -->
     <button id="back-to-top" onclick="scrollToTop()" style="
@@ -634,57 +201,55 @@
             <p>Em breve você encontrará aqui vídeos de palestras sobre educação e trânsito.</p>
             
             <!-- Container com scroll horizontal para vídeos -->
-            <div style="
+            <div class="videos-scroll-container" style="
                 position: relative;
                 margin: 30px 0;
                 overflow: hidden;
                 border-radius: 15px;
                 padding: 10px 0;
             ">
-                <!-- Botões de navegação -->
-                <button id="scroll-left" onclick="scrollVideos('left')" style="
+                <!-- Botões de navegação aprimorados -->
+                <button id="scroll-left" onclick="scrollVideos('left')" class="nav-button" style="
                     position: absolute;
-                    left: 10px;
+                    left: 15px;
                     top: 50%;
                     transform: translateY(-50%);
                     z-index: 10;
-                    background: rgba(251, 192, 45, 0.9);
+                    background: rgba(251, 192, 45, 0.95);
                     color: #795548;
                     border: none;
                     border-radius: 50%;
-                    width: 40px;
-                    height: 40px;
+                    width: 45px;
+                    height: 45px;
                     cursor: pointer;
-                    font-size: 18px;
+                    font-size: 20px;
                     font-weight: bold;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-                    transition: all 0.3s ease;
+                    box-shadow: 0 6px 16px rgba(251,192,45,0.3);
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                " onmouseover="this.style.background='rgba(255, 224, 130, 0.9)'" onmouseout="this.style.background='rgba(251, 192, 45, 0.9)'">❮</button>
+                ">❮</button>
                 
-                <button id="scroll-right" onclick="scrollVideos('right')" style="
+                <button id="scroll-right" onclick="scrollVideos('right')" class="nav-button" style="
                     position: absolute;
-                    right: 10px;
+                    right: 15px;
                     top: 50%;
                     transform: translateY(-50%);
                     z-index: 10;
-                    background: rgba(251, 192, 45, 0.9);
+                    background: rgba(251, 192, 45, 0.95);
                     color: #795548;
                     border: none;
                     border-radius: 50%;
-                    width: 40px;
-                    height: 40px;
+                    width: 45px;
+                    height: 45px;
                     cursor: pointer;
-                    font-size: 18px;
+                    font-size: 20px;
                     font-weight: bold;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-                    transition: all 0.3s ease;
+                    box-shadow: 0 6px 16px rgba(251,192,45,0.3);
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                " onmouseover="this.style.background='rgba(255, 224, 130, 0.9)'" onmouseout="this.style.background='rgba(251, 192, 45, 0.9)'">❯</button>
+                ">❯</button>
                 
                 <!-- Container scrollável dos vídeos -->
                 <div id="videos-container" style="
@@ -692,13 +257,13 @@
                     gap: 20px;
                     overflow-x: auto;
                     overflow-y: hidden;
-                    padding: 20px 60px;
+                    padding: 20px 70px;
                     scroll-behavior: smooth;
                     scrollbar-width: thin;
                     scrollbar-color: #fbc02d #fffde7;
                     -webkit-overflow-scrolling: touch;
                 ">
-                    <div style="
+                    <div class="video-card" style="
                         background: #fff;
                         padding: 20px;
                         border-radius: 15px;
@@ -706,15 +271,14 @@
                         text-align: center;
                         min-width: 320px;
                         flex-shrink: 0;
-                        transition: transform 0.3s ease, box-shadow 0.3s ease;
-                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'">
+                    ">
                         <img src="img/palestra.jpg" alt="Palestra sobre educação e trânsito" style="width:100%; max-width:280px; height: 180px; object-fit: cover; border-radius:12px; margin-bottom: 15px;">
                         <h4 style="color: #795548; margin: 15px 0 10px 0;">Fundamentos da Educação no Trânsito</h4>
                         <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Aprenda os conceitos básicos sobre segurança viária e responsabilidade no trânsito.</p>
-                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
                     </div>
                     
-                    <div style="
+                    <div class="video-card" style="
                         background: #fff;
                         padding: 20px;
                         border-radius: 15px;
@@ -722,17 +286,16 @@
                         text-align: center;
                         min-width: 320px;
                         flex-shrink: 0;
-                        transition: transform 0.3s ease, box-shadow 0.3s ease;
-                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'">
+                    ">
                         <div style="width: 100%; height: 180px; background: linear-gradient(45deg, #ffe082, #fbc02d); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
                             <span style="font-size: 3rem;">🚗</span>
                         </div>
                         <h4 style="color: #795548; margin: 15px 0 10px 0;">Direção Defensiva</h4>
                         <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Técnicas essenciais para uma direção mais segura e responsável.</p>
-                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
                     </div>
                     
-                    <div style="
+                    <div class="video-card" style="
                         background: #fff;
                         padding: 20px;
                         border-radius: 15px;
@@ -740,17 +303,16 @@
                         text-align: center;
                         min-width: 320px;
                         flex-shrink: 0;
-                        transition: transform 0.3s ease, box-shadow 0.3s ease;
-                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'">
+                    ">
                         <div style="width: 100%; height: 180px; background: linear-gradient(45deg, #e8f5e8, #4caf50); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
                             <span style="font-size: 3rem;">🚶‍♂️</span>
                         </div>
                         <h4 style="color: #795548; margin: 15px 0 10px 0;">Segurança do Pedestre</h4>
                         <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Dicas importantes para pedestres circularem com segurança nas vias.</p>
-                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
                     </div>
 
-                    <div style="
+                    <div class="video-card" style="
                         background: #fff;
                         padding: 20px;
                         border-radius: 15px;
@@ -758,17 +320,16 @@
                         text-align: center;
                         min-width: 320px;
                         flex-shrink: 0;
-                        transition: transform 0.3s ease, box-shadow 0.3s ease;
-                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'">
+                    ">
                         <div style="width: 100%; height: 180px; background: linear-gradient(45deg, #fff3e0, #ff9800); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
                             <span style="font-size: 3rem;">🚲</span>
                         </div>
                         <h4 style="color: #795548; margin: 15px 0 10px 0;">Segurança para Ciclistas</h4>
                         <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Equipamentos e práticas essenciais para ciclistas urbanos.</p>
-                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
                     </div>
 
-                    <div style="
+                    <div class="video-card" style="
                         background: #fff;
                         padding: 20px;
                         border-radius: 15px;
@@ -776,31 +337,186 @@
                         text-align: center;
                         min-width: 320px;
                         flex-shrink: 0;
-                        transition: transform 0.3s ease, box-shadow 0.3s ease;
-                    " onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'">
+                    ">
                         <div style="width: 100%; height: 180px; background: linear-gradient(45deg, #fce4ec, #e91e63); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
                             <span style="font-size: 3rem;">⚠️</span>
                         </div>
                         <h4 style="color: #795548; margin: 15px 0 10px 0;">Primeiros Socorros no Trânsito</h4>
                         <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Como agir em situações de emergência e acidentes de trânsito.</p>
-                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
                     </div>
                 </div>
                 
-                <!-- Indicador de scroll -->
+                <!-- Indicador de scroll melhorado -->
                 <div style="
                     display: flex;
                     justify-content: center;
-                    margin-top: 15px;
-                    gap: 8px;
+                    align-items: center;
+                    margin-top: 20px;
+                    gap: 12px;
                 ">
-                    <div id="scroll-indicator" style="
-                        height: 4px;
-                        background: #fbc02d;
-                        border-radius: 2px;
-                        width: 60px;
-                        transition: all 0.3s ease;
-                    "></div>
+                    <div style="
+                        background: rgba(251,192,45,0.3);
+                        height: 6px;
+                        width: 120px;
+                        border-radius: 3px;
+                        overflow: hidden;
+                        position: relative;
+                    ">
+                        <div id="scroll-indicator" style="
+                            height: 100%;
+                            background: linear-gradient(90deg, #fbc02d, #ff9800);
+                            border-radius: 3px;
+                            width: 30%;
+                            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                            box-shadow: 0 2px 8px rgba(251,192,45,0.3);
+                        "></div>
+                    </div>
+                    <div style="
+                        background: rgba(251,192,45,0.1);
+                        color: #795548;
+                        padding: 4px 12px;
+                        border-radius: 12px;
+                        font-size: 0.8rem;
+                        font-weight: bold;
+                    " id="scroll-position">1 / 6</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Interativo de Trânsito -->
+        <section id="quiz" style="margin: 40px 0; padding: 25px; background: rgba(255,255,255,0.9); border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+            <h2 style="color: #795548; text-align: center; margin-bottom: 25px;">🧠 Quiz de Trânsito - Teste seus Conhecimentos</h2>
+            <div id="quiz-container">
+                <div class="quiz-question" id="question-1" style="background: #fffde7; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <h4 style="color: #795548; margin-bottom: 15px;">1. Qual a velocidade máxima permitida em vias urbanas?</h4>
+                    <div style="display: grid; gap: 10px;">
+                        <button onclick="checkAnswer(this, false, 1)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">A) 80 km/h</button>
+                        <button onclick="checkAnswer(this, true, 1)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">B) 60 km/h</button>
+                        <button onclick="checkAnswer(this, false, 1)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">C) 40 km/h</button>
+                    </div>
+                </div>
+                
+                <div class="quiz-question" id="question-2" style="background: #fffde7; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: none;">
+                    <h4 style="color: #795548; margin-bottom: 15px;">2. O que fazer ao se aproximar de um semáforo amarelo?</h4>
+                    <div style="display: grid; gap: 10px;">
+                        <button onclick="checkAnswer(this, false, 2)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">A) Acelerar para passar</button>
+                        <button onclick="checkAnswer(this, true, 2)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">B) Parar com segurança</button>
+                        <button onclick="checkAnswer(this, false, 2)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">C) Manter a velocidade</button>
+                    </div>
+                </div>
+
+                <div class="quiz-question" id="question-3" style="background: #fffde7; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: none;">
+                    <h4 style="color: #795548; margin-bottom: 15px;">3. Distância segura do veículo da frente:</h4>
+                    <div style="display: grid; gap: 10px;">
+                        <button onclick="checkAnswer(this, false, 3)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">A) 1 segundo</button>
+                        <button onclick="checkAnswer(this, true, 3)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">B) 3 segundos</button>
+                        <button onclick="checkAnswer(this, false, 3)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">C) 5 segundos</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="score" style="text-align: center; margin-top: 20px; font-size: 1.2rem; font-weight: bold; color: #795548;">
+                Pontuação: <span id="points">0</span>/3 | Pergunta: <span id="current-question">1</span>/3
+            </div>
+            
+            <div id="quiz-result" style="display: none; text-align: center; padding: 20px; background: #e8f5e8; border-radius: 10px; margin-top: 20px;">
+                <h3 id="result-title" style="color: #4caf50; margin-bottom: 10px;"></h3>
+                <p id="result-message" style="margin-bottom: 15px;"></p>
+                <button onclick="restartQuiz()" style="background: #fbc02d; color: #795548; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold;">🔄 Refazer Quiz</button>
+            </div>
+        </section>
+
+        <!-- Simulador de Situações de Trânsito -->
+        <section id="simulador" style="margin: 40px 0; padding: 25px; background: rgba(227, 242, 253, 0.9); border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+            <h2 style="color: #1976d2; text-align: center; margin-bottom: 25px;">🚗 Simulador de Situações - Como Você Reagiria?</h2>
+            <div id="simulador-container" style="text-align: center; min-height: 300px; background: #fff; border-radius: 10px; padding: 25px;">
+                <div id="cenario">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">🚦</div>
+                    <h3 style="color: #1976d2; margin-bottom: 15px;">Situação: Semáforo amarelo piscando</h3>
+                    <p style="color: #666; margin-bottom: 25px; line-height: 1.6;">Você está dirigindo a 50km/h e se aproxima de um cruzamento com semáforo amarelo piscando. Há pedestres aguardando para atravessar. O que você faz?</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 600px; margin: 0 auto;">
+                        <button onclick="simularAcao('parar')" style="background: #f44336; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">🛑 Parar e dar preferência</button>
+                        <button onclick="simularAcao('acelerar')" style="background: #ff9800; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">⚡ Acelerar para passar</button>
+                        <button onclick="simularAcao('reduzir')" style="background: #4caf50; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">🐌 Reduzir e avaliar</button>
+                    </div>
+                </div>
+                <div id="resultado-simulacao" style="display: none; margin-top: 25px;"></div>
+            </div>
+        </section>
+
+        <!-- Estatísticas de Trânsito -->
+        <section id="estatisticas" style="margin: 40px 0; padding: 25px; background: rgba(255, 243, 224, 0.9); border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+            <h2 style="color: #ff9800; text-align: center; margin-bottom: 25px;">📊 Estatísticas de Trânsito no Brasil</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div style="text-align: center; background: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">📈</div>
+                    <h3 style="color: #f44336; margin: 10px 0; font-size: 2rem;">47.000</h3>
+                    <p style="color: #666; margin: 0;">Mortes no trânsito por ano</p>
+                    <small style="color: #999;">Fonte: PRF/DATASUS</small>
+                </div>
+                <div style="text-align: center; background: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">🚗</div>
+                    <h3 style="color: #ff9800; margin: 10px 0; font-size: 2rem;">1.6mi</h3>
+                    <p style="color: #666; margin: 0;">Acidentes por ano</p>
+                    <small style="color: #999;">Dados oficiais</small>
+                </div>
+                <div style="text-align: center; background: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">✅</div>
+                    <h3 style="color: #4caf50; margin: 10px 0; font-size: 2rem;">90%</h3>
+                    <p style="color: #666; margin: 0;">Acidentes evitáveis</p>
+                    <small style="color: #999;">Com educação</small>
+                </div>
+                <div style="text-align: center; background: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">💰</div>
+                    <h3 style="color: #9c27b0; margin: 10px 0; font-size: 2rem;">R$ 56bi</h3>
+                    <p style="color: #666; margin: 0;">Custo anual dos acidentes</p>
+                    <small style="color: #999;">Para a sociedade</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sistema de Conquistas -->
+        <section id="conquistas" style="margin: 40px 0; padding: 25px; background: rgba(243, 229, 245, 0.9); border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+            <h2 style="color: #9c27b0; text-align: center; margin-bottom: 25px;">🏆 Suas Conquistas em Educação no Trânsito</h2>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <div class="badge" id="badge-quiz" data-badge="quiz" style="text-align: center; opacity: 0.5; transition: all 0.3s;">
+                    <div style="width: 80px; height: 80px; background: #ccc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; margin: 0 auto 10px;">🧠</div>
+                    <p style="margin: 0; font-weight: bold; color: #666;">Expert em Quiz</p>
+                    <small style="color: #999;">Complete o quiz</small>
+                </div>
+                <div class="badge" id="badge-simulador" data-badge="simulador" style="text-align: center; opacity: 0.5; transition: all 0.3s;">
+                    <div style="width: 80px; height: 80px; background: #ccc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; margin: 0 auto 10px;">🚗</div>
+                    <p style="margin: 0; font-weight: bold; color: #666;">Condutor Consciente</p>
+                    <small style="color: #999;">Use o simulador</small>
+                </div>
+                <div class="badge" id="badge-manual" data-badge="manual" style="text-align: center; opacity: 0.5; transition: all 0.3s;">
+                    <div style="width: 80px; height: 80px; background: #ccc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; margin: 0 auto 10px;">📖</div>
+                    <p style="margin: 0; font-weight: bold; color: #666;">Estudioso</p>
+                    <small style="color: #999;">Abra o manual</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculadora de Multas -->
+        <section id="calculadora" style="margin: 40px 0; padding: 25px; background: rgba(255, 235, 238, 0.9); border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+            <h2 style="color: #f44336; text-align: center; margin-bottom: 25px;">💰 Calculadora de Multas - Saiba o Valor</h2>
+            <div style="max-width: 500px; margin: 0 auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <label style="display: block; margin-bottom: 10px; font-weight: bold; color: #795548;">Selecione a infração:</label>
+                <select id="tipo-infracao" style="width: 100%; padding: 12px; margin-bottom: 20px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;">
+                    <option value="">Selecione uma infração</option>
+                    <option value="130.16">Excesso de velocidade até 20% - MÉDIA</option>
+                    <option value="195.23">Não usar cinto de segurança - GRAVE</option>
+                    <option value="293.47">Dirigir falando no celular - GRAVÍSSIMA</option>
+                    <option value="2934.70">Dirigir sob efeito de álcool - GRAVÍSSIMA</option>
+                    <option value="880.41">Avançar sinal vermelho - GRAVÍSSIMA</option>
+                    <option value="293.47">Não dar preferência ao pedestre - GRAVÍSSIMA</option>
+                </select>
+                <button onclick="calcularMulta()" style="width: 100%; padding: 15px; background: #f44336; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: background 0.3s;" onmouseover="this.style.background='#d32f2f'" onmouseout="this.style.background='#f44336'">💸 Calcular Multa</button>
+                <div id="resultado-multa" style="margin-top: 20px; padding: 15px; background: #f5f5f5; border-radius: 8px; text-align: center; display: none;">
+                    <h4 style="color: #f44336; margin-bottom: 10px;">Valor da Multa:</h4>
+                    <div id="valor-multa" style="font-size: 2rem; font-weight: bold; color: #f44336; margin-bottom: 10px;"></div>
+                    <p style="margin: 0; color: #666; font-size: 0.9rem;">Lembre-se: além da multa, há pontos na CNH!</p>
                 </div>
             </div>
         </section>
@@ -820,6 +536,42 @@
                 <div style="background: #e8f5e8; padding: 15px; border-radius: 10px; border-left: 4px solid #4caf50;">
                     <h4 style="color: #4caf50; margin: 0 0 10px 0;">🛑 Em Emergências</h4>
                     <p style="margin: 0; font-size: 0.9rem;">Mantenha calma e siga os protocolos de segurança</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Barra de Progresso do Usuário -->
+        <section id="progresso" style="margin: 40px 0; padding: 25px; background: rgba(255,255,255,0.9); border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+            <h2 style="color: #795548; text-align: center; margin-bottom: 25px;">📈 Seu Progresso em Educação no Trânsito</h2>
+            <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h4 style="color: #795548; margin: 0;">Conhecimento Adquirido</h4>
+                    <span id="progress-percentage" style="font-weight: bold; color: #4caf50; font-size: 1.2rem;">0%</span>
+                </div>
+                <div style="background: #f0f0f0; height: 20px; border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
+                    <div id="progress-bar" style="background: linear-gradient(90deg, #4caf50, #8bc34a); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 10px;">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">🧠</div>
+                        <h5 style="margin: 0 0 5px 0; color: #795548;">Quiz Completos</h5>
+                        <p id="quiz-completed" style="margin: 0; font-weight: bold; color: #4caf50; font-size: 1.2rem;">0</p>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 10px;">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">🚗</div>
+                        <h5 style="margin: 0 0 5px 0; color: #795548;">Simulações</h5>
+                        <p id="simulations-completed" style="margin: 0; font-weight: bold; color: #2196f3; font-size: 1.2rem;">0</p>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 10px;">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">📖</div>
+                        <h5 style="margin: 0 0 5px 0; color: #795548;">Manual Acessado</h5>
+                        <p id="manual-accessed" style="margin: 0; font-weight: bold; color: #ff9800; font-size: 1.2rem;">Não</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: linear-gradient(45deg, #e8f5e8, #f1f8e9); border-radius: 10px; text-align: center;">
+                    <p id="progress-message" style="margin: 0; color: #2e7d32; font-weight: bold;">🌟 Continue aprendendo para se tornar um especialista em trânsito!</p>
                 </div>
             </div>
         </section>
@@ -879,6 +631,7 @@
             </div>
         </div>
     </footer>
+    
     <!-- Fundo animado -->
     <div class="bg-animado">
         <!-- Estrada com faixa amarela -->
@@ -932,5 +685,8 @@
             <rect x="16" y="43" width="4" height="15" fill="#795548"/>
         </svg>
     </div>
+
+    <!-- JavaScript arquivo principal -->
+    <script src="main.js"></script>
 </body>
 </html>

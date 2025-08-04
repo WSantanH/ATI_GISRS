@@ -2,6 +2,12 @@
     box-sizing: border-box;
 }
 
+/* Animação para o spinner de loading */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 body {
     background: linear-gradient(180deg, #fffde7 0%, #ffe082 100%);
     margin: 0;
