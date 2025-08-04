@@ -163,20 +163,23 @@
         <p>Este é um projeto de exemplo para demonstrar a integração entre educação e trânsito, promovendo a conscientização e segurança no tráfego.</p>
         
         <!-- Seção Sobre o Projeto -->
-        <section id="sobre" style="margin: 40px 0; padding: 25px; background: rgba(255,255,255,0.7); border-radius: 15px; border-left: 5px solid #fbc02d;">
-            <h2 style="color: #795548; margin-bottom: 20px; text-align: center;">🎯 Nossos Objetivos</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; text-align: left;">
-                <div style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                    <h4 style="color: #fbc02d; margin-bottom: 10px;">🛡️ Segurança Viária</h4>
-                    <p style="margin: 0; font-size: 0.95rem;">Promover a educação no trânsito, conscientizando motoristas e pedestres sobre a importância da segurança viária</p>
+        <section id="sobre" style="margin: 40px 0; padding: 30px; background: var(--surface); backdrop-filter: blur(15px); border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.3); box-shadow: var(--shadow-medium);">
+            <h2 style="color: var(--secondary-color); margin-bottom: 30px; text-align: center;">🎯 Nossos Objetivos</h2>
+            <div class="grid-modern">
+                <div class="stats-card">
+                    <div style="font-size: 3.5rem; margin-bottom: 20px; background: linear-gradient(135deg, var(--accent-color), #66bb6a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">🛡️</div>
+                    <h4 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.3rem;">Segurança Viária</h4>
+                    <p style="margin: 0; font-size: 1rem; line-height: 1.6;">Promover a educação no trânsito, conscientizando motoristas e pedestres sobre a importância da segurança viária</p>
                 </div>
-                <div style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                    <h4 style="color: #fbc02d; margin-bottom: 10px;">💙 Salvar Vidas</h4>
-                    <p style="margin: 0; font-size: 0.95rem;">Nosso objetivo é reduzir acidentes e salvar vidas através de informações acessíveis e educativas</p>
+                <div class="stats-card">
+                    <div style="font-size: 3.5rem; margin-bottom: 20px; background: linear-gradient(135deg, #2196f3, #64b5f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">💙</div>
+                    <h4 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.3rem;">Salvar Vidas</h4>
+                    <p style="margin: 0; font-size: 1rem; line-height: 1.6;">Nosso objetivo é reduzir acidentes e salvar vidas através de informações acessíveis e educativas</p>
                 </div>
-                <div style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                    <h4 style="color: #fbc02d; margin-bottom: 10px;">📚 Recursos Educativos</h4>
-                    <p style="margin: 0; font-size: 0.95rem;">Oferecemos vídeos de palestras, dicas de segurança e informações sobre legislação de trânsito</p>
+                <div class="stats-card">
+                    <div style="font-size: 3.5rem; margin-bottom: 20px; background: linear-gradient(135deg, #ff9800, #ffb74d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">📚</div>
+                    <h4 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.3rem;">Recursos Educativos</h4>
+                    <p style="margin: 0; font-size: 1rem; line-height: 1.6;">Oferecemos vídeos de palestras, dicas de segurança e informações sobre legislação de trânsito</p>
                 </div>
             </div>
         </section>
@@ -446,54 +449,54 @@
         </section>
 
         <!-- Estatísticas de Trânsito -->
-        <section id="estatisticas" style="margin: 40px 0; padding: 25px; background: rgba(255, 243, 224, 0.9); border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
-            <h2 style="color: #ff9800; text-align: center; margin-bottom: 25px;">📊 Estatísticas de Trânsito no Brasil</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
-                <div style="text-align: center; background: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                    <div style="font-size: 3rem; margin-bottom: 15px;">📈</div>
-                    <h3 style="color: #f44336; margin: 10px 0; font-size: 2rem;">47.000</h3>
-                    <p style="color: #666; margin: 0;">Mortes no trânsito por ano</p>
-                    <small style="color: #999;">Fonte: PRF/DATASUS</small>
+        <section id="estatisticas" style="margin: 40px 0; padding: 30px; background: rgba(255, 248, 225, 0.95); backdrop-filter: blur(15px); border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.3); box-shadow: var(--shadow-medium);">
+            <h2 style="color: #ff9800; text-align: center; margin-bottom: 30px;">📊 Estatísticas de Trânsito no Brasil</h2>
+            <div class="grid-cards">
+                <div class="stats-card" style="background: linear-gradient(135deg, rgba(244,67,54,0.1), rgba(244,67,54,0.05)) !important;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">📈</div>
+                    <h3 style="color: #f44336; margin: 15px 0; font-size: 2.5rem; font-weight: 800;">47.000</h3>
+                    <p style="color: var(--text-secondary); margin: 10px 0; font-size: 1.1rem; font-weight: 600;">Mortes no trânsito por ano</p>
+                    <small style="color: var(--text-secondary); opacity: 0.8; font-size: 0.9rem;">Fonte: PRF/DATASUS</small>
                 </div>
-                <div style="text-align: center; background: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                    <div style="font-size: 3rem; margin-bottom: 15px;">🚗</div>
-                    <h3 style="color: #ff9800; margin: 10px 0; font-size: 2rem;">1.6mi</h3>
-                    <p style="color: #666; margin: 0;">Acidentes por ano</p>
-                    <small style="color: #999;">Dados oficiais</small>
+                <div class="stats-card" style="background: linear-gradient(135deg, rgba(255,152,0,0.1), rgba(255,152,0,0.05)) !important;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">🚗</div>
+                    <h3 style="color: #ff9800; margin: 15px 0; font-size: 2.5rem; font-weight: 800;">1.6mi</h3>
+                    <p style="color: var(--text-secondary); margin: 10px 0; font-size: 1.1rem; font-weight: 600;">Acidentes por ano</p>
+                    <small style="color: var(--text-secondary); opacity: 0.8; font-size: 0.9rem;">Dados oficiais</small>
                 </div>
-                <div style="text-align: center; background: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                    <div style="font-size: 3rem; margin-bottom: 15px;">✅</div>
-                    <h3 style="color: #4caf50; margin: 10px 0; font-size: 2rem;">90%</h3>
-                    <p style="color: #666; margin: 0;">Acidentes evitáveis</p>
-                    <small style="color: #999;">Com educação</small>
+                <div class="stats-card" style="background: linear-gradient(135deg, rgba(76,175,80,0.1), rgba(76,175,80,0.05)) !important;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">✅</div>
+                    <h3 style="color: #4caf50; margin: 15px 0; font-size: 2.5rem; font-weight: 800;">90%</h3>
+                    <p style="color: var(--text-secondary); margin: 10px 0; font-size: 1.1rem; font-weight: 600;">Acidentes evitáveis</p>
+                    <small style="color: var(--text-secondary); opacity: 0.8; font-size: 0.9rem;">Com educação</small>
                 </div>
-                <div style="text-align: center; background: #fff; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-                    <div style="font-size: 3rem; margin-bottom: 15px;">💰</div>
-                    <h3 style="color: #9c27b0; margin: 10px 0; font-size: 2rem;">R$ 56bi</h3>
-                    <p style="color: #666; margin: 0;">Custo anual dos acidentes</p>
-                    <small style="color: #999;">Para a sociedade</small>
+                <div class="stats-card" style="background: linear-gradient(135deg, rgba(156,39,176,0.1), rgba(156,39,176,0.05)) !important;">
+                    <div style="font-size: 4rem; margin-bottom: 20px;">💰</div>
+                    <h3 style="color: #9c27b0; margin: 15px 0; font-size: 2.5rem; font-weight: 800;">R$ 56bi</h3>
+                    <p style="color: var(--text-secondary); margin: 10px 0; font-size: 1.1rem; font-weight: 600;">Custo anual dos acidentes</p>
+                    <small style="color: var(--text-secondary); opacity: 0.8; font-size: 0.9rem;">Para a sociedade</small>
                 </div>
             </div>
         </section>
 
         <!-- Sistema de Conquistas -->
-        <section id="conquistas" style="margin: 40px 0; padding: 25px; background: rgba(243, 229, 245, 0.9); border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
-            <h2 style="color: #9c27b0; text-align: center; margin-bottom: 25px;">🏆 Suas Conquistas em Educação no Trânsito</h2>
-            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <div class="badge" id="badge-quiz" data-badge="quiz" style="text-align: center; opacity: 0.5; transition: all 0.3s;">
-                    <div style="width: 80px; height: 80px; background: #ccc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; margin: 0 auto 10px;">🧠</div>
-                    <p style="margin: 0; font-weight: bold; color: #666;">Expert em Quiz</p>
-                    <small style="color: #999;">Complete o quiz</small>
+        <section id="conquistas" style="margin: 40px 0; padding: 30px; background: rgba(243, 229, 245, 0.95); backdrop-filter: blur(15px); border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.3); box-shadow: var(--shadow-medium);">
+            <h2 style="color: #9c27b0; text-align: center; margin-bottom: 30px;">🏆 Suas Conquistas em Educação no Trânsito</h2>
+            <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
+                <div class="badge" id="badge-quiz" data-badge="quiz" style="text-align: center; opacity: 0.5; transition: var(--transition);">
+                    <div class="badge-icon" style="width: 100px; height: 100px; background: linear-gradient(135deg, #ccc, #999); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; margin: 0 auto 15px; box-shadow: var(--shadow-light);">🧠</div>
+                    <p style="margin: 0; font-weight: bold; color: var(--text-primary); font-size: 1.1rem;">Expert em Quiz</p>
+                    <small style="color: var(--text-secondary); font-size: 0.9rem;">Complete o quiz</small>
                 </div>
-                <div class="badge" id="badge-simulador" data-badge="simulador" style="text-align: center; opacity: 0.5; transition: all 0.3s;">
-                    <div style="width: 80px; height: 80px; background: #ccc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; margin: 0 auto 10px;">🚗</div>
-                    <p style="margin: 0; font-weight: bold; color: #666;">Condutor Consciente</p>
-                    <small style="color: #999;">Use o simulador</small>
+                <div class="badge" id="badge-simulador" data-badge="simulador" style="text-align: center; opacity: 0.5; transition: var(--transition);">
+                    <div class="badge-icon" style="width: 100px; height: 100px; background: linear-gradient(135deg, #ccc, #999); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; margin: 0 auto 15px; box-shadow: var(--shadow-light);">🚗</div>
+                    <p style="margin: 0; font-weight: bold; color: var(--text-primary); font-size: 1.1rem;">Condutor Consciente</p>
+                    <small style="color: var(--text-secondary); font-size: 0.9rem;">Use o simulador</small>
                 </div>
-                <div class="badge" id="badge-manual" data-badge="manual" style="text-align: center; opacity: 0.5; transition: all 0.3s;">
-                    <div style="width: 80px; height: 80px; background: #ccc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; margin: 0 auto 10px;">📖</div>
-                    <p style="margin: 0; font-weight: bold; color: #666;">Estudioso</p>
-                    <small style="color: #999;">Abra o manual</small>
+                <div class="badge" id="badge-manual" data-badge="manual" style="text-align: center; opacity: 0.5; transition: var(--transition);">
+                    <div class="badge-icon" style="width: 100px; height: 100px; background: linear-gradient(135deg, #ccc, #999); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; margin: 0 auto 15px; box-shadow: var(--shadow-light);">📖</div>
+                    <p style="margin: 0; font-weight: bold; color: var(--text-primary); font-size: 1.1rem;">Estudioso</p>
+                    <small style="color: var(--text-secondary); font-size: 0.9rem;">Abra o manual</small>
                 </div>
             </div>
         </section>
@@ -522,20 +525,29 @@
         </section>
 
         <!-- Seção de Dicas Rápidas -->
-        <section id="dicas" style="margin: 40px 0; padding: 25px; background: rgba(255,255,255,0.7); border-radius: 15px;">
-            <h2 style="color: #795548; text-align: center; margin-bottom: 25px;">💡 Dicas Rápidas de Segurança</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-                <div style="background: #fff3e0; padding: 15px; border-radius: 10px; border-left: 4px solid #ff9800;">
-                    <h4 style="color: #ff9800; margin: 0 0 10px 0;">🔧 Antes de Sair</h4>
-                    <p style="margin: 0; font-size: 0.9rem;">Verifique pneus, freios, luzes e documentos</p>
+        <section id="dicas" style="margin: 40px 0; padding: 30px; background: var(--surface); backdrop-filter: blur(15px); border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.3); box-shadow: var(--shadow-medium);">
+            <h2 style="color: var(--secondary-color); text-align: center; margin-bottom: 30px;">💡 Dicas Rápidas de Segurança</h2>
+            <div class="grid-cards">
+                <div style="background: linear-gradient(135deg, rgba(255,152,0,0.1), rgba(255,152,0,0.05)); padding: 25px; border-radius: var(--border-radius); border-left: 6px solid #ff9800; transition: var(--transition); backdrop-filter: blur(10px);" onmouseover="this.style.transform='translateY(-5px) scale(1.02)'" onmouseout="this.style.transform='translateY(0) scale(1)'">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span style="font-size: 2rem; margin-right: 15px;">🔧</span>
+                        <h4 style="color: #ff9800; margin: 0; font-size: 1.2rem; font-weight: 700;">Antes de Sair</h4>
+                    </div>
+                    <p style="margin: 0; font-size: 1rem; line-height: 1.6; color: var(--text-secondary);">Verifique pneus, freios, luzes e documentos</p>
                 </div>
-                <div style="background: #e3f2fd; padding: 15px; border-radius: 10px; border-left: 4px solid #2196f3;">
-                    <h4 style="color: #2196f3; margin: 0 0 10px 0;">⚡ Durante o Trajeto</h4>
-                    <p style="margin: 0; font-size: 0.9rem;">Mantenha atenção total e evite distrações</p>
+                <div style="background: linear-gradient(135deg, rgba(33,150,243,0.1), rgba(33,150,243,0.05)); padding: 25px; border-radius: var(--border-radius); border-left: 6px solid #2196f3; transition: var(--transition); backdrop-filter: blur(10px);" onmouseover="this.style.transform='translateY(-5px) scale(1.02)'" onmouseout="this.style.transform='translateY(0) scale(1)'">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span style="font-size: 2rem; margin-right: 15px;">⚡</span>
+                        <h4 style="color: #2196f3; margin: 0; font-size: 1.2rem; font-weight: 700;">Durante o Trajeto</h4>
+                    </div>
+                    <p style="margin: 0; font-size: 1rem; line-height: 1.6; color: var(--text-secondary);">Mantenha atenção total e evite distrações</p>
                 </div>
-                <div style="background: #e8f5e8; padding: 15px; border-radius: 10px; border-left: 4px solid #4caf50;">
-                    <h4 style="color: #4caf50; margin: 0 0 10px 0;">🛑 Em Emergências</h4>
-                    <p style="margin: 0; font-size: 0.9rem;">Mantenha calma e siga os protocolos de segurança</p>
+                <div style="background: linear-gradient(135deg, rgba(76,175,80,0.1), rgba(76,175,80,0.05)); padding: 25px; border-radius: var(--border-radius); border-left: 6px solid #4caf50; transition: var(--transition); backdrop-filter: blur(10px);" onmouseover="this.style.transform='translateY(-5px) scale(1.02)'" onmouseout="this.style.transform='translateY(0) scale(1)'">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span style="font-size: 2rem; margin-right: 15px;">🛑</span>
+                        <h4 style="color: #4caf50; margin: 0; font-size: 1.2rem; font-weight: 700;">Em Emergências</h4>
+                    </div>
+                    <p style="margin: 0; font-size: 1rem; line-height: 1.6; color: var(--text-secondary);">Mantenha calma e siga os protocolos de segurança</p>
                 </div>
             </div>
         </section>
@@ -690,3 +702,4 @@
     <script src="main.js"></script>
 </body>
 </html>
+ 
