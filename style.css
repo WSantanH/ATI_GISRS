@@ -28,6 +28,38 @@ main {
     min-height: 500px;
 }
 
+/* Menu de Navegação Responsivo */
+nav {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    background: rgba(255, 253, 231, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    z-index: 50 !important;
+    padding: 15px 0 !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+}
+
+nav div {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 30px !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    flex-wrap: wrap !important;
+}
+
+nav a {
+    color: #795548 !important;
+    text-decoration: none !important;
+    font-weight: bold !important;
+    padding: 8px 16px !important;
+    border-radius: 20px !important;
+    transition: all 0.3s ease !important;
+    font-size: clamp(0.9rem, 2vw, 1rem) !important;
+}
+
 h1 {
     font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
     font-size: clamp(1.8rem, 4vw, 2.4rem);
@@ -54,318 +86,255 @@ p, li {
     color: #333;
     margin-bottom: 12px;
     text-align: center;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 li {
-    text-align: left;
     margin-left: 20px;
-    margin-bottom: 8px;
+    text-align: left;
 }
 
 h6 {
     font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
-    font-size: clamp(0.8rem, 2vw, 0.95rem);
-    color: #616161;
-    margin-bottom: 4px;
-    text-align: right;
-    line-height: 1.3;
-}
-
-.bg-animado {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    z-index: 0;
-    overflow: hidden;
-}
-
-.carro, .livro, .lapis, .cone, .arvore, .nuvem, .pedestre {
-    position: absolute;
-    animation-timing-function: linear;
-    filter: drop-shadow(2px 4px 6px #ffe082);
-}
-
-.carro {
-    left: -120px; 
-    top: 72vh;
-    animation: moverCarro 8s infinite;
-    width: clamp(60px, 10vw, 100px);
-    height: auto;
-}
-
-@keyframes moverCarro {
-    0% { left: -120px; }
-    100% { left: 100vw; }
-}
-
-.livro {
-    left: 8vw; 
-    top: 18vh;
-    animation: flutuarLivro 6s infinite alternate;
-    width: clamp(40px, 8vw, 60px);
-    height: auto;
-}
-
-@keyframes flutuarLivro {
-    0% { top: 18vh; }
-    100% { top: 24vh; }
-}
-
-.lapis {
-    left: 82vw; 
-    top: 55vh;
-    animation: girarLapis 5s infinite linear;
-    width: clamp(20px, 5vw, 30px);
-    height: auto;
-}
-
-@keyframes girarLapis {
-    0% { transform: rotate(0deg);}
-    100% { transform: rotate(360deg);}
-}
-
-/* Estrada com faixa amarela */
-.estrada {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100vw;
-    height: 20vh;
-    min-height: 100px;
+    font-size: clamp(0.7rem, 2vw, 0.85rem);
+    color: #888;
+    margin-bottom: 8px;
+    text-align: center;
+    font-weight: normal;
 }
 
 .videos-palestras {
-    margin: 32px auto 0 auto;
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
     padding: 20px;
-    background: #fffde7;
-    border-radius: 14px;
-    box-shadow: 0 4px 16px rgba(251,192,45,0.10);
+    border-radius: 15px;
+    margin: 30px auto 0 auto;
     text-align: center;
-    border: 2px dashed #fbc02d;
-    width: 100%;
-    max-width: 500px;
-    position: relative;
-    z-index: 10;
-}
-
-/* Botão Manual do Trânsito */
-#manual-transito-btn {
-    background: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 20px;
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
-    cursor: pointer;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 12px rgba(76,175,80,0.3);
-    transition: all 0.3s ease;
-    font-weight: bold;
-    width: 100%;
-    max-width: 200px;
-}
-
-#manual-transito-btn:hover {
-    background: #45a049;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(76,175,80,0.4);
-}
-
-#manual-transito-btn:active {
-    transform: translateY(0);
-}
-
-/* Posição fixa apenas para PC */
-@media (min-width: 1025px) {
-    .videos-palestras {
-        position: fixed;
-        left: 24px;
-        top: 80px;
-        width: 340px;
-        max-width: 340px;
-        margin: 0;
-    }
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    border: 2px solid #90caf9;
 }
 
 .videos-palestras h2 {
     font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
-    color: #fbc02d;
-    font-size: clamp(1.2rem, 3vw, 1.5rem);
-    margin-bottom: 10px;
-    letter-spacing: 1px;
+    font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+    color: #1976d2;
+    margin-bottom: 16px;
+    text-shadow: 1px 1px 4px rgba(255,255,255,0.8);
+}
+
+.videos-palestras p {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    color: #424242;
+    margin-bottom: 16px;
+    line-height: 1.5;
 }
 
 .videos-placeholder {
-    margin: 18px auto 0 auto;
-    padding: 20px 0;
-    background: #fff9c4;
-    border-radius: 10px;
-    color: #795548;
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
-    box-shadow: 0 2px 8px rgba(251,192,45,0.08);
-    width: 100%;
-}
-
-.videos-placeholder img {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
+    background: rgba(255,255,255,0.8);
+    padding: 24px 16px;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(251,192,45,0.12);
-    margin: 0 auto;
-    display: block;
+    margin: 20px 0;
+    border: 2px dashed #90caf9;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    color: #555;
 }
 
-.nuvem {
+.videos-placeholder strong {
+    color: #1976d2;
+    font-weight: bold;
+}
+
+#manual-transito-btn {
+    background: linear-gradient(135deg, #fbc02d, #ffe082);
+    color: #795548;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: clamp(1rem, 2.5vw, 1.1rem);
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(251,192,45,0.3);
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+}
+
+#manual-transito-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(251,192,45,0.4);
+    background: linear-gradient(135deg, #ffe082, #fff176);
+}
+
+.bg-animado {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.estrada {
     position: absolute;
-    left: 60vw;
-    top: 8vh;
-    animation: moverNuvem 18s linear infinite;
-    opacity: 0.8;
-    width: clamp(40px, 8vw, 60px);
-    height: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20vh;
+    opacity: 0.3;
 }
 
-@keyframes moverNuvem {
-    0% { left: 60vw; }
-    100% { left: -10vw; }
+.carro, .livro, .lapis, .cone, .arvore, .nuvem, .pedestre {
+    position: absolute;
+    opacity: 0.6;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.carro {
+    left: -120px;
+    bottom: 15vh;
+    animation-name: moveRight;
+}
+
+.livro {
+    right: -80px;
+    top: 20vh;
+    animation-name: moveLeft;
+    animation-duration: 25s;
+}
+
+.lapis {
+    left: -50px;
+    top: 40vh;
+    animation-name: moveRight;
+    animation-duration: 30s;
 }
 
 .cone {
-    position: absolute;
-    animation: piscarCone 2s infinite alternate;
-    z-index: 2;
-    width: clamp(20px, 5vw, 30px);
-    height: auto;
-}
-
-@keyframes piscarCone {
-    0% { opacity: 1; }
-    100% { opacity: 0.6; }
+    left: 40vw;
+    top: 80vh;
+    animation-name: bounce;
+    animation-duration: 3s;
 }
 
 .arvore {
-    position: absolute;
-    animation: balancarArvore 4s infinite alternate;
-    z-index: 2;
-    width: clamp(30px, 6vw, 40px);
-    height: auto;
+    left: 10vw;
+    top: 60vh;
+    animation-name: sway;
+    animation-duration: 4s;
 }
 
-@keyframes balancarArvore {
-    0% { transform: rotate(-2deg);}
-    100% { transform: rotate(2deg);}
+.nuvem {
+    right: -80px;
+    top: 10vh;
+    animation-name: moveLeft;
+    animation-duration: 35s;
 }
 
 .pedestre {
-    position: absolute;
-    left: 80vw;
-    top: 75vh;
-    animation: moverPedestre 10s linear infinite;
-    z-index: 2;
-    width: clamp(20px, 5vw, 30px);
-    height: auto;
+    right: -60px;
+    bottom: 25vh;
+    animation-name: walk;
+    animation-duration: 18s;
 }
 
-@keyframes moverPedestre {
-    0% { left: 80vw; }
-    100% { left: 10vw; }
+@keyframes moveRight {
+    from { transform: translateX(-120px); }
+    to { transform: translateX(calc(100vw + 120px)); }
 }
 
-/* Botões de autenticação responsivos */
-#auth-buttons,
-#user-area,
-#auth-form {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 101;
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    align-items: center;
+@keyframes moveLeft {
+    from { transform: translateX(120px); }
+    to { transform: translateX(calc(-100vw - 120px)); }
 }
 
-#auth-buttons button,
-#user-area button,
-#auth-form button {
-    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
-    border-radius: 8px;
-    padding: 10px 16px;
-    font-size: clamp(0.8rem, 2.5vw, 1rem);
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(251,192,45,0.12);
-    transition: background 0.2s;
-    border: none;
-    white-space: nowrap;
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
-#auth-form {
-    flex-direction: column;
-    min-width: 240px;
-    max-width: calc(100vw - 32px);
-    padding: 20px;
-    background: #fffde7;
-    border: 2px solid #fbc02d;
-    border-radius: 14px;
-    box-shadow: 0 4px 16px rgba(251,192,45,0.10);
+@keyframes sway {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(2deg); }
 }
 
-#auth-form input {
-    width: 100%;
-    margin-bottom: 12px;
-    padding: 12px;
-    border-radius: 6px;
-    border: 1px solid #fbc02d;
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
-    font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif;
+@keyframes walk {
+    from { transform: translateX(60px); }
+    to { transform: translateX(calc(-100vw - 60px)); }
 }
 
-#user-area {
-    flex-direction: column;
-}
-
-#user-photo {
-    width: 48px;
-    height: 48px;
-    min-width: 32px;
-    min-height: 32px;
-    border-radius: 50%;
-    border: 2px solid #fbc02d;
-    box-shadow: 0 2px 8px rgba(251,192,45,0.12);
-    object-fit: cover;
-    background: #fffde7;
-}
-
-/* Media Queries para responsividade */
-
-/* Tablets e dispositivos médios */
-@media (max-width: 1024px) {
+/* Tablets e telas médias */
+@media (min-width: 1025px) {
+    .carro, .livro, .lapis, .nuvem, .pedestre {
+        opacity: 0.8;
+    }
+    
     main {
-        margin: 60px 20px 40px 20px;
-        padding: 24px 20px;
-        max-width: none;
+        max-width: 1000px;
+        padding: 40px 36px 32px 36px;
     }
     
     .videos-palestras {
-        max-width: 100%;
+        padding: 32px;
+        margin: 40px auto 0 auto;
     }
     
-    #auth-buttons,
-    #user-area,
-    #auth-form {
-        top: 12px;
-        right: 12px;
+    .videos-placeholder {
+        padding: 32px 24px;
+        margin: 28px 0;
+    }
+    
+    #manual-transito-btn {
+        padding: 16px 32px;
+        font-size: 1.2rem;
+    }
+}
+
+/* Laptops e telas médias */
+@media (max-width: 1024px) {
+    main {
+        max-width: 85vw;
+        margin: 90px auto 40px auto;
+        padding: 28px 24px 20px 24px;
+    }
+    
+    .videos-palestras {
+        padding: 18px;
+        margin: 28px auto 0 auto;
+    }
+    
+    .videos-placeholder {
+        padding: 20px 16px;
+        margin: 24px 0;
+    }
+    
+    #manual-transito-btn {
+        padding: 10px 20px;
+        font-size: 1rem;
     }
 }
 
 /* Smartphones e dispositivos pequenos */
 @media (max-width: 768px) {
+    /* Menu mais compacto em dispositivos móveis */
+    nav {
+        padding: 10px 0 !important;
+    }
+    
+    nav div {
+        gap: 15px !important;
+        padding: 0 10px !important;
+    }
+    
+    nav a {
+        padding: 6px 12px !important;
+        font-size: 0.85rem !important;
+    }
+    
     main {
-        margin: 80px 16px 40px 16px;
+        margin: 100px 16px 40px 16px !important;
         padding: 20px 16px;
         border-radius: 12px;
     }
@@ -388,38 +357,41 @@ h6 {
     
     .videos-placeholder {
         padding: 16px 0;
+        margin: 20px 0;
     }
     
-    #auth-buttons,
-    #user-area,
-    #auth-form {
-        top: 8px;
-        right: 8px;
-        gap: 8px;
-    }
-    
-    #auth-buttons button,
-    #user-area button {
-        padding: 8px 12px;
+    #manual-transito-btn {
+        padding: 8px 16px;
         font-size: 0.9rem;
+        margin-bottom: 16px;
     }
     
-    #auth-form {
-        min-width: 200px;
-        padding: 16px;
-        top: 60px;
-    }
-    
-    #user-photo {
-        width: 40px;
-        height: 40px;
+    .livro, .lapis {
+        display: none;
     }
 }
 
 /* Dispositivos muito pequenos */
 @media (max-width: 480px) {
+    /* Menu ainda mais compacto */
+    nav {
+        padding: 8px 0 !important;
+    }
+    
+    nav div {
+        gap: 8px !important;
+        padding: 0 5px !important;
+        justify-content: space-around !important;
+    }
+    
+    nav a {
+        padding: 5px 8px !important;
+        font-size: 0.75rem !important;
+        border-radius: 15px !important;
+    }
+    
     main {
-        margin: 70px 12px 30px 12px;
+        margin: 90px 8px 20px 8px !important;
         padding: 16px 12px;
     }
     
@@ -444,43 +416,22 @@ h6 {
         padding: 12px 0;
     }
     
-    #auth-buttons,
-    #user-area {
-        top: 6px;
-        right: 6px;
-        gap: 6px;
-    }
-    
-    #auth-buttons button,
-    #user-area button {
-        padding: 6px 10px;
+    #manual-transito-btn {
+        padding: 6px 12px;
         font-size: 0.8rem;
+        margin-bottom: 12px;
     }
     
-    #auth-form {
-        min-width: 180px;
-        padding: 12px;
-        top: 50px;
-        right: 6px;
+    .carro {
+        animation-duration: 15s;
     }
     
-    #auth-form input {
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-    
-    #user-photo {
-        width: 36px;
-        height: 36px;
-    }
-    
-    /* Ocultar algumas animações em dispositivos muito pequenos para melhor performance */
-    .carro, .livro, .lapis, .nuvem {
-        animation-duration: 12s; /* Animações mais lentas */
+    .nuvem {
+        animation-duration: 25s;
     }
     
     .pedestre {
-        display: none; /* Ocultar pedestre em telas muito pequenas */
+        display: none;
     }
 }
 
@@ -489,12 +440,5 @@ h6 {
     main {
         margin: 40px auto 20px auto;
         max-width: 90vw;
-    }
-    
-    #auth-buttons,
-    #user-area,
-    #auth-form {
-        top: 8px;
-        right: 8px;
     }
 }
