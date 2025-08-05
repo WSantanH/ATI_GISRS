@@ -427,27 +427,155 @@ button:active {
 
 @media (max-width: 480px) {
     #chatbot {
-        bottom: 10px !important;
-        right: 10px !important;
+        bottom: 15px !important;
+        right: 15px !important;
     }
     
     #chat-window {
-        width: calc(100vw - 20px) !important;
-        height: 65vh !important;
-        bottom: 70px !important;
-        left: 10px !important;
+        width: calc(100vw - 30px) !important;
+        height: 70vh !important;
+        bottom: 75px !important;
+        left: 15px !important;
         right: auto !important;
+        max-height: 500px !important;
+        border-radius: 15px !important;
     }
     
     #chat-toggle {
-        width: 50px !important;
-        height: 50px !important;
-        font-size: 1.2rem !important;
+        width: 55px !important;
+        height: 55px !important;
+        font-size: 1.4rem !important;
+        box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4) !important;
     }
     
     #chat-messages {
-        height: calc(65vh - 200px) !important;
+        height: calc(70vh - 180px) !important;
         padding: 15px !important;
+        max-height: 320px !important;
+        overflow-y: auto !important;
+    }
+    
+    #chat-input {
+        font-size: 16px !important; /* Evita zoom no iOS */
+        padding: 12px 15px !important;
+    }
+    
+    /* Melhorar botões de sugestão no celular */
+    .chat-suggestion-btn {
+        padding: 8px 12px !important;
+        font-size: 0.85rem !important;
+        margin: 2px !important;
+    }
+}
+
+/* Animações para chat */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Pulse animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 25px rgba(76, 175, 80, 0.5);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+    }
+}
+
+/* Melhorias específicas para chat no celular */
+@media (max-width: 600px) {
+    #chat-toggle {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        z-index: 1001 !important;
+        touch-action: manipulation !important;
+    }
+    
+    #chat-window {
+        position: fixed !important;
+        z-index: 1000 !important;
+        touch-action: manipulation !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    #chat-messages {
+        -webkit-overflow-scrolling: touch !important;
+        overscroll-behavior: contain !important;
+    }
+    
+    #chat-input {
+        -webkit-appearance: none !important;
+        appearance: none !important;
+        border-radius: 25px !important;
+        touch-action: manipulation !important;
+    }
+    
+    /* Evitar problemas com teclado virtual */
+    #chat-window.keyboard-open {
+        position: fixed !important;
+        top: 10px !important;
+        height: calc(100vh - 320px) !important;
+    }
+}
+
+/* Ajustes para dispositivos com notch */
+@supports (padding: max(0px)) {
+    @media (max-width: 480px) {
+        #chatbot {
+            bottom: max(15px, env(safe-area-inset-bottom)) !important;
+            right: max(15px, env(safe-area-inset-right)) !important;
+        }
+        
+        #chat-window {
+            left: max(15px, env(safe-area-inset-left)) !important;
+            bottom: max(75px, env(safe-area-inset-bottom) + 60px) !important;
+        }
     }
 }
 
@@ -765,11 +893,11 @@ input:focus, select:focus {
 /* Acessibilidade - High contrast mode */
 @media (prefers-contrast: high) {
     :root {
-        --primary-color: #000;
-        --secondary-color: #000;
-        --accent-color: #000;
-        --text-primary: #000;
-        --text-secondary: #000;
+        --primary-color: #1976d2;
+        --secondary-color: #4caf50;
+        --accent-color: #fbc02d;
+        --text-primary: #2c3e50;
+        --text-secondary: #666;
         --surface: #fff;
     }
     
@@ -838,10 +966,13 @@ input:focus, select:focus {
     }
     
     #chat-window {
-        width: 95vw !important;
-        height: 80vh !important;
-        bottom: 80px !important;
-        left: 2.5vw !important;
+        width: calc(100vw - 20px) !important;
+        height: 75vh !important;
+        bottom: 75px !important;
+        left: 10px !important;
+        right: auto !important;
+        max-height: 450px !important;
+        border-radius: 12px !important;
     }
     
     section {

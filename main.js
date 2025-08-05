@@ -11,9 +11,65 @@ function removeLoadingScreen() {
     document.body.style.opacity = '1';
 }
 
+// Detectar se é mobile
+function isMobile() {
+    return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+// Função para prevenir zoom no iOS em inputs
+function preventIOSZoom() {
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+            });
+            input.addEventListener('blur', function() {
+                document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+            });
+        });
+    }
+}
+
+// Função para otimizar toques em mobile
+function optimizeTouchEvents() {
+    if (isMobile()) {
+        // Adicionar classe para identificar dispositivos móveis
+        document.body.classList.add('mobile-device');
+        
+        // Melhorar a experiência de toque nos botões
+        const buttons = document.querySelectorAll('button, .nav-button');
+        buttons.forEach(button => {
+            button.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.95)';
+            });
+            button.addEventListener('touchend', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+        
+        // Otimizar scroll dos vídeos para mobile
+        const videosContainer = document.getElementById('videos-container');
+        if (videosContainer) {
+            let isScrolling = false;
+            videosContainer.addEventListener('touchstart', function() {
+                isScrolling = true;
+            });
+            videosContainer.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    isScrolling = false;
+                }, 100);
+            });
+        }
+    }
+}
+
 window.addEventListener('load', function() {
     // Remover tela de loading após carregamento completo
     setTimeout(removeLoadingScreen, 1000);
+    // Inicializar otimizações para mobile
+    optimizeTouchEvents();
+    preventIOSZoom();
 });
 
 // Fallback - remover loading após 3 segundos no máximo
@@ -22,7 +78,274 @@ setTimeout(removeLoadingScreen, 3000);
 // Remover loading quando DOM estiver pronto
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(removeLoadingScreen, 1500);
+    
+    // Inicializar todos os event listeners
+    initializeEventListeners();
+    
+    // Inicializar otimizações para mobile
+    optimizeTouchEvents();
+    preventIOSZoom();
 });
+
+// Função para inicializar todos os event listeners
+function initializeEventListeners() {
+    // Event listeners para o chatbot
+    const chatToggle = document.getElementById('chat-toggle');
+    if (chatToggle) {
+        chatToggle.addEventListener('click', toggleChat);
+        chatToggle.addEventListener('mouseover', function() {
+            this.style.transform = 'scale(1.1)';
+            this.style.animation = 'none';
+        });
+        chatToggle.addEventListener('mouseout', function() {
+            this.style.transform = 'scale(1)';
+            this.style.animation = 'pulse 2s ease-in-out infinite';
+        });
+    }
+
+    // Event listeners para botões de fechar chat
+    const chatCloseBtns = document.querySelectorAll('.chat-close-btn');
+    chatCloseBtns.forEach(btn => {
+        btn.addEventListener('click', toggleChat);
+    });
+
+    // Event listeners para sugestões do chat
+    const chatSuggestionBtns = document.querySelectorAll('.chat-suggestion-btn');
+    chatSuggestionBtns.forEach(btn => {
+        const topic = btn.getAttribute('data-topic');
+        btn.addEventListener('click', () => chatQuestion(topic));
+        addHoverEffect(btn);
+    });
+
+    // Event listener para o input do chat
+    const chatInput = document.getElementById('chat-input');
+    if (chatInput) {
+        chatInput.addEventListener('keypress', handleChatKeyPress);
+        chatInput.addEventListener('focus', function() {
+            this.style.borderColor = '#4caf50';
+            this.style.background = 'white';
+            
+            // Detectar dispositivos móveis e ajustar chat quando teclado abre
+            if (window.innerWidth <= 600) {
+                handleMobileKeyboard(true);
+            }
+        });
+        chatInput.addEventListener('blur', function() {
+            this.style.borderColor = '#e0e0e0';
+            this.style.background = '#f8f9fa';
+            
+            // Restaurar posição normal do chat
+            if (window.innerWidth <= 600) {
+                handleMobileKeyboard(false);
+            }
+        });
+    }
+
+    // Event listener para o botão de enviar mensagem
+    const sendBtn = document.getElementById('chat-send-btn');
+    if (sendBtn) {
+        sendBtn.addEventListener('click', sendChatMessage);
+        addHoverEffect(sendBtn, 'scale(1.1)');
+    }
+
+    // Event listener para botão voltar ao topo
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', scrollToTop);
+        backToTopBtn.addEventListener('mouseover', function() {
+            this.style.background = 'linear-gradient(135deg, #ffe082, #ffecb3)';
+            this.style.transform = 'scale(1.1)';
+        });
+        backToTopBtn.addEventListener('mouseout', function() {
+            this.style.background = 'linear-gradient(135deg, #fbc02d, #ffe082)';
+            this.style.transform = 'scale(1)';
+        });
+    }
+
+    // Event listeners para navegação
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('mouseover', function() {
+            this.style.background = '#fbc02d';
+            this.style.color = 'white';
+        });
+        link.addEventListener('mouseout', function() {
+            this.style.background = 'transparent';
+            this.style.color = '#795548';
+        });
+    });
+
+    // Event listeners para botões do manual de trânsito
+    const manualBtn = document.getElementById('manual-transito-btn');
+    if (manualBtn) {
+        manualBtn.addEventListener('click', abrirManual);
+    }
+
+    // Event listeners para scroll de vídeos
+    const scrollLeftBtn = document.getElementById('scroll-left');
+    if (scrollLeftBtn) {
+        scrollLeftBtn.addEventListener('click', () => scrollVideos('left'));
+    }
+
+    const scrollRightBtn = document.getElementById('scroll-right');
+    if (scrollRightBtn) {
+        scrollRightBtn.addEventListener('click', () => scrollVideos('right'));
+    }
+
+    // Event listener para scroll dos vídeos para atualizar indicador
+    const videosContainer = document.getElementById('videos-container');
+    if (videosContainer) {
+        videosContainer.addEventListener('scroll', updateScrollIndicator);
+    }
+
+    // Event listeners para quiz
+    initializeQuizEventListeners();
+
+    // Event listeners para simulador
+    initializeSimuladorEventListeners();
+
+    // Event listeners para calculadora de multas
+    const calcMultaBtn = document.getElementById('calcular-multa-btn');
+    if (calcMultaBtn) {
+        calcMultaBtn.addEventListener('click', calcularMulta);
+        calcMultaBtn.addEventListener('mouseover', function() {
+            this.style.background = '#d32f2f';
+        });
+        calcMultaBtn.addEventListener('mouseout', function() {
+            this.style.background = '#f44336';
+        });
+    }
+
+    // Event listeners para dicas (hover effects)
+    const dicasCards = document.querySelectorAll('#dicas [onmouseover]');
+    dicasCards.forEach(card => {
+        card.removeAttribute('onmouseover');
+        card.removeAttribute('onmouseout');
+        card.addEventListener('mouseover', function() {
+            this.style.transform = 'translateY(-5px) scale(1.02)';
+        });
+        card.addEventListener('mouseout', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // Event listeners para botões "Em Breve" dos vídeos
+    const emBreveButtons = document.querySelectorAll('.em-breve-btn');
+    emBreveButtons.forEach(btn => {
+        btn.addEventListener('mouseover', function() {
+            this.style.background = '#45a049';
+        });
+        btn.addEventListener('mouseout', function() {
+            this.style.background = '#4caf50';
+        });
+    });
+
+    // Event listener para botão de play do vídeo
+    const playVideoBtn = document.querySelector('.play-video-btn');
+    if (playVideoBtn) {
+        const videoCard = playVideoBtn.closest('.video-card');
+        const video = videoCard?.querySelector('video');
+        
+        if (video) {
+            // Event listener para quando o vídeo terminar
+            video.addEventListener('ended', function() {
+                playVideoBtn.innerHTML = '▶️ Assistir Vídeo';
+                playVideoBtn.style.background = '#ff4444';
+            });
+            
+            // Event listener para quando o vídeo for pausado
+            video.addEventListener('pause', function() {
+                playVideoBtn.innerHTML = '▶️ Assistir Vídeo';
+                playVideoBtn.style.background = '#ff4444';
+            });
+            
+            // Event listener para quando o vídeo for reproduzido
+            video.addEventListener('play', function() {
+                playVideoBtn.innerHTML = '⏸️ Pausar Vídeo';
+                playVideoBtn.style.background = '#ff6666';
+            });
+        }
+        
+        playVideoBtn.addEventListener('click', function() {
+            const video = videoCard?.querySelector('video');
+            if (video) {
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            }
+        });
+        
+        // Hover effects para o botão de play
+        playVideoBtn.addEventListener('mouseover', function() {
+            if (this.innerHTML.includes('▶️')) {
+                this.style.background = '#ff6666';
+            } else {
+                this.style.background = '#ff8888';
+            }
+        });
+        playVideoBtn.addEventListener('mouseout', function() {
+            if (this.innerHTML.includes('▶️')) {
+                this.style.background = '#ff4444';
+            } else {
+                this.style.background = '#ff6666';
+            }
+        });
+    }
+
+    // Mostrar/esconder botão voltar ao topo baseado no scroll
+    window.addEventListener('scroll', function() {
+        if (backToTopBtn) {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        }
+    });
+}
+
+// Função auxiliar para adicionar efeitos de hover
+function addHoverEffect(element, transform = 'scale(1.05)') {
+    element.addEventListener('mouseover', function() {
+        this.style.transform = transform;
+    });
+    element.addEventListener('mouseout', function() {
+        this.style.transform = 'scale(1)';
+    });
+}
+
+// Função para inicializar event listeners do quiz
+function initializeQuizEventListeners() {
+    // Quiz buttons
+    const quizButtons = document.querySelectorAll('.quiz-btn');
+    quizButtons.forEach(btn => {
+        const isCorrect = btn.getAttribute('data-correct') === 'true';
+        const questionNum = parseInt(btn.getAttribute('data-question'));
+        
+        btn.addEventListener('click', function() {
+            checkAnswer(this, isCorrect, questionNum);
+        });
+    });
+
+    // Restart quiz button
+    const restartBtn = document.getElementById('restart-quiz-btn');
+    if (restartBtn) {
+        restartBtn.addEventListener('click', restartQuiz);
+    }
+}
+
+// Função para inicializar event listeners do simulador
+function initializeSimuladorEventListeners() {
+    const simularBtns = document.querySelectorAll('.sim-btn');
+    simularBtns.forEach(btn => {
+        const acao = btn.getAttribute('data-action');
+        btn.addEventListener('click', function() {
+            simularAcao(acao);
+        });
+    });
+}
 
 // Ao carregar a página, verifica se há dados salvos
 window.onload = function() {
@@ -402,12 +725,31 @@ function showNotification(message) {
 function toggleChat() {
     const chatWindow = document.getElementById('chat-window');
     const isVisible = chatWindow.style.display === 'block';
-    chatWindow.style.display = isVisible ? 'none' : 'block';
     
-    if (!isVisible) {
-        document.getElementById('chat-input').focus();
+    if (isVisible) {
+        chatWindow.style.display = 'none';
+        // Garantir que as classes sejam removidas ao fechar
+        chatWindow.classList.remove('keyboard-open');
+    } else {
+        chatWindow.style.display = 'block';
         // Adicionar animação de entrada
         chatWindow.style.animation = 'fadeInUp 0.3s ease-out';
+        
+        // Focar no input após uma pequena pausa para animação
+        setTimeout(() => {
+            const chatInput = document.getElementById('chat-input');
+            if (chatInput) {
+                chatInput.focus();
+                
+                // No celular, scroll para garantir que o chat está visível
+                if (window.innerWidth <= 600) {
+                    chatWindow.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'nearest' 
+                    });
+                }
+            }
+        }, 300);
     }
 }
 
@@ -963,3 +1305,220 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// === FUNÇÕES AUXILIARES ===
+
+// Função para abrir o manual de trânsito
+function abrirManual() {
+    window.open('docs/manual-transito-2022.pdf', '_blank');
+}
+
+// Função para enviar questão do chat (botões de sugestão)
+function chatQuestion(topic) {
+    const chatInput = document.getElementById('chat-input');
+    const topics = {
+        'velocidade': 'Quais são os limites de velocidade?',
+        'multas': 'Como funcionam as multas de trânsito?',
+        'documentos': 'Quais documentos são obrigatórios no veículo?'
+    };
+    
+    if (chatInput && topics[topic]) {
+        chatInput.value = topics[topic];
+        sendChatMessage();
+    }
+}
+
+// Função para lidar com tecla Enter no chat
+function handleChatKeyPress(event) {
+    if (event.key === 'Enter') {
+        sendChatMessage();
+    }
+}
+
+// Função para scroll suave ao topo
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Função para lidar com o teclado virtual no celular
+function handleMobileKeyboard(isOpen) {
+    const chatWindow = document.getElementById('chat-window');
+    const chatMessages = document.getElementById('chat-messages');
+    
+    if (!chatWindow) return;
+    
+    console.log('Mobile keyboard:', isOpen ? 'opened' : 'closed'); // Debug temporário
+    
+    if (isOpen) {
+        // Teclado aberto - ajustar posição
+        chatWindow.classList.add('keyboard-open');
+        chatWindow.style.height = 'calc(100vh - 320px)';
+        chatWindow.style.top = '10px';
+        chatWindow.style.bottom = 'auto';
+        
+        if (chatMessages) {
+            chatMessages.style.height = 'calc(100vh - 480px)';
+        }
+        
+        // Scroll para o final das mensagens
+        setTimeout(() => {
+            if (chatMessages) {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }, 100);
+        
+    } else {
+        // Teclado fechado - restaurar posição
+        chatWindow.classList.remove('keyboard-open');
+        chatWindow.style.height = '';
+        chatWindow.style.top = '';
+        chatWindow.style.bottom = '';
+        
+        if (chatMessages) {
+            chatMessages.style.height = '';
+        }
+    }
+}
+
+// Melhorar detecção de mudança de viewport para dispositivos móveis
+let initialViewportHeight = window.innerHeight;
+
+window.addEventListener('resize', function() {
+    // Detectar se é provável que o teclado tenha aberto/fechado
+    const currentHeight = window.innerHeight;
+    const heightDifference = initialViewportHeight - currentHeight;
+    const chatInput = document.getElementById('chat-input');
+    
+    if (window.innerWidth <= 600 && chatInput && document.activeElement === chatInput) {
+        if (heightDifference > 150) {
+            // Provável que o teclado esteja aberto
+            handleMobileKeyboard(true);
+        } else if (heightDifference < 50) {
+            // Provável que o teclado tenha fechado
+            handleMobileKeyboard(false);
+        }
+    }
+});
+
+// Melhorias específicas para mobile
+function initMobileOptimizations() {
+    // Otimizar scroll suave em dispositivos móveis
+    if (isMobile()) {
+        // Aplicar scroll suave nativo
+        document.documentElement.style.scrollBehavior = 'smooth';
+        
+        // Otimizar performance de scroll
+        const videosContainer = document.getElementById('videos-container');
+        if (videosContainer) {
+            videosContainer.style.webkitOverflowScrolling = 'touch';
+            videosContainer.style.overflowScrolling = 'touch';
+        }
+        
+        // Melhorar responsividade dos botões de navegação
+        const navButtons = document.querySelectorAll('.nav-button');
+        navButtons.forEach(button => {
+            button.style.touchAction = 'manipulation';
+            button.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                this.style.transform = 'translateY(-50%) scale(0.9)';
+            });
+            button.addEventListener('touchend', function() {
+                this.style.transform = 'translateY(-50%) scale(1)';
+            });
+        });
+        
+        // Ajustar tamanho dos cards baseado na largura da tela
+        const videoCards = document.querySelectorAll('.video-card');
+        const screenWidth = window.innerWidth;
+        
+        videoCards.forEach(card => {
+            if (screenWidth <= 360) {
+                card.style.minWidth = '250px';
+            } else if (screenWidth <= 480) {
+                card.style.minWidth = '280px';
+            }
+        });
+        
+        // Otimizar vídeo para mobile
+        const videos = document.querySelectorAll('video');
+        videos.forEach(video => {
+            video.setAttribute('playsinline', '');
+            video.setAttribute('webkit-playsinline', '');
+            video.preload = 'metadata';
+        });
+        
+        // Ajustar chat para mobile
+        const chatWindow = document.getElementById('chat-window');
+        if (chatWindow) {
+            // Prevenir scroll do body quando chat está aberto
+            const chatToggle = document.getElementById('chat-toggle');
+            if (chatToggle) {
+                chatToggle.addEventListener('click', function() {
+                    setTimeout(() => {
+                        const isOpen = chatWindow.style.display !== 'none';
+                        if (isOpen) {
+                            document.body.style.overflow = 'hidden';
+                        } else {
+                            document.body.style.overflow = 'auto';
+                        }
+                    }, 100);
+                });
+            }
+        }
+        
+        // Ajustar altura de seções para mobile
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            section.style.marginBottom = '20px';
+        });
+    }
+}
+
+// Inicializar otimizações móveis quando página carregar
+document.addEventListener('DOMContentLoaded', function() {
+    initMobileOptimizations();
+});
+
+// Reinicializar em mudanças de orientação
+window.addEventListener('orientationchange', function() {
+    setTimeout(() => {
+        initMobileOptimizations();
+        updateScrollIndicator();
+        updateNavigationButtons();
+    }, 500);
+});
+
+// Função para melhorar performance em dispositivos móveis
+function optimizeForMobile() {
+    if (isMobile()) {
+        // Reduzir efeitos de animação para melhor performance
+        const styleSheet = document.createElement('style');
+        styleSheet.innerHTML = `
+            @media (max-width: 768px) {
+                * {
+                    animation-duration: 0.2s !important;
+                    transition-duration: 0.2s !important;
+                }
+                
+                .bg-animado * {
+                    animation: none !important;
+                }
+                
+                video {
+                    will-change: auto !important;
+                }
+                
+                .video-card:hover {
+                    transform: none !important;
+                }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    }
+}
+
+// Executar otimizações
+optimizeForMobile();

@@ -2,9 +2,369 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>IntegraEdu - Educação e trânsito integrados</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS específico para mobile */
+        @media (max-width: 768px) {
+            * {
+                touch-action: manipulation;
+            }
+            
+            /* Ajustes para o menu de navegação */
+            nav {
+                padding: 10px 0 !important;
+                position: fixed !important;
+                z-index: 9998 !important;
+            }
+            
+            nav div {
+                gap: 15px !important;
+                padding: 0 10px !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+            }
+            
+            nav a {
+                padding: 6px 12px !important;
+                font-size: 0.85rem !important;
+                white-space: nowrap !important;
+            }
+            
+            /* Ajustes para o main content */
+            main {
+                padding-top: 80px !important;
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+                margin: 0 !important;
+            }
+            
+            /* Ajustes para títulos */
+            h1 {
+                font-size: 1.8rem !important;
+                line-height: 1.3 !important;
+                margin: 15px 0 !important;
+                text-align: center !important;
+            }
+            
+            h2 {
+                font-size: 1.4rem !important;
+                line-height: 1.3 !important;
+                margin: 20px 0 15px 0 !important;
+                text-align: center !important;
+            }
+            
+            h3 {
+                font-size: 1.2rem !important;
+                line-height: 1.3 !important;
+                margin: 15px 0 !important;
+                text-align: center !important;
+            }
+            
+            p, li {
+                font-size: 0.9rem !important;
+                line-height: 1.5 !important;
+                margin: 10px 0 !important;
+            }
+            
+            /* Ajustes para seções */
+            section {
+                margin: 20px 0 !important;
+                padding: 15px !important;
+                border-radius: 12px !important;
+            }
+            
+            /* Ajustes para o chatbot */
+            #chatbot {
+                bottom: 15px !important;
+                right: 15px !important;
+                z-index: 9999 !important;
+            }
+            
+            #chat-toggle {
+                width: 50px !important;
+                height: 50px !important;
+                font-size: 1.3rem !important;
+            }
+            
+            #chat-window {
+                width: 90vw !important;
+                height: 70vh !important;
+                max-width: 350px !important;
+                max-height: 500px !important;
+                bottom: 70px !important;
+                right: 0 !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+            }
+            
+            /* Ajustes para o botão voltar ao topo */
+            #back-to-top {
+                bottom: 85px !important;
+                right: 15px !important;
+                width: 45px !important;
+                height: 45px !important;
+                font-size: 18px !important;
+            }
+            
+            /* Ajustes para vídeos */
+            .videos-scroll-container {
+                margin: 15px -15px !important;
+                padding: 10px 0 !important;
+            }
+            
+            #videos-container {
+                padding: 15px 50px !important;
+                gap: 15px !important;
+            }
+            
+            .video-card {
+                min-width: 280px !important;
+                padding: 15px !important;
+            }
+            
+            .video-card video,
+            .video-card img {
+                max-width: 100% !important;
+                height: 160px !important;
+                margin-bottom: 10px !important;
+            }
+            
+            /* Ajustes para botões de navegação dos vídeos */
+            .nav-button {
+                width: 35px !important;
+                height: 35px !important;
+                font-size: 16px !important;
+                left: 10px !important;
+                right: 10px !important;
+            }
+            
+            #scroll-right {
+                right: 10px !important;
+            }
+            
+            /* Ajustes para grids */
+            .grid-modern,
+            .grid-cards {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+            
+            .stats-card {
+                padding: 20px !important;
+                text-align: center !important;
+            }
+            
+            /* Ajustes para quiz */
+            .quiz-question {
+                padding: 15px !important;
+                margin-bottom: 15px !important;
+            }
+            
+            .quiz-btn {
+                padding: 10px !important;
+                font-size: 0.9rem !important;
+                margin: 5px 0 !important;
+            }
+            
+            /* Ajustes para simulador */
+            #simulador-container {
+                padding: 15px !important;
+                min-height: 250px !important;
+            }
+            
+            .sim-btn {
+                padding: 12px !important;
+                font-size: 0.85rem !important;
+                margin: 5px 0 !important;
+            }
+            
+            /* Ajustes para badges */
+            .badge {
+                margin: 10px 0 !important;
+                flex: 1 1 150px !important;
+            }
+            
+            .badge-icon {
+                width: 80px !important;
+                height: 80px !important;
+                font-size: 2rem !important;
+            }
+            
+            /* Ajustes para calculadora */
+            #calculadora > div {
+                margin: 0 !important;
+                padding: 20px !important;
+            }
+            
+            #tipo-infracao {
+                font-size: 0.9rem !important;
+                padding: 10px !important;
+            }
+            
+            /* Ajustes para contato */
+            #contato > div {
+                flex-direction: column !important;
+                gap: 15px !important;
+            }
+            
+            #contato > div > div {
+                min-width: auto !important;
+                padding: 15px !important;
+            }
+            
+            /* Ajustes para footer */
+            footer {
+                padding: 30px 15px 15px 15px !important;
+            }
+            
+            footer > div > div {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+                text-align: center !important;
+            }
+            
+            /* Esconder elementos desnecessários no mobile */
+            .bg-animado {
+                display: none !important;
+            }
+            
+            /* Ajustes para input e textarea */
+            input, select, textarea {
+                font-size: 16px !important;
+                -webkit-appearance: none !important;
+                appearance: none !important;
+                border-radius: 8px !important;
+            }
+            
+            /* Ajustes para botões */
+            button {
+                font-size: 0.9rem !important;
+                padding: 10px 15px !important;
+                border-radius: 8px !important;
+                touch-action: manipulation !important;
+            }
+            
+            /* Ajuste para o manual do trânsito */
+            #manual-transito-btn {
+                width: 100% !important;
+                max-width: 300px !important;
+                margin: 10px auto !important;
+                display: block !important;
+                font-size: 0.9rem !important;
+                padding: 12px 20px !important;
+            }
+            
+            /* Ajuste para o telefone */
+            .videos-palestras > div {
+                font-size: 1rem !important;
+                margin: 10px 0 !important;
+                word-break: break-all !important;
+                line-height: 1.3 !important;
+            }
+            
+            /* Ajustes para loading screen */
+            #loading-screen h1 {
+                font-size: 2rem !important;
+            }
+            
+            #loading-screen p {
+                font-size: 1rem !important;
+            }
+            
+            #loading-screen > div:first-child > div:first-child {
+                font-size: 4rem !important;
+            }
+            
+            /* Ajustes para os cards de conquistas */
+            #conquistas > div {
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+            
+            /* Prevenir zoom em inputs no iOS */
+            @supports (-webkit-touch-callout: none) {
+                input, select, textarea {
+                    font-size: 16px !important;
+                }
+            }
+            
+            /* Ajustes específicos para orientação */
+            @media (orientation: landscape) and (max-height: 500px) {
+                nav {
+                    padding: 5px 0 !important;
+                }
+                
+                main {
+                    padding-top: 60px !important;
+                }
+                
+                #chat-window {
+                    height: 80vh !important;
+                }
+            }
+            
+            /* Correções adicionais para evitar overflow */
+            .videos-scroll-container {
+                overflow-x: hidden !important;
+            }
+            
+            #videos-container {
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+                -ms-overflow-style: none !important;
+            }
+            
+            #videos-container::-webkit-scrollbar {
+                display: none !important;
+            }
+            
+            /* Garantir que imagens não quebrem o layout */
+            img, video {
+                max-width: 100% !important;
+                height: auto !important;
+                display: block !important;
+            }
+            
+            /* Prevenir texto cortado */
+            * {
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+            }
+            
+            /* Melhorar cliques em touch */
+            button, a, .nav-button {
+                min-height: 44px !important;
+                min-width: 44px !important;
+            }
+        }
+        
+        /* Ajustes para telas muito pequenas */
+        @media (max-width: 360px) {
+            main {
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+            }
+            
+            nav a {
+                font-size: 0.8rem !important;
+                padding: 5px 8px !important;
+            }
+            
+            .video-card {
+                min-width: 250px !important;
+            }
+            
+            h1 {
+                font-size: 1.6rem !important;
+            }
+            
+            h2 {
+                font-size: 1.3rem !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Tela de Loading -->
@@ -45,7 +405,7 @@
 
     <!-- Chatbot Assistente -->
     <div id="chatbot" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-        <button id="chat-toggle" onclick="toggleChat()" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #4caf50, #66bb6a); color: white; border: none; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3); transition: all 0.3s ease; animation: pulse 2s ease-in-out infinite;" onmouseover="this.style.transform='scale(1.1)'; this.style.animation='none'" onmouseout="this.style.transform='scale(1)'; this.style.animation='pulse 2s ease-in-out infinite'">🤖</button>
+        <button id="chat-toggle" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #4caf50, #66bb6a); color: white; border: none; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3); transition: all 0.3s ease; animation: pulse 2s ease-in-out infinite;">🤖</button>
         
         <div id="chat-window" style="display: none; width: 350px; height: 500px; max-width: 90vw; max-height: 80vh; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: absolute; bottom: 75px; right: 0; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.3);">
             
@@ -56,7 +416,7 @@
                         <h4 style="margin: 0; font-size: 1.2rem; font-weight: 700;">🤖 Assistente de Trânsito</h4>
                         <p style="margin: 5px 0 0 0; font-size: 0.9rem; opacity: 0.9;">Sempre online para ajudar</p>
                     </div>
-                    <button onclick="toggleChat()" style="background: rgba(255,255,255,0.2); border: none; color: white; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;">×</button>
+                    <button class="chat-close-btn" style="background: rgba(255,255,255,0.2); border: none; color: white; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;">×</button>
                 </div>
                 <div style="position: absolute; bottom: -10px; left: 20px; width: 20px; height: 20px; background: linear-gradient(135deg, #4caf50, #66bb6a); transform: rotate(45deg);"></div>
             </div>
@@ -82,9 +442,9 @@
             <div style="padding: 15px 20px 10px 20px; background: rgba(255,255,255,0.9); border-top: 1px solid rgba(0,0,0,0.1);">
                 <p style="margin: 0 0 10px 0; font-size: 0.85rem; color: #666; font-weight: 600;">💡 Perguntas frequentes:</p>
                 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <button onclick="chatQuestion('velocidade')" style="background: linear-gradient(135deg, #e8f5e8, #c8e6c9); color: #2e7d32; border: 1px solid #4caf50; border-radius: 20px; padding: 6px 12px; cursor: pointer; font-size: 0.8rem; font-weight: 500; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🚗 Velocidade</button>
-                    <button onclick="chatQuestion('multas')" style="background: linear-gradient(135deg, #ffebee, #ffcdd2); color: #c62828; border: 1px solid #f44336; border-radius: 20px; padding: 6px 12px; cursor: pointer; font-size: 0.8rem; font-weight: 500; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">💸 Multas</button>
-                    <button onclick="chatQuestion('documentos')" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); color: #1565c0; border: 1px solid #2196f3; border-radius: 20px; padding: 6px 12px; cursor: pointer; font-size: 0.8rem; font-weight: 500; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">📋 Documentos</button>
+                    <button class="chat-suggestion-btn" data-topic="velocidade" style="background: linear-gradient(135deg, #e8f5e8, #c8e6c9); color: #2e7d32; border: 1px solid #4caf50; border-radius: 20px; padding: 6px 12px; cursor: pointer; font-size: 0.8rem; font-weight: 500; transition: all 0.3s;">🚗 Velocidade</button>
+                    <button class="chat-suggestion-btn" data-topic="multas" style="background: linear-gradient(135deg, #ffebee, #ffcdd2); color: #c62828; border: 1px solid #f44336; border-radius: 20px; padding: 6px 12px; cursor: pointer; font-size: 0.8rem; font-weight: 500; transition: all 0.3s;">💸 Multas</button>
+                    <button class="chat-suggestion-btn" data-topic="documentos" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); color: #1565c0; border: 1px solid #2196f3; border-radius: 20px; padding: 6px 12px; cursor: pointer; font-size: 0.8rem; font-weight: 500; transition: all 0.3s;">📋 Documentos</button>
                 </div>
             </div>
             
@@ -92,9 +452,9 @@
             <div style="padding: 15px 20px 20px 20px; background: white; border-top: 1px solid rgba(0,0,0,0.1);">
                 <div style="display: flex; gap: 10px; align-items: end;">
                     <div style="flex: 1; position: relative;">
-                        <input type="text" id="chat-input" placeholder="Digite sua pergunta sobre trânsito..." style="width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 25px; font-size: 0.9rem; background: #f8f9fa; transition: all 0.3s; outline: none;" onkeypress="handleChatKeyPress(event)" onfocus="this.style.borderColor='#4caf50'; this.style.background='white'" onblur="this.style.borderColor='#e0e0e0'; this.style.background='#f8f9fa'">
+                        <input type="text" id="chat-input" placeholder="Digite sua pergunta sobre trânsito..." style="width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 25px; font-size: 0.9rem; background: #f8f9fa; transition: all 0.3s; outline: none;">
                     </div>
-                    <button onclick="sendChatMessage()" style="background: linear-gradient(135deg, #4caf50, #66bb6a); color: white; border: none; border-radius: 50%; width: 45px; height: 45px; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); transition: all 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">📤</button>
+                    <button id="chat-send-btn" style="background: linear-gradient(135deg, #4caf50, #66bb6a); color: white; border: none; border-radius: 50%; width: 45px; height: 45px; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); transition: all 0.3s;">📤</button>
                 </div>
             </div>
         </div>
@@ -118,7 +478,7 @@
         box-shadow: 0 4px 15px rgba(251,192,45,0.3);
         transition: all 0.3s ease;
         animation: float 3s ease-in-out infinite;
-    " onmouseover="this.style.background='linear-gradient(135deg, #ffe082, #ffecb3)'; this.style.transform='scale(1.1)'" onmouseout="this.style.background='linear-gradient(135deg, #fbc02d, #ffe082)'; this.style.transform='scale(1)'">↑</button>
+    " id="back-to-top">↑</button>
 
     <!-- Menu de Navegação -->
     <nav style="
@@ -148,7 +508,7 @@
                 border-radius: 20px;
                 transition: all 0.3s ease;
                 font-size: clamp(0.9rem, 2vw, 1rem);
-            " onmouseover="this.style.background='#fbc02d'; this.style.color='white'" onmouseout="this.style.background='transparent'; this.style.color='#795548'">🏠 Início</a>
+            " class="nav-link">🏠 Início</a>
             
             <a href="#videos" style="
                 color: #795548;
@@ -158,7 +518,7 @@
                 border-radius: 20px;
                 transition: all 0.3s ease;
                 font-size: clamp(0.9rem, 2vw, 1rem);
-            " onmouseover="this.style.background='#fbc02d'; this.style.color='white'" onmouseout="this.style.background='transparent'; this.style.color='#795548'">🎥 Vídeos</a>
+            " class="nav-link">🎥 Vídeos</a>
             
             <a href="#dicas" style="
                 color: #795548;
@@ -168,7 +528,7 @@
                 border-radius: 20px;
                 transition: all 0.3s ease;
                 font-size: clamp(0.9rem, 2vw, 1rem);
-            " onmouseover="this.style.background='#fbc02d'; this.style.color='white'" onmouseout="this.style.background='transparent'; this.style.color='#795548'">💡 Dicas</a>
+            " class="nav-link">💡 Dicas</a>
             
             <a href="#contato" style="
                 color: #795548;
@@ -178,7 +538,7 @@
                 border-radius: 20px;
                 transition: all 0.3s ease;
                 font-size: clamp(0.9rem, 2vw, 1rem);
-            " onmouseover="this.style.background='#fbc02d'; this.style.color='white'" onmouseout="this.style.background='transparent'; this.style.color='#795548'">📞 Contato</a>
+            " class="nav-link">📞 Contato</a>
         </div>
     </nav>
 
@@ -218,11 +578,40 @@
         <h6>Data: Agosto de 2025</h6>
 
         <!-- Área para vídeos de palestras -->
-        <section class="videos-palestras" id="videos">
-            <button id="manual-transito-btn" onclick="abrirManual()">
+        <section class="videos-palestras" id="videos" style="margin: 40px 0; padding: 25px; background: rgba(255,255,255,0.9); border-radius: 15px; overflow: hidden;">
+            <button id="manual-transito-btn" onclick="abrirManual()" style="
+                background: linear-gradient(135deg, #fbc02d, #ffe082);
+                color: #795548;
+                border: none;
+                padding: 15px 30px;
+                border-radius: 12px;
+                font-weight: bold;
+                cursor: pointer;
+                font-size: 1rem;
+                margin: 0 auto 20px auto;
+                display: block;
+                box-shadow: 0 4px 15px rgba(251,192,45,0.3);
+                transition: all 0.3s ease;
+                max-width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            ">
                 📖 Manual do Trânsito
             </button>
-            <div style="text-align: center; margin-bottom: 15px; font-family: 'Copperplate Gothic Bold', 'Copperplate', 'Arial', sans-serif; font-size: clamp(1rem, 3vw, 1.2rem); color: #795548; font-weight: bold; word-break: break-all;">
+            <div style="
+                text-align: center; 
+                margin-bottom: 15px; 
+                font-family: 'Arial', sans-serif; 
+                font-size: clamp(0.9rem, 2.5vw, 1.1rem); 
+                color: #795548; 
+                font-weight: bold; 
+                word-break: break-all;
+                padding: 10px;
+                background: rgba(251,192,45,0.1);
+                border-radius: 8px;
+                border: 2px solid rgba(251,192,45,0.3);
+            ">
                 📞 75 9983 32864
             </div>
             <h2>🎥 Vídeos de Palestras</h2>
@@ -231,10 +620,11 @@
             <!-- Container com scroll horizontal para vídeos -->
             <div class="videos-scroll-container" style="
                 position: relative;
-                margin: 30px 0;
+                margin: 30px -25px 20px -25px;
                 overflow: hidden;
                 border-radius: 15px;
                 padding: 10px 0;
+                background: rgba(255,255,255,0.5);
             ">
                 <!-- Botões de navegação aprimorados -->
                 <button id="scroll-left" onclick="scrollVideos('left')" class="nav-button" style="
@@ -256,6 +646,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    transition: all 0.3s ease;
                 ">❮</button>
                 
                 <button id="scroll-right" onclick="scrollVideos('right')" class="nav-button" style="
@@ -277,6 +668,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    transition: all 0.3s ease;
                 ">❯</button>
                 
                 <!-- Container scrollável dos vídeos -->
@@ -287,10 +679,15 @@
                     overflow-y: hidden;
                     padding: 20px 70px;
                     scroll-behavior: smooth;
-                    scrollbar-width: thin;
-                    scrollbar-color: #fbc02d #fffde7;
+                    scrollbar-width: none;
+                    -ms-overflow-style: none;
                     -webkit-overflow-scrolling: touch;
-                ">
+                " onscroll="updateScrollIndicator()">
+                    <style>
+                        #videos-container::-webkit-scrollbar {
+                            display: none;
+                        }
+                    </style>
                     <div class="video-card" style="
                         background: #fff;
                         padding: 20px;
@@ -299,79 +696,134 @@
                         text-align: center;
                         min-width: 320px;
                         flex-shrink: 0;
+                        border: 2px solid rgba(251,192,45,0.2);
                     ">
-                        <img src="img/palestra.jpg" alt="Palestra sobre educação e trânsito" style="width:100%; max-width:280px; height: 180px; object-fit: cover; border-radius:12px; margin-bottom: 15px;">
-                        <h4 style="color: #795548; margin: 15px 0 10px 0;">Fundamentos da Educação no Trânsito</h4>
-                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Aprenda os conceitos básicos sobre segurança viária e responsabilidade no trânsito.</p>
-                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                        <video controls preload="metadata" style="
+                            width: 100%; 
+                            max-width: 280px; 
+                            height: 180px; 
+                            border-radius: 12px; 
+                            margin-bottom: 15px; 
+                            object-fit: contain; 
+                            background: #f5f5f5;
+                            outline: none;
+                        " poster="img/palestra.jpg">
+                            <source src="img/video-whatsapp.mp4" type="video/mp4">
+                            Seu navegador não suporta vídeo HTML5.
+                        </video>
+                        <h4 style="
+                            color: #795548; 
+                            margin: 15px 0 10px 0; 
+                            font-size: clamp(1rem, 2.5vw, 1.2rem);
+                            line-height: 1.3;
+                        ">Vídeo do dia da mulher</h4>
+                        <p style="
+                            font-size: clamp(0.8rem, 2vw, 0.9rem); 
+                            color: #666; 
+                            margin-bottom: 15px; 
+                            line-height: 1.4;
+                            padding: 0 5px;
+                        ">Aprenda os conceitos básicos sobre o respeito a cada mulher.</p>
+                        <button class="play-video-btn" style="
+                            background: linear-gradient(135deg, #ff4444, #ff6666); 
+                            color: white; 
+                            border: none; 
+                            padding: 10px 20px; 
+                            border-radius: 8px; 
+                            cursor: pointer; 
+                            font-weight: bold; 
+                            transition: all 0.3s ease;
+                            font-size: clamp(0.8rem, 2vw, 0.9rem);
+                            box-shadow: 0 4px 12px rgba(255,68,68,0.3);
+                        ">▶️ Assistir Vídeo</button>
                     </div>
                     
                     <div class="video-card" style="
                         background: #fff;
-                        padding: 20px;
+                        padding: 15px;
                         border-radius: 15px;
                         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                         text-align: center;
-                        min-width: 320px;
+                        min-width: 280px;
                         flex-shrink: 0;
+                        border: 2px solid rgba(251,192,45,0.1);
+                        transition: all 0.3s ease;
                     ">
-                        <div style="width: 100%; height: 180px; background: linear-gradient(45deg, #ffe082, #fbc02d); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
-                            <span style="font-size: 3rem;">🚗</span>
-                        </div>
-                        <h4 style="color: #795548; margin: 15px 0 10px 0;">Direção Defensiva</h4>
-                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Técnicas essenciais para uma direção mais segura e responsável.</p>
-                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                        <img src="img/foto2.jpg" alt="Direção Defensiva" style="
+                            width: 100%; 
+                            max-width: 260px; 
+                            height: 170px; 
+                            object-fit: cover; 
+                            border-radius: 12px; 
+                            margin-bottom: 10px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        ">
                     </div>
                     
                     <div class="video-card" style="
                         background: #fff;
-                        padding: 20px;
+                        padding: 15px;
                         border-radius: 15px;
                         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                         text-align: center;
-                        min-width: 320px;
+                        min-width: 280px;
                         flex-shrink: 0;
+                        border: 2px solid rgba(251,192,45,0.1);
+                        transition: all 0.3s ease;
                     ">
-                        <div style="width: 100%; height: 180px; background: linear-gradient(45deg, #e8f5e8, #4caf50); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
-                            <span style="font-size: 3rem;">🚶‍♂️</span>
-                        </div>
-                        <h4 style="color: #795548; margin: 15px 0 10px 0;">Segurança do Pedestre</h4>
-                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Dicas importantes para pedestres circularem com segurança nas vias.</p>
-                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                        <img src="img/foto.jpg" alt="Segurança do Pedestre" style="
+                            width: 100%; 
+                            max-width: 260px; 
+                            height: 170px; 
+                            object-fit: cover; 
+                            border-radius: 12px; 
+                            margin-bottom: 10px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        ">
                     </div>
 
                     <div class="video-card" style="
                         background: #fff;
-                        padding: 20px;
+                        padding: 15px;
                         border-radius: 15px;
                         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                         text-align: center;
-                        min-width: 320px;
+                        min-width: 280px;
                         flex-shrink: 0;
+                        border: 2px solid rgba(251,192,45,0.1);
+                        transition: all 0.3s ease;
                     ">
-                        <div style="width: 100%; height: 180px; background: linear-gradient(45deg, #fff3e0, #ff9800); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
-                            <span style="font-size: 3rem;">🚲</span>
-                        </div>
-                        <h4 style="color: #795548; margin: 15px 0 10px 0;">Segurança para Ciclistas</h4>
-                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Equipamentos e práticas essenciais para ciclistas urbanos.</p>
-                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                        <img src="img/foto1.jpg" alt="Segurança para Ciclistas" style="
+                            width: 100%; 
+                            max-width: 260px; 
+                            height: 170px; 
+                            object-fit: cover; 
+                            border-radius: 12px; 
+                            margin-bottom: 10px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        ">
                     </div>
 
                     <div class="video-card" style="
                         background: #fff;
-                        padding: 20px;
+                        padding: 15px;
                         border-radius: 15px;
                         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                         text-align: center;
-                        min-width: 320px;
+                        min-width: 280px;
                         flex-shrink: 0;
+                        border: 2px solid rgba(251,192,45,0.1);
+                        transition: all 0.3s ease;
                     ">
-                        <div style="width: 100%; height: 180px; background: linear-gradient(45deg, #fce4ec, #e91e63); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
-                            <span style="font-size: 3rem;">⚠️</span>
-                        </div>
-                        <h4 style="color: #795548; margin: 15px 0 10px 0;">Primeiros Socorros no Trânsito</h4>
-                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.4;">Como agir em situações de emergência e acidentes de trânsito.</p>
-                        <button style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s ease;" disabled onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4caf50'">🎬 Em Breve</button>
+                        <img src="img/foto4.jpg" alt="Primeiros Socorros no Trânsito" style="
+                            width: 100%; 
+                            max-width: 260px; 
+                            height: 170px; 
+                            object-fit: cover; 
+                            border-radius: 12px; 
+                            margin-bottom: 10px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        ">
                     </div>
                 </div>
                 
@@ -419,27 +871,27 @@
                 <div class="quiz-question" id="question-1" style="background: #fffde7; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
                     <h4 style="color: #795548; margin-bottom: 15px;">1. Qual a velocidade máxima permitida em vias urbanas?</h4>
                     <div style="display: grid; gap: 10px;">
-                        <button onclick="checkAnswer(this, false, 1)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">A) 80 km/h</button>
-                        <button onclick="checkAnswer(this, true, 1)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">B) 60 km/h</button>
-                        <button onclick="checkAnswer(this, false, 1)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">C) 40 km/h</button>
+                        <button class="quiz-btn" data-correct="false" data-question="1" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">A) 80 km/h</button>
+                        <button class="quiz-btn" data-correct="true" data-question="1" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">B) 60 km/h</button>
+                        <button class="quiz-btn" data-correct="false" data-question="1" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">C) 40 km/h</button>
                     </div>
                 </div>
                 
                 <div class="quiz-question" id="question-2" style="background: #fffde7; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: none;">
                     <h4 style="color: #795548; margin-bottom: 15px;">2. O que fazer ao se aproximar de um semáforo amarelo?</h4>
                     <div style="display: grid; gap: 10px;">
-                        <button onclick="checkAnswer(this, false, 2)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">A) Acelerar para passar</button>
-                        <button onclick="checkAnswer(this, true, 2)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">B) Parar com segurança</button>
-                        <button onclick="checkAnswer(this, false, 2)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">C) Manter a velocidade</button>
+                        <button class="quiz-btn" data-correct="false" data-question="2" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">A) Acelerar para passar</button>
+                        <button class="quiz-btn" data-correct="true" data-question="2" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">B) Parar com segurança</button>
+                        <button class="quiz-btn" data-correct="false" data-question="2" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">C) Manter a velocidade</button>
                     </div>
                 </div>
 
                 <div class="quiz-question" id="question-3" style="background: #fffde7; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: none;">
                     <h4 style="color: #795548; margin-bottom: 15px;">3. Distância segura do veículo da frente:</h4>
                     <div style="display: grid; gap: 10px;">
-                        <button onclick="checkAnswer(this, false, 3)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">A) 1 segundo</button>
-                        <button onclick="checkAnswer(this, true, 3)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">B) 3 segundos</button>
-                        <button onclick="checkAnswer(this, false, 3)" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">C) 5 segundos</button>
+                        <button class="quiz-btn" data-correct="false" data-question="3" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">A) 1 segundo</button>
+                        <button class="quiz-btn" data-correct="true" data-question="3" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">B) 3 segundos</button>
+                        <button class="quiz-btn" data-correct="false" data-question="3" style="background: #fff; border: 2px solid #ddd; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s;">C) 5 segundos</button>
                     </div>
                 </div>
             </div>
@@ -451,7 +903,7 @@
             <div id="quiz-result" style="display: none; text-align: center; padding: 20px; background: #e8f5e8; border-radius: 10px; margin-top: 20px;">
                 <h3 id="result-title" style="color: #4caf50; margin-bottom: 10px;"></h3>
                 <p id="result-message" style="margin-bottom: 15px;"></p>
-                <button onclick="restartQuiz()" style="background: #fbc02d; color: #795548; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold;">🔄 Refazer Quiz</button>
+                <button id="restart-quiz-btn" style="background: #fbc02d; color: #795548; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold;">🔄 Refazer Quiz</button>
             </div>
         </section>
 
@@ -464,9 +916,9 @@
                     <h3 style="color: #1976d2; margin-bottom: 15px;">Situação: Semáforo amarelo piscando</h3>
                     <p style="color: #666; margin-bottom: 25px; line-height: 1.6;">Você está dirigindo a 50km/h e se aproxima de um cruzamento com semáforo amarelo piscando. Há pedestres aguardando para atravessar. O que você faz?</p>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 600px; margin: 0 auto;">
-                        <button onclick="simularAcao('parar')" style="background: #f44336; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">🛑 Parar e dar preferência</button>
-                        <button onclick="simularAcao('acelerar')" style="background: #ff9800; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">⚡ Acelerar para passar</button>
-                        <button onclick="simularAcao('reduzir')" style="background: #4caf50; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">🐌 Reduzir e avaliar</button>
+                        <button class="sim-btn" data-action="parar" style="background: #f44336; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">🛑 Parar e dar preferência</button>
+                        <button class="sim-btn" data-action="acelerar" style="background: #ff9800; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">⚡ Acelerar para passar</button>
+                        <button class="sim-btn" data-action="reduzir" style="background: #4caf50; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">🐌 Reduzir e avaliar</button>
                     </div>
                 </div>
                 <div id="resultado-simulacao" style="display: none; margin-top: 25px;"></div>
@@ -540,7 +992,7 @@
                     <option value="880.41">Avançar sinal vermelho - GRAVÍSSIMA</option>
                     <option value="293.47">Não dar preferência ao pedestre - GRAVÍSSIMA</option>
                 </select>
-                <button onclick="calcularMulta()" style="width: 100%; padding: 15px; background: #f44336; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: background 0.3s;" onmouseover="this.style.background='#d32f2f'" onmouseout="this.style.background='#f44336'">💸 Calcular Multa</button>
+                <button id="calcular-multa-btn" style="width: 100%; padding: 15px; background: #f44336; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: background 0.3s;">💸 Calcular Multa</button>
                 <div id="resultado-multa" style="margin-top: 20px; padding: 15px; background: #f5f5f5; border-radius: 8px; text-align: center; display: none;">
                     <h4 style="color: #f44336; margin-bottom: 10px;">Valor da Multa:</h4>
                     <div id="valor-multa" style="font-size: 2rem; font-weight: bold; color: #f44336; margin-bottom: 10px;"></div>
