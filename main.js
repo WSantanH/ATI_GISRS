@@ -424,54 +424,392 @@ function updateProgress() {
     }
 }
 
-// Sistema de Quiz
-let currentQuestion = 1;
-let score = 0;
+// Sistema de Quiz Dinâmico
+const quizDatabase = {
+    basico: [
+        {
+            question: "Qual a velocidade máxima permitida em vias urbanas?",
+            options: ["80 km/h", "60 km/h", "40 km/h"],
+            correct: 1,
+            explanation: "Em vias urbanas, a velocidade máxima é 60 km/h, conforme o Código de Trânsito Brasileiro."
+        },
+        {
+            question: "O que fazer ao se aproximar de um semáforo amarelo?",
+            options: ["Acelerar para passar", "Parar com segurança", "Manter a velocidade"],
+            correct: 1,
+            explanation: "O sinal amarelo indica atenção e que o condutor deve parar o veículo, salvo se não puder fazê-lo com segurança."
+        },
+        {
+            question: "Distância segura do veículo da frente:",
+            options: ["1 segundo", "3 segundos", "5 segundos"],
+            correct: 1,
+            explanation: "A regra dos 3 segundos é uma técnica segura para manter distância adequada do veículo à frente."
+        },
+        {
+            question: "Quando é obrigatório usar farol baixo durante o dia?",
+            options: ["Sempre", "Apenas à noite", "Em rodovias e túneis"],
+            correct: 2,
+            explanation: "O farol baixo é obrigatório em rodovias e túneis durante o dia para aumentar a visibilidade."
+        },
+        {
+            question: "Qual documento é obrigatório para conduzir veículo?",
+            options: ["Apenas CNH", "CNH e CRLV", "Apenas CRLV"],
+            correct: 1,
+            explanation: "É obrigatório portar CNH (Carteira Nacional de Habilitação) e CRLV (Certificado de Registro)."
+        },
+        {
+            question: "Em que situação é permitido estacionar em fila dupla?",
+            options: ["Emergência médica", "Compras rápidas", "Nunca é permitido"],
+            correct: 2,
+            explanation: "Estacionar em fila dupla é sempre proibido, mesmo em situações de emergência."
+        }
+    ],
+    sinalizacao: [
+        {
+            question: "O que significa uma placa triangular vermelha?",
+            options: ["Proibição", "Advertência", "Indicação"],
+            correct: 1,
+            explanation: "Placas triangulares vermelhas são de advertência, alertando sobre perigos na via."
+        },
+        {
+            question: "Semáforo amarelo intermitente indica:",
+            options: ["Pare obrigatoriamente", "Atenção, prossiga com cuidado", "Acelere"],
+            correct: 1,
+            explanation: "Amarelo intermitente significa atenção redobrada, mas permite prosseguir com cautela."
+        },
+        {
+            question: "Faixa contínua amarela no centro da via:",
+            options: ["Permite ultrapassagem", "Proíbe ultrapassagem", "Indica preferência"],
+            correct: 1,
+            explanation: "Linha contínua amarela proíbe ultrapassagem por representar perigo."
+        },
+        {
+            question: "Placa azul circular indica:",
+            options: ["Proibição", "Obrigatoriedade", "Advertência"],
+            correct: 1,
+            explanation: "Placas azuis circulares indicam regulamentação de obrigatoriedade."
+        },
+        {
+            question: "Sinalização horizontal zebrada indica:",
+            options: ["Estacionamento", "Área de conflito", "Faixa de pedestres"],
+            correct: 1,
+            explanation: "Zebrado indica área de conflito onde não se deve permanecer ou estacionar."
+        },
+        {
+            question: "Cone de sinalização laranja indica:",
+            options: ["Obra na via", "Acidente", "Fiscalização"],
+            correct: 0,
+            explanation: "Cones laranjas são usados principalmente para sinalizar obras e interdições temporárias."
+        }
+    ],
+    multas: [
+        {
+            question: "Dirigir sem CNH é infração:",
+            options: ["Leve", "Grave", "Gravíssima"],
+            correct: 2,
+            explanation: "Dirigir sem CNH é infração gravíssima, com multa e apreensão do veículo."
+        },
+        {
+            question: "Valor da multa por excesso de velocidade até 20%:",
+            options: ["R$ 130,16", "R$ 195,23", "R$ 293,47"],
+            correct: 0,
+            explanation: "Excesso de velocidade até 20% é infração média, com multa de R$ 130,16."
+        },
+        {
+            question: "Estacionar em vaga de deficiente gera multa de:",
+            options: ["R$ 195,23", "R$ 293,47", "R$ 880,41"],
+            correct: 2,
+            explanation: "É infração gravíssima com multa de R$ 880,41 e pode haver apreensão do veículo."
+        },
+        {
+            question: "Usar celular ao volante resulta em:",
+            options: ["4 pontos na CNH", "5 pontos na CNH", "7 pontos na CNH"],
+            correct: 2,
+            explanation: "Usar celular ao volante é infração gravíssima com 7 pontos na CNH."
+        },
+        {
+            question: "Dirigir sob efeito de álcool pode resultar em:",
+            options: ["Multa apenas", "Multa e suspensão", "Prisão"],
+            correct: 2,
+            explanation: "Dirigir alcoolizado pode resultar em prisão, além de multa e suspensão da CNH."
+        },
+        {
+            question: "Não usar cinto de segurança é infração:",
+            options: ["Média", "Grave", "Gravíssima"],
+            correct: 1,
+            explanation: "Não usar cinto é infração grave com multa de R$ 195,23 e 5 pontos na CNH."
+        }
+    ],
+    seguranca: [
+        {
+            question: "Em caso de aquaplanagem, o condutor deve:",
+            options: ["Frear bruscamente", "Manter direção firme e levantar o pé do acelerador", "Acelerar"],
+            correct: 1,
+            explanation: "Em aquaplanagem, mantenha a direção firme e retire o pé do acelerador gradualmente."
+        },
+        {
+            question: "Distância de frenagem em pista molhada:",
+            options: ["Diminui", "Mantém igual", "Aumenta"],
+            correct: 2,
+            explanation: "Em pista molhada, a distância de frenagem pode aumentar até 3 vezes."
+        },
+        {
+            question: "Quando usar pisca-alerta?",
+            options: ["Em paradas de emergência", "Em chuva forte", "Sempre"],
+            correct: 0,
+            explanation: "Pisca-alerta deve ser usado em paradas de emergência ou quando o veículo representa perigo."
+        },
+        {
+            question: "Criança de 8 anos deve usar:",
+            options: ["Cinto comum", "Assento de elevação", "Cadeirinha"],
+            correct: 1,
+            explanation: "Crianças de 4 a 10 anos devem usar assento de elevação com cinto de segurança."
+        },
+        {
+            question: "Ao sair de uma garagem, você deve:",
+            options: ["Dar preferência aos pedestres", "Acelerar rapidamente", "Buzinar"],
+            correct: 0,
+            explanation: "Sempre dê preferência aos pedestres na calçada ao sair de garagens."
+        },
+        {
+            question: "Em neblina, você deve:",
+            options: ["Usar farol alto", "Usar farol baixo", "Não usar farol"],
+            correct: 1,
+            explanation: "Em neblina, use farol baixo. O farol alto pode criar reflexo e piorar a visibilidade."
+        }
+    ],
+    avancado: [
+        {
+            question: "Curva de raio decrescente exige:",
+            options: ["Acelerar na entrada", "Frear progressivamente", "Manter velocidade"],
+            correct: 1,
+            explanation: "Em curvas de raio decrescente, freie progressivamente antes e durante a curva."
+        },
+        {
+            question: "Coeficiente de aderência em pista seca:",
+            options: ["0,4 a 0,6", "0,7 a 0,9", "1,0 a 1,2"],
+            correct: 1,
+            explanation: "O coeficiente de aderência em asfalto seco varia entre 0,7 e 0,9."
+        },
+        {
+            question: "Técnica de frenagem threshold significa:",
+            options: ["Frear até o limite de travamento", "Frear gradualmente", "Frear em curva"],
+            correct: 0,
+            explanation: "Threshold é frear no limite máximo sem travar as rodas, obtendo máxima eficiência."
+        },
+        {
+            question: "Em descidas longas, você deve:",
+            options: ["Usar freio motor", "Freiar constantemente", "Acelerar"],
+            correct: 0,
+            explanation: "Use freio motor em descidas para evitar superaquecimento dos freios."
+        },
+        {
+            question: "Ponto cego mais perigoso em caminhões está:",
+            options: ["Atrás", "Do lado direito", "Do lado esquerdo"],
+            correct: 1,
+            explanation: "O ponto cego do lado direito é o mais perigoso em caminhões devido ao ângulo morto."
+        },
+        {
+            question: "Transferência de peso em frenagem ocorre:",
+            options: ["Para trás", "Para frente", "Para os lados"],
+            correct: 1,
+            explanation: "Na frenagem, o peso transfere para frente, sobrecarregando o eixo dianteiro."
+        }
+    ]
+};
 
-function checkAnswer(button, isCorrect, questionNumber) {
-    const questionDiv = document.getElementById(`question-${questionNumber}`);
-    const buttons = questionDiv.querySelectorAll('button');
+let currentQuizCategory = '';
+let currentQuestions = [];
+let currentQuestionIndex = 0;
+let quizScore = 0;
+let isQuizActive = false;
+
+function initializeQuizEventListeners() {
+    // Category buttons
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    categoryButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const category = btn.dataset.category;
+            startQuiz(category);
+        });
+    });
     
-    // Desabilitar todos os botões
-    buttons.forEach(btn => btn.style.pointerEvents = 'none');
+    // Restart buttons
+    const restartBtn = document.getElementById('restart-quiz-btn');
+    const newCategoryBtn = document.getElementById('new-category-btn');
+    const randomBtn = document.getElementById('random-questions-btn');
     
-    if (isCorrect) {
-        button.style.background = '#4caf50';
-        button.style.color = 'white';
-        button.style.border = '2px solid #4caf50';
-        score++;
-        showNotification('✅ Resposta correta!');
-    } else {
-        button.style.background = '#f44336';
-        button.style.color = 'white';
-        button.style.border = '2px solid #f44336';
-        showNotification('❌ Resposta incorreta!');
-        
-        // Destacar a resposta correta
-        buttons.forEach(btn => {
-            if (btn.onclick && btn.onclick.toString().includes('true')) {
-                btn.style.background = '#4caf50';
-                btn.style.color = 'white';
-                btn.style.border = '2px solid #4caf50';
-            }
+    if (restartBtn) {
+        restartBtn.addEventListener('click', () => restartQuiz(currentQuizCategory));
+    }
+    
+    if (newCategoryBtn) {
+        newCategoryBtn.addEventListener('click', () => {
+            document.getElementById('category-selector').style.display = 'block';
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('quiz-info').style.display = 'none';
+            document.getElementById('quiz-result').style.display = 'none';
+            isQuizActive = false;
         });
     }
     
-    // Atualizar pontuação
-    document.getElementById('points').textContent = score;
+    if (randomBtn) {
+        randomBtn.addEventListener('click', () => startRandomQuiz());
+    }
+}
+
+function startQuiz(category) {
+    currentQuizCategory = category;
+    currentQuestions = getRandomQuestions(category, 3);
+    currentQuestionIndex = 0;
+    quizScore = 0;
+    isQuizActive = true;
     
-    // Próxima pergunta após 2 segundos
+    // Hide category selector and show quiz
+    document.getElementById('category-selector').style.display = 'none';
+    document.getElementById('quiz-container').style.display = 'block';
+    document.getElementById('quiz-info').style.display = 'block';
+    document.getElementById('quiz-result').style.display = 'none';
+    
+    // Update category display
+    const categoryNames = {
+        basico: 'Básico',
+        sinalizacao: 'Sinalização',
+        multas: 'Multas e Infrações',
+        seguranca: 'Segurança',
+        avancado: 'Avançado'
+    };
+    
+    document.getElementById('current-category').textContent = categoryNames[category];
+    document.getElementById('total-questions').textContent = currentQuestions.length;
+    document.getElementById('total-questions-display').textContent = currentQuestions.length;
+    
+    // Reset scores
+    document.getElementById('points').textContent = '0';
+    document.getElementById('current-question').textContent = '1';
+    
+    // Show first question
+    displayCurrentQuestion();
+}
+
+function startRandomQuiz() {
+    const allCategories = Object.keys(quizDatabase);
+    const randomQuestions = [];
+    
+    // Get one question from each category
+    allCategories.forEach(category => {
+        const categoryQuestions = quizDatabase[category];
+        const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
+        randomQuestions.push({...categoryQuestions[randomIndex], category});
+    });
+    
+    // Shuffle the questions
+    currentQuestions = randomQuestions.sort(() => Math.random() - 0.5).slice(0, 3);
+    currentQuizCategory = 'misto';
+    currentQuestionIndex = 0;
+    quizScore = 0;
+    isQuizActive = true;
+    
+    // Update UI
+    document.getElementById('category-selector').style.display = 'none';
+    document.getElementById('quiz-container').style.display = 'block';
+    document.getElementById('quiz-info').style.display = 'block';
+    document.getElementById('quiz-result').style.display = 'none';
+    
+    document.getElementById('current-category').textContent = 'Questões Mistas';
+    document.getElementById('total-questions').textContent = currentQuestions.length;
+    document.getElementById('total-questions-display').textContent = currentQuestions.length;
+    
+    document.getElementById('points').textContent = '0';
+    document.getElementById('current-question').textContent = '1';
+    
+    displayCurrentQuestion();
+}
+
+function getRandomQuestions(category, count) {
+    const questions = [...quizDatabase[category]];
+    const shuffled = questions.sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, count);
+}
+
+function displayCurrentQuestion() {
+    const question = currentQuestions[currentQuestionIndex];
+    const container = document.getElementById('current-question-container');
+    
+    container.innerHTML = `
+        <h4 style="color: #795548; margin-bottom: 15px; font-size: 1.2rem;">
+            ${currentQuestionIndex + 1}. ${question.question}
+        </h4>
+        <div style="display: grid; gap: 12px; margin-top: 20px;">
+            ${question.options.map((option, index) => `
+                <button class="quiz-option-btn" 
+                        data-index="${index}" 
+                        style="background: #fff; border: 2px solid #ddd; padding: 15px; border-radius: 8px; cursor: pointer; transition: all 0.3s; text-align: left; font-size: 1rem;">
+                    ${String.fromCharCode(65 + index)}) ${option}
+                </button>
+            `).join('')}
+        </div>
+        <div id="question-explanation" style="display: none; margin-top: 20px; padding: 15px; background: #e3f2fd; border-left: 4px solid #2196f3; border-radius: 5px;">
+            <strong>Explicação:</strong> <span id="explanation-text"></span>
+        </div>
+    `;
+    
+    // Add click listeners to option buttons
+    const optionButtons = container.querySelectorAll('.quiz-option-btn');
+    optionButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            handleQuizAnswer(parseInt(btn.dataset.index));
+        });
+    });
+}
+
+function handleQuizAnswer(selectedIndex) {
+    const question = currentQuestions[currentQuestionIndex];
+    const isCorrect = selectedIndex === question.correct;
+    const optionButtons = document.querySelectorAll('.quiz-option-btn');
+    
+    // Disable all buttons
+    optionButtons.forEach(btn => btn.style.pointerEvents = 'none');
+    
+    // Style the selected answer
+    optionButtons[selectedIndex].style.background = isCorrect ? '#4caf50' : '#f44336';
+    optionButtons[selectedIndex].style.color = 'white';
+    optionButtons[selectedIndex].style.borderColor = isCorrect ? '#4caf50' : '#f44336';
+    
+    // Highlight correct answer if wrong was selected
+    if (!isCorrect) {
+        optionButtons[question.correct].style.background = '#4caf50';
+        optionButtons[question.correct].style.color = 'white';
+        optionButtons[question.correct].style.borderColor = '#4caf50';
+    }
+    
+    // Update score
+    if (isCorrect) {
+        quizScore++;
+        showNotification('✅ Resposta correta!');
+    } else {
+        showNotification('❌ Resposta incorreta!');
+    }
+    
+    // Show explanation
+    const explanationDiv = document.getElementById('question-explanation');
+    const explanationText = document.getElementById('explanation-text');
+    explanationText.textContent = question.explanation;
+    explanationDiv.style.display = 'block';
+    
+    // Update score display
+    document.getElementById('points').textContent = quizScore;
+    
+    // Continue to next question or finish quiz
     setTimeout(() => {
-        if (questionNumber < 3) {
-            questionDiv.style.display = 'none';
-            document.getElementById(`question-${questionNumber + 1}`).style.display = 'block';
-            currentQuestion++;
-            document.getElementById('current-question').textContent = currentQuestion;
+        if (currentQuestionIndex < currentQuestions.length - 1) {
+            currentQuestionIndex++;
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            displayCurrentQuestion();
         } else {
-            // Fim do quiz
             finishQuiz();
         }
-    }, 2000);
+    }, 3000);
 }
 
 function finishQuiz() {
@@ -479,58 +817,51 @@ function finishQuiz() {
     const titleElement = document.getElementById('result-title');
     const messageElement = document.getElementById('result-message');
     
-    // Esconder todas as perguntas
-    document.querySelectorAll('.quiz-question').forEach(q => q.style.display = 'none');
-    
-    // Mostrar resultado
+    // Hide quiz container and show result
+    document.getElementById('quiz-container').style.display = 'none';
+    document.getElementById('quiz-info').style.display = 'none';
     resultDiv.style.display = 'block';
     
-    if (score === 3) {
+    const percentage = Math.round((quizScore / currentQuestions.length) * 100);
+    
+    if (percentage === 100) {
         titleElement.textContent = '🏆 Perfeito!';
         titleElement.style.color = '#4caf50';
-        messageElement.textContent = 'Parabéns! Você acertou todas as perguntas e demonstra excelente conhecimento sobre trânsito!';
+        messageElement.textContent = `Parabéns! Você acertou todas as ${currentQuestions.length} perguntas (${percentage}%)! Excelente conhecimento sobre trânsito!`;
         resultDiv.style.background = '#e8f5e8';
         unlockBadge('quiz');
-    } else if (score === 2) {
+    } else if (percentage >= 70) {
         titleElement.textContent = '👍 Muito Bom!';
         titleElement.style.color = '#ff9800';
-        messageElement.textContent = 'Ótimo resultado! Você tem bom conhecimento sobre trânsito, continue estudando!';
+        messageElement.textContent = `Ótimo resultado! Você acertou ${quizScore} de ${currentQuestions.length} perguntas (${percentage}%). Continue estudando!`;
         resultDiv.style.background = '#fff3e0';
+    } else if (percentage >= 50) {
+        titleElement.textContent = '📖 Pode Melhorar!';
+        titleElement.style.color = '#ff5722';
+        messageElement.textContent = `Você acertou ${quizScore} de ${currentQuestions.length} perguntas (${percentage}%). Que tal estudar mais e tentar novamente?`;
+        resultDiv.style.background = '#fce4ec';
     } else {
         titleElement.textContent = '📚 Continue Estudando!';
         titleElement.style.color = '#f44336';
-        messageElement.textContent = 'É importante estudar mais sobre segurança no trânsito. Que tal revisar o manual?';
+        messageElement.textContent = `Você acertou ${quizScore} de ${currentQuestions.length} perguntas (${percentage}%). É importante estudar mais sobre segurança no trânsito!`;
         resultDiv.style.background = '#ffebee';
     }
     
-    // Salvar conclusão do quiz
+    // Save quiz completion
     const currentCompleted = parseInt(localStorage.getItem('quiz-completed') || '0');
     localStorage.setItem('quiz-completed', (currentCompleted + 1).toString());
     
-    // Atualizar progresso
+    // Update progress
     updateProgress();
+    isQuizActive = false;
 }
 
-function restartQuiz() {
-    currentQuestion = 1;
-    score = 0;
-    
-    // Reset visual
-    document.querySelectorAll('.quiz-question').forEach((q, index) => {
-        q.style.display = index === 0 ? 'block' : 'none';
-        const buttons = q.querySelectorAll('button');
-        buttons.forEach(btn => {
-            btn.style.background = '#fff';
-            btn.style.color = '#333';
-            btn.style.border = '2px solid #ddd';
-            btn.style.pointerEvents = 'auto';
-        });
-    });
-    
-    // Reset counters
-    document.getElementById('points').textContent = '0';
-    document.getElementById('current-question').textContent = '1';
-    document.getElementById('quiz-result').style.display = 'none';
+function restartQuiz(category) {
+    if (category === 'misto') {
+        startRandomQuiz();
+    } else {
+        startQuiz(category);
+    }
 }
 
 // Simulador de Cenários
