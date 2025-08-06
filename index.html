@@ -115,28 +115,6 @@
                 z-index: 998 !important;
             }
             
-            /* Chatbot - ajustado para mobile */
-            #chatbot {
-                bottom: 75px !important;
-                right: 15px !important;
-                z-index: 999 !important;
-            }
-            
-            #chat-toggle {
-                width: 50px !important;
-                height: 50px !important;
-                font-size: 1.2rem !important;
-            }
-            
-            #chat-window {
-                width: calc(100vw - 20px) !important;
-                height: 65vh !important;
-                bottom: 60px !important;
-                right: -15px !important;
-                max-width: 340px !important;
-                position: absolute !important;
-            }
-            
             /* Grid responsivo */
             .grid-cards {
                 grid-template-columns: 1fr !important;
@@ -257,20 +235,6 @@
                 padding: 10px !important;
             }
             
-            /* Chatbot ainda menor */
-            #chat-toggle {
-                width: 45px !important;
-                height: 45px !important;
-                font-size: 1rem !important;
-            }
-            
-            #chat-window {
-                width: calc(100vw - 10px) !important;
-                height: 70vh !important;
-                right: -5px !important;
-                max-width: 320px !important;
-            }
-            
             .category-btn {
                 padding: 5px 8px !important;
                 font-size: 0.7rem !important;
@@ -299,22 +263,12 @@
                 font-size: 0.65rem !important;
             }
             
-            #chatbot {
-                bottom: 10px !important;
-                right: 10px !important;
-            }
-            
             #back-to-top {
                 bottom: 10px !important;
-                right: 65px !important;
+                right: 10px !important;
                 width: 35px !important;
                 height: 35px !important;
                 font-size: 14px !important;
-            }
-            
-            #chat-window {
-                height: 50vh !important;
-                width: 280px !important;
             }
             
             section {
@@ -335,20 +289,11 @@
                 grid-template-columns: repeat(2, 1fr) !important;
                 gap: 15px !important;
             }
-            
-            #chat-window {
-                width: 380px !important;
-                height: 520px !important;
-            }
         }
         
         /* Z-index hierarchy para evitar sobreposições */
         nav {
             z-index: 9999 !important;
-        }
-        
-        #chatbot {
-            z-index: 999 !important;
         }
         
         #back-to-top {
@@ -423,68 +368,11 @@
         <p style="font-size: 1rem; opacity: 0.7;">Carregando conteúdo educativo...</p>
     </div>
 
-    <!-- Chatbot Assistente -->
-    <div id="chatbot" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-        <button id="chat-toggle" style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #4caf50, #66bb6a); color: white; border: none; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3); transition: all 0.3s ease; animation: pulse 2s ease-in-out infinite;">🤖</button>
-        
-        <div id="chat-window" style="display: none; width: 350px; height: 500px; max-width: 90vw; max-height: 80vh; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: absolute; bottom: 75px; right: 0; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.3);">
-            
-            <!-- Header do Chat -->
-            <div style="background: linear-gradient(135deg, #4caf50, #66bb6a); padding: 20px; color: white; position: relative;">
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <div>
-                        <h4 style="margin: 0; font-size: 1.2rem; font-weight: 700;">🤖 Assistente de Trânsito</h4>
-                        <p style="margin: 5px 0 0 0; font-size: 0.9rem; opacity: 0.9;">Sempre online para ajudar</p>
-                    </div>
-                    <button class="chat-close-btn" style="background: rgba(255,255,255,0.2); border: none; color: white; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;">×</button>
-                </div>
-                <div style="position: absolute; bottom: -10px; left: 20px; width: 20px; height: 20px; background: linear-gradient(135deg, #4caf50, #66bb6a); transform: rotate(45deg);"></div>
-            </div>
-            
-            <!-- Área de Mensagens -->
-            <div id="chat-messages" style="height: 280px; overflow-y: auto; padding: 20px; background: linear-gradient(135deg, #f8f9fa, #e9ecef);">
-                <div style="background: white; padding: 15px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-left: 4px solid #4caf50;">
-                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                        <span style="font-size: 1.5rem; margin-right: 10px;">🤖</span>
-                        <strong style="color: #4caf50; font-size: 0.9rem;">Assistente IA</strong>
-                    </div>
-                    <p style="margin: 0; font-size: 0.95rem; color: #333; line-height: 1.5;">👋 Olá! Sou seu assistente inteligente de trânsito. Posso ajudar com:</p>
-                    <div style="margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                        <div style="background: #e8f5e8; padding: 8px; border-radius: 8px; text-align: center; font-size: 0.8rem; color: #2e7d32;">📏 Regras</div>
-                        <div style="background: #ffebee; padding: 8px; border-radius: 8px; text-align: center; font-size: 0.8rem; color: #c62828;">💰 Multas</div>
-                        <div style="background: #e3f2fd; padding: 8px; border-radius: 8px; text-align: center; font-size: 0.8rem; color: #1565c0;">📄 Documentos</div>
-                        <div style="background: #fff3e0; padding: 8px; border-radius: 8px; text-align: center; font-size: 0.8rem; color: #ef6c00;">🛡️ Segurança</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Sugestões Rápidas -->
-            <div style="padding: 15px 20px 10px 20px; background: rgba(255,255,255,0.9); border-top: 1px solid rgba(0,0,0,0.1);">
-                <p style="margin: 0 0 10px 0; font-size: 0.85rem; color: #666; font-weight: 600;">💡 Perguntas frequentes:</p>
-                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <button class="chat-suggestion-btn" data-topic="velocidade" style="background: linear-gradient(135deg, #e8f5e8, #c8e6c9); color: #2e7d32; border: 1px solid #4caf50; border-radius: 20px; padding: 6px 12px; cursor: pointer; font-size: 0.8rem; font-weight: 500; transition: all 0.3s;">🚗 Velocidade</button>
-                    <button class="chat-suggestion-btn" data-topic="multas" style="background: linear-gradient(135deg, #ffebee, #ffcdd2); color: #c62828; border: 1px solid #f44336; border-radius: 20px; padding: 6px 12px; cursor: pointer; font-size: 0.8rem; font-weight: 500; transition: all 0.3s;">💸 Multas</button>
-                    <button class="chat-suggestion-btn" data-topic="documentos" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); color: #1565c0; border: 1px solid #2196f3; border-radius: 20px; padding: 6px 12px; cursor: pointer; font-size: 0.8rem; font-weight: 500; transition: all 0.3s;">📋 Documentos</button>
-                </div>
-            </div>
-            
-            <!-- Input de Mensagem -->
-            <div style="padding: 15px 20px 20px 20px; background: white; border-top: 1px solid rgba(0,0,0,0.1);">
-                <div style="display: flex; gap: 10px; align-items: end;">
-                    <div style="flex: 1; position: relative;">
-                        <input type="text" id="chat-input" placeholder="Digite sua pergunta sobre trânsito..." style="width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 25px; font-size: 0.9rem; background: #f8f9fa; transition: all 0.3s; outline: none;">
-                    </div>
-                    <button id="chat-send-btn" style="background: linear-gradient(135deg, #4caf50, #66bb6a); color: white; border: none; border-radius: 50%; width: 45px; height: 45px; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); transition: all 0.3s;">📤</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Botão voltar ao topo -->
     <button id="back-to-top" style="
         display: none;
         position: fixed;
-        bottom: 100px;
+        bottom: 20px;
         right: 20px;
         z-index: 99;
         background: linear-gradient(135deg, #fbc02d, #ffe082);

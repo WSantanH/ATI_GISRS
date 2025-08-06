@@ -75,40 +75,10 @@ window.addEventListener('load', function() {
 // Fallback - remover loading após 3 segundos no máximo
 setTimeout(removeLoadingScreen, 3000);
 
-// Remover loading quando DOM estiver pronto
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(removeLoadingScreen, 1500);
-    
-    // Inicializar todos os event listeners
-    initializeEventListeners();
-    
-    // Inicializar otimizações para mobile
-    optimizeTouchEvents();
-    preventIOSZoom();
-});
-
 // Função para inicializar todos os event listeners
 function initializeEventListeners() {
-    // Event listeners para o chatbot
-    const chatToggle = document.getElementById('chat-toggle');
-    if (chatToggle) {
-        chatToggle.addEventListener('click', toggleChat);
-        chatToggle.addEventListener('mouseover', function() {
-            this.style.transform = 'scale(1.1)';
-            this.style.animation = 'none';
-        });
-        chatToggle.addEventListener('mouseout', function() {
-            this.style.transform = 'scale(1)';
-            this.style.animation = 'pulse 2s ease-in-out infinite';
-        });
-    }
-
-    // Event listeners para botões de fechar chat
-    const chatCloseBtns = document.querySelectorAll('.chat-close-btn');
-    chatCloseBtns.forEach(btn => {
-        btn.addEventListener('click', toggleChat);
-    });
-
+    console.log('Inicializando event listeners...');
+    
     // Event listeners para sugestões do chat
     const chatSuggestionBtns = document.querySelectorAll('.chat-suggestion-btn');
     chatSuggestionBtns.forEach(btn => {
@@ -1052,273 +1022,6 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Sistema de Chatbot Melhorado
-function toggleChat() {
-    const chatWindow = document.getElementById('chat-window');
-    const isVisible = chatWindow.style.display === 'block';
-    
-    if (isVisible) {
-        chatWindow.style.display = 'none';
-        // Garantir que as classes sejam removidas ao fechar
-        chatWindow.classList.remove('keyboard-open');
-    } else {
-        chatWindow.style.display = 'block';
-        // Adicionar animação de entrada
-        chatWindow.style.animation = 'fadeInUp 0.3s ease-out';
-        
-        // Focar no input após uma pequena pausa para animação
-        setTimeout(() => {
-            const chatInput = document.getElementById('chat-input');
-            if (chatInput) {
-                chatInput.focus();
-                
-                // No celular, scroll para garantir que o chat está visível
-                if (window.innerWidth <= 600) {
-                    chatWindow.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'nearest' 
-                    });
-                }
-            }
-        }, 300);
-    }
-}
-
-function handleChatKeyPress(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        sendChatMessage();
-    }
-}
-
-function sendChatMessage() {
-    const input = document.getElementById('chat-input');
-    const message = input.value.trim();
-    
-    if (message) {
-        addChatMessage(message, 'user');
-        input.value = '';
-        
-        // Mostrar indicador de digitação
-        showTypingIndicator();
-        
-        // Simular resposta do bot após um delay
-        setTimeout(() => {
-            hideTypingIndicator();
-            const response = getChatResponse(message);
-            addChatMessage(response, 'bot');
-        }, 1500);
-    }
-}
-
-function chatQuestion(topic) {
-    const questions = {
-        velocidade: "Quais são os limites de velocidade nas vias urbanas?",
-        multas: "Quanto custam as multas de trânsito mais comuns?",
-        documentos: "Quais documentos devo portar ao dirigir?"
-    };
-    
-    const question = questions[topic];
-    if (question) {
-        // Simular que o usuário digitou a pergunta
-        document.getElementById('chat-input').value = question;
-        sendChatMessage();
-    }
-}
-
-function showTypingIndicator() {
-    const messagesContainer = document.getElementById('chat-messages');
-    const typingDiv = document.createElement('div');
-    typingDiv.id = 'typing-indicator';
-    typingDiv.style.cssText = `
-        background: rgba(76, 175, 80, 0.1);
-        padding: 15px;
-        border-radius: 15px;
-        margin-bottom: 15px;
-        margin-right: 20px;
-        border-left: 4px solid #4caf50;
-        display: flex;
-        align-items: center;
-        animation: pulse 1s infinite;
-    `;
-    
-    typingDiv.innerHTML = `
-        <span style="font-size: 1.2rem; margin-right: 10px;">🤖</span>
-        <div style="display: flex; gap: 4px;">
-            <div style="width: 8px; height: 8px; background: #4caf50; border-radius: 50%; animation: typing 1.4s infinite;"></div>
-            <div style="width: 8px; height: 8px; background: #4caf50; border-radius: 50%; animation: typing 1.4s infinite 0.2s;"></div>
-            <div style="width: 8px; height: 8px; background: #4caf50; border-radius: 50%; animation: typing 1.4s infinite 0.4s;"></div>
-        </div>
-        <span style="margin-left: 10px; color: #4caf50; font-size: 0.9rem;">Digitando...</span>
-    `;
-    
-    messagesContainer.appendChild(typingDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-}
-
-function hideTypingIndicator() {
-    const typingIndicator = document.getElementById('typing-indicator');
-    if (typingIndicator) {
-        typingIndicator.remove();
-    }
-}
-
-function addChatMessage(message, sender) {
-    const messagesContainer = document.getElementById('chat-messages');
-    const messageDiv = document.createElement('div');
-    
-    if (sender === 'user') {
-        messageDiv.style.cssText = `
-            background: linear-gradient(135deg, #2196f3, #64b5f6);
-            color: white;
-            padding: 12px 16px;
-            border-radius: 20px 20px 5px 20px;
-            margin-bottom: 15px;
-            margin-left: 40px;
-            text-align: right;
-            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
-            font-size: 0.95rem;
-            line-height: 1.4;
-            animation: slideInRight 0.3s ease-out;
-        `;
-    } else {
-        messageDiv.style.cssText = `
-            background: white;
-            padding: 15px;
-            border-radius: 20px 20px 20px 5px;
-            margin-bottom: 15px;
-            margin-right: 40px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border-left: 4px solid #4caf50;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            animation: slideInLeft 0.3s ease-out;
-        `;
-        
-        // Adicionar ícone do bot
-        const botIcon = document.createElement('div');
-        botIcon.style.cssText = `
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #4caf50;
-        `;
-        botIcon.innerHTML = '<span style="font-size: 1.2rem; margin-right: 8px;">🤖</span>Assistente IA';
-        messageDiv.appendChild(botIcon);
-    }
-    
-    const textDiv = document.createElement('div');
-    textDiv.innerHTML = message.replace(/\n/g, '<br>');
-    messageDiv.appendChild(textDiv);
-    
-    messagesContainer.appendChild(messageDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-}
-
-function getChatResponse(message) {
-    const lowerMessage = message.toLowerCase();
-    
-    // Respostas específicas melhoradas
-    if (lowerMessage.includes('velocidade') || lowerMessage.includes('limite')) {
-        return `🚗 <strong>Limites de Velocidade no Brasil:</strong><br><br>
-        • <strong>Vias urbanas arteriais:</strong> 60 km/h<br>
-        • <strong>Vias urbanas coletoras:</strong> 40 km/h<br>
-        • <strong>Vias urbanas locais:</strong> 30 km/h<br>
-        • <strong>Rodovias de pista dupla:</strong> 110 km/h<br>
-        • <strong>Rodovias de pista simples:</strong> 100 km/h<br>
-        • <strong>Autoestradas:</strong> 120 km/h<br><br>
-        ⚠️ <em>Sempre observe a sinalização local!</em>`;
-        
-    } else if (lowerMessage.includes('multa') || lowerMessage.includes('excesso')) {
-        return `💰 <strong>Valores de Multas Atualizados:</strong><br><br>
-        • <strong>Excesso até 20%:</strong> R$ 130,16 (4 pontos)<br>
-        • <strong>Excesso 20% a 50%:</strong> R$ 195,23 (5 pontos)<br>
-        • <strong>Excesso acima 50%:</strong> R$ 880,41 (7 pontos)<br>
-        • <strong>Celular ao volante:</strong> R$ 293,47 (7 pontos)<br>
-        • <strong>Álcool:</strong> R$ 2.934,70 (suspensão CNH)<br>
-        • <strong>Sem cinto:</strong> R$ 195,23 (5 pontos)<br><br>
-        📱 <em>Precisa calcular uma multa específica? Use nossa calculadora no site!</em>`;
-        
-    } else if (lowerMessage.includes('documento') || lowerMessage.includes('cnh') || lowerMessage.includes('crlv')) {
-        return `📋 <strong>Documentos Obrigatórios:</strong><br><br>
-        • <strong>CNH</strong> (Carteira Nacional de Habilitação)<br>
-        • <strong>CRLV</strong> (Certificado de Registro e Licenciamento)<br>
-        • <strong>Documento de identidade</strong> (RG ou equivalente)<br><br>
-        📱 <strong>CNH Digital:</strong> Aceita em todo território nacional<br>
-        🔒 <strong>Dica:</strong> Mantenha sempre os documentos atualizados e dentro da validade!`;
-        
-    } else if (lowerMessage.includes('cinto')) {
-        return `🔒 <strong>Cinto de Segurança - Lei Obrigatória:</strong><br><br>
-        • <strong>Obrigatório</strong> para todos os ocupantes<br>
-        • <strong>Multa:</strong> R$ 195,23 (infração grave)<br>
-        • <strong>Pontos:</strong> 5 pontos na CNH<br><br>
-        ⚡ <strong>Importante:</strong> O cinto reduz em 45% o risco de morte em acidentes!`;
-        
-    } else if (lowerMessage.includes('celular') || lowerMessage.includes('telefone')) {
-        return `📱 <strong>Celular ao Volante - PROIBIDO:</strong><br><br>
-        • <strong>Multa:</strong> R$ 293,47 (infração gravíssima)<br>
-        • <strong>Pontos:</strong> 7 pontos na CNH<br>
-        • <strong>Suspensão:</strong> Direito de dirigir suspenso<br><br>
-        🎧 <strong>Alternativa:</strong> Use viva-voz ou Bluetooth!`;
-        
-    } else if (lowerMessage.includes('álcool') || lowerMessage.includes('bebida') || lowerMessage.includes('bafômetro')) {
-        return `🚫 <strong>Lei Seca - Tolerância Zero:</strong><br><br>
-        • <strong>Multa:</strong> R$ 2.934,70<br>
-        • <strong>Suspensão:</strong> CNH por 12 meses<br>
-        • <strong>Apreensão:</strong> Veículo retido<br>
-        • <strong>Prisão:</strong> Possível detenção<br><br>
-        🚖 <strong>Use:</strong> Uber, táxi ou transporte público!`;
-        
-    } else if (lowerMessage.includes('sinal') || lowerMessage.includes('semáforo') || lowerMessage.includes('vermelho')) {
-        return `🚦 <strong>Semáforos e Sinalizações:</strong><br><br>
-        • <strong>Vermelho:</strong> PARE obrigatório<br>
-        • <strong>Amarelo:</strong> Atenção, prepare para parar<br>
-        • <strong>Verde:</strong> Siga com atenção<br><br>
-        ⚠️ <strong>Avançar sinal vermelho:</strong> R$ 880,41 + 7 pontos!`;
-        
-    } else if (lowerMessage.includes('pedestre') || lowerMessage.includes('faixa')) {
-        return `🚶‍♂️ <strong>Prioridade do Pedestre:</strong><br><br>
-        • <strong>Faixa de pedestres:</strong> Sempre dê preferência<br>
-        • <strong>Multa por não dar preferência:</strong> R$ 293,47<br>
-        • <strong>Pontos:</strong> 7 pontos na CNH<br><br>
-        ❤️ <strong>Lembre-se:</strong> Vida humana não tem preço!`;
-        
-    } else if (lowerMessage.includes('estacionamento') || lowerMessage.includes('estacionar')) {
-        return `🅿️ <strong>Regras de Estacionamento:</strong><br><br>
-        • <strong>Fila dupla:</strong> R$ 195,23<br>
-        • <strong>Vaga de deficiente:</strong> R$ 293,47<br>
-        • <strong>Local proibido:</strong> R$ 195,23<br><br>
-        📍 <strong>Sempre:</strong> Respeite as sinalizações!`;
-        
-    } else if (lowerMessage.includes('criança') || lowerMessage.includes('cadeirinha')) {
-        return `👶 <strong>Transporte de Crianças:</strong><br><br>
-        • <strong>Até 10 anos:</strong> Banco traseiro obrigatório<br>
-        • <strong>Cadeirinha apropriada:</strong> Conforme idade/peso<br>
-        • <strong>Multa:</strong> R$ 293,47 (infração gravíssima)<br><br>
-        🛡️ <strong>Segurança</strong> das crianças em primeiro lugar!`;
-        
-    } else if (lowerMessage.includes('oi') || lowerMessage.includes('olá') || lowerMessage.includes('bom dia') || lowerMessage.includes('boa tarde') || lowerMessage.includes('boa noite')) {
-        return `👋 <strong>Olá! Seja bem-vindo!</strong><br><br>
-        Sou seu assistente inteligente de trânsito. Posso ajudar com:<br><br>
-        🚗 Regras de trânsito<br>
-        💰 Valores de multas<br>
-        📋 Documentação obrigatória<br>
-        🛡️ Dicas de segurança<br><br>
-        💡 <strong>Dica:</strong> Use os botões de sugestão ou digite sua dúvida!`;
-        
-    } else {
-        return `🤔 <strong>Desculpe, não entendi sua pergunta.</strong><br><br>
-        Posso ajudar com temas relacionados a:<br><br>
-        • Limites de velocidade<br>
-        • Valores de multas<br>
-        • Documentos obrigatórios<br>
-        • Regras de trânsito<br>
-        • Segurança no trânsito<br><br>
-        💡 <strong>Tente reformular</strong> sua pergunta ou use os botões de sugestão!`;
-    }
-}
-
 // Sistema de Autenticação
 function showForm(tipo) {
     document.getElementById('auth-buttons').style.display = 'none';
@@ -1605,8 +1308,8 @@ function startVideoAutoplay() {
     startAutoplay();
 }
 
-// Event listener para o scroll do container de vídeos
-document.addEventListener('DOMContentLoaded', function() {
+// Event listener para o scroll do container de vídeos - Será chamado na inicialização principal
+function initializeVideoScrollEvents() {
     const container = document.getElementById('videos-container');
     if (container) {
         container.addEventListener('scroll', updateScrollIndicator);
@@ -1635,7 +1338,7 @@ document.addEventListener('DOMContentLoaded', function() {
             container.scrollLeft = scrollLeft - walk;
         });
     }
-});
+}
 
 // === FUNÇÕES AUXILIARES ===
 
@@ -1808,9 +1511,26 @@ function initMobileOptimizations() {
     }
 }
 
-// Inicializar otimizações móveis quando página carregar
+// === INICIALIZAÇÃO PRINCIPAL ===
+// Todas as inicializações consolidadas em um só lugar
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Inicializando IntegraEdu...');
+    
+    // Remover tela de loading
+    setTimeout(removeLoadingScreen, 1500);
+    
+    // Inicializar todos os event listeners
+    initializeEventListeners();
+    
+    // Inicializar otimizações para mobile
+    optimizeTouchEvents();
+    preventIOSZoom();
     initMobileOptimizations();
+    
+    // Inicializar eventos de scroll de vídeos
+    initializeVideoScrollEvents();
+    
+    console.log('✅ IntegraEdu inicializado com sucesso!');
 });
 
 // Reinicializar em mudanças de orientação
@@ -1819,7 +1539,21 @@ window.addEventListener('orientationchange', function() {
         initMobileOptimizations();
         updateScrollIndicator();
         updateNavigationButtons();
+        
+        // Reajustar chatbot se estiver aberto
+        const chatWindow = document.getElementById('chat-window');
+        if (chatWindow && chatWindow.style.display === 'block') {
+            adjustChatPosition(chatWindow);
+        }
     }, 500);
+});
+
+// Listener para redimensionamento da janela
+window.addEventListener('resize', function() {
+    const chatWindow = document.getElementById('chat-window');
+    if (chatWindow && chatWindow.style.display === 'block') {
+        adjustChatPosition(chatWindow);
+    }
 });
 
 // Função para melhorar performance em dispositivos móveis
