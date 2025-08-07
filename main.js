@@ -921,12 +921,27 @@ function calcularMulta() {
     const resultadoDiv = document.getElementById('resultado-multa');
     const valorDiv = document.getElementById('valor-multa');
     
-    if (valor) {
+    if (!valor) {
+        alert('Por favor, selecione uma infração!');
+        return;
+    }
+    // Tratamento especial para opção de laudo
+    if (valor === 'laudo') {
+        // Exibe mensagem informativa em vez de valor
+        resultadoDiv.innerHTML = `
+            <h4 style="color: #795548; margin-bottom: 10px;">📋 Informação:</h4>
+            <p style="color: #795548;">Quem tomou multa antes de comprar o laudo para primeira habilitação não prejudica o processo. As multas anteriores não impedem a emissão do laudo médico exigido pelo Detran.</p>
+        `;
+        resultadoDiv.style.display = 'block';
+        showNotification('ℹ️ Informação exibida!');
+    } else {
+        // Exibe valor da multa normalmente
         valorDiv.textContent = `R$ ${valor}`;
+        // Restaura estrutura padrão, caso tenha sido alterada
+        const header = resultadoDiv.querySelector('h4');
+        if (header) header.textContent = 'Valor da Multa:';
         resultadoDiv.style.display = 'block';
         showNotification('💰 Multa calculada!');
-    } else {
-        alert('Por favor, selecione uma infração!');
     }
 }
 
