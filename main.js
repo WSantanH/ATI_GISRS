@@ -1600,5 +1600,104 @@ function optimizeForMobile() {
     }
 }
 
+// Função para corrigir problemas específicos de mobile
+function fixMobileIssues() {
+    if (isMobile()) {
+        // Corrigir overflow horizontal
+        document.body.style.overflowX = 'hidden';
+        document.documentElement.style.overflowX = 'hidden';
+        
+        // Ajustar viewport dinâmicamente
+        const viewport = document.querySelector('meta[name=viewport]');
+        if (viewport) {
+            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover');
+        }
+        
+        // Corrigir altura do viewport em mobile (address bar)
+        function fixVH() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        fixVH();
+        window.addEventListener('resize', fixVH);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(fixVH, 100);
+        });
+        
+        // Otimizar scroll em mobile
+        document.addEventListener('touchmove', function(e) {
+            // Permitir scroll apenas vertical
+            if (Math.abs(e.touches[0].clientX - e.touches[0].pageX) > Math.abs(e.touches[0].clientY - e.touches[0].pageY)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        // Corrigir problemas de touch em elementos
+        const touchElements = document.querySelectorAll('button, a, .clickable');
+        touchElements.forEach(element => {
+            element.style.cursor = 'pointer';
+            element.style.touchAction = 'manipulation';
+        });
+        
+        // Otimizar performance em mobile
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(() => {
+                // Service worker não disponível, continuar normalmente
+            });
+        }
+        
+        // Corrigir problemas com modal em mobile
+        const modals = document.querySelectorAll('.modal, .popup');
+        modals.forEach(modal => {
+            modal.style.maxHeight = '90vh';
+            modal.style.overflow = 'auto';
+            modal.style.WebkitOverflowScrolling = 'touch';
+        });
+    }
+}
+
+// Função para aplicar correções específicas após carregamento
+function applyMobileFixes() {
+    // Garantir que todos os elementos respeitam a largura da tela
+    const elements = document.querySelectorAll('*');
+    elements.forEach(el => {
+        if (el.scrollWidth > window.innerWidth) {
+            el.style.maxWidth = '100vw';
+            el.style.overflowX = 'hidden';
+        }
+    });
+    
+    // Corrigir problemas com imagens
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        img.style.objectFit = 'cover';
+    });
+    
+    // Corrigir problemas com vídeos
+    const videos = document.querySelectorAll('video');
+    videos.forEach(video => {
+        video.style.maxWidth = '100%';
+        video.style.height = 'auto';
+    });
+}
+
 // Executar otimizações
 optimizeForMobile();
+fixMobileIssues();
+
+// Aplicar correções após carregamento completo
+window.addEventListener('load', () => {
+    applyMobileFixes();
+    setTimeout(applyMobileFixes, 1000); // Aplicar novamente após 1 segundo
+});
+
+// Aplicar correções quando a orientação muda
+window.addEventListener('orientationchange', () => {
+    setTimeout(() => {
+        applyMobileFixes();
+        fixMobileIssues();
+    }, 300);
+});

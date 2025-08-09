@@ -80,6 +80,11 @@ input, textarea, select {
     
     /* Altura do menu (variável para compensação) */
     --nav-height: 70px;
+    
+    /* Variáveis específicas para mobile */
+    --mobile-padding: 12px;
+    --mobile-margin: 8px;
+    --touch-target: 44px;
 }
 
 /* Animações melhoradas */
@@ -2541,7 +2546,225 @@ nav a:hover {
     }
     
     /* Remover efeitos hover em dispositivos tácteis */
-    *:hover {
+    .video-card:hover,
+    .card:hover,
+    button:hover {
         transform: none !important;
+    }
+}
+
+/* ====================================
+   CORREÇÕES ESPECÍFICAS PARA MOBILE
+   ==================================== */
+
+/* Correção de viewport e overflow para mobile */
+@media screen and (max-width: 768px) {
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        position: relative;
+    }
+    
+    /* Container principal responsivo */
+    .container, main, section {
+        width: 100% !important;
+        max-width: 100vw !important;
+        padding-left: var(--mobile-padding) !important;
+        padding-right: var(--mobile-padding) !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Navegação mobile otimizada */
+    nav {
+        padding: var(--mobile-padding) !important;
+        flex-wrap: wrap !important;
+        gap: var(--mobile-margin) !important;
+    }
+    
+    nav ul {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: var(--mobile-margin) !important;
+    }
+    
+    nav ul li {
+        width: 100% !important;
+        text-align: center !important;
+    }
+    
+    nav ul li a {
+        display: block !important;
+        padding: var(--mobile-padding) !important;
+        width: 100% !important;
+        min-height: var(--touch-target) !important;
+        font-size: var(--font-sm) !important;
+    }
+    
+    /* Títulos responsivos para mobile */
+    h1 {
+        font-size: var(--font-2xl) !important;
+        line-height: 1.2 !important;
+        margin-bottom: var(--mobile-margin) !important;
+        word-break: break-word !important;
+    }
+    
+    h2 {
+        font-size: var(--font-xl) !important;
+        line-height: 1.3 !important;
+        margin-bottom: var(--mobile-margin) !important;
+        word-break: break-word !important;
+    }
+    
+    h3 {
+        font-size: var(--font-lg) !important;
+        line-height: 1.4 !important;
+        margin-bottom: var(--mobile-margin) !important;
+    }
+    
+    /* Cards otimizados para mobile */
+    .video-card,
+    .card,
+    .content-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: var(--mobile-margin) 0 !important;
+        padding: var(--mobile-padding) !important;
+        border-radius: var(--border-radius-small) !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Grid responsivo para mobile */
+    .stats-grid,
+    .video-grid,
+    .content-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--mobile-margin) !important;
+        padding: 0 !important;
+    }
+    
+    /* Botões otimizados para touch */
+    button,
+    .btn,
+    .category-btn,
+    .quiz-option-btn {
+        width: 100% !important;
+        min-height: var(--touch-target) !important;
+        padding: var(--mobile-padding) !important;
+        margin-bottom: var(--mobile-margin) !important;
+        font-size: var(--font-sm) !important;
+        border-radius: var(--border-radius-small) !important;
+        touch-action: manipulation !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Quiz container mobile */
+    #quiz-container,
+    #simulador-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: var(--mobile-padding) !important;
+        margin: var(--mobile-margin) 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Questões do quiz para mobile */
+    .quiz-option-btn {
+        text-align: left !important;
+        padding: var(--mobile-padding) !important;
+        margin-bottom: var(--mobile-margin) !important;
+        font-size: var(--font-sm) !important;
+        line-height: 1.4 !important;
+        word-wrap: break-word !important;
+    }
+    
+    /* Imagens e vídeos responsivos */
+    img, video, iframe {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        object-fit: cover !important;
+        border-radius: var(--border-radius-small) !important;
+    }
+    
+    /* Formulários mobile */
+    input, textarea, select {
+        width: 100% !important;
+        padding: var(--mobile-padding) !important;
+        font-size: 16px !important; /* Previne zoom no iOS */
+        border-radius: var(--border-radius-small) !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Modal mobile */
+    .modal,
+    .popup {
+        width: 95% !important;
+        max-width: 95vw !important;
+        max-height: 90vh !important;
+        margin: 5vh auto !important;
+        padding: var(--mobile-padding) !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Loading screen mobile */
+    #loading-screen {
+        padding: var(--mobile-padding) !important;
+    }
+    
+    #loading-screen h1 {
+        font-size: var(--font-2xl) !important;
+    }
+    
+    #loading-screen p {
+        font-size: var(--font-sm) !important;
+    }
+    
+    /* Back to top button mobile */
+    #back-to-top {
+        width: 50px !important;
+        height: 50px !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        font-size: var(--font-lg) !important;
+    }
+    
+    /* Scroll suave para mobile */
+    html {
+        scroll-behavior: smooth !important;
+    }
+    
+    /* Prevenir zoom horizontal */
+    body {
+        overflow-x: hidden !important;
+        transform: translateX(0) !important;
+    }
+    
+    /* Melhorar performance de animações em mobile */
+    * {
+        transform: translateZ(0) !important;
+        backface-visibility: hidden !important;
+    }
+    
+    /* Otimizações para touch */
+    * {
+        -webkit-tap-highlight-color: transparent !important;
+        -webkit-touch-callout: none !important;
+        -webkit-user-select: none !important;
+        user-select: none !important;
+    }
+    
+    /* Permitir seleção de texto onde necessário */
+    p, h1, h2, h3, h4, h5, h6, li, td, th {
+        -webkit-user-select: text !important;
+        user-select: text !important;
+    }
+    
+    /* Correção para inputs */
+    input, textarea {
+        -webkit-user-select: text !important;
+        user-select: text !important;
     }
 }
