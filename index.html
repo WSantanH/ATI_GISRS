@@ -12,40 +12,80 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-        <!-- Tela de Loading -->
+    <!-- Tela de Loading Moderna -->
     <div id="loading-screen" style="
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, #fbc02d, #ffe082);
+        background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+        background-size: 400% 400%;
+        animation: gradientShift 4s ease infinite;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         z-index: 9999;
-        color: #795548;
-        font-family: Arial, sans-serif;
+        color: white;
+        font-family: 'Inter', sans-serif;
     ">
-        <div style="text-align: center; margin-bottom: 40px;">
-            <div style="font-size: 5rem; margin-bottom: 20px;">🚗📚</div>
-            <h1 style="margin: 0; font-size: 2.5rem; font-weight: bold;">IntegraEdu</h1>
-            <p style="margin: 10px 0; font-size: 1.2rem; opacity: 0.8;">Educação e trânsito integrados</p>
-        </div>
-        
-        <!-- Spinner animado -->
+        <!-- Partículas de fundo -->
         <div style="
-            width: 60px;
-            height: 60px;
-            border: 6px solid rgba(121, 85, 72, 0.3);
-            border-top: 6px solid #795548;
-            border-radius: 50%;
-            animation: spin 2s linear infinite;
-            margin-bottom: 20px;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite;
         "></div>
         
-        <p style="font-size: 1rem; opacity: 0.7;">Carregando conteúdo educativo...</p>
+        <div style="text-align: center; margin-bottom: 40px; z-index: 1;">
+            <div style="
+                font-size: 5rem; 
+                margin-bottom: 20px; 
+                animation: bounce 2s ease-in-out infinite;
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            ">🚗📚</div>
+            <h1 style="
+                margin: 0; 
+                font-size: 2.8rem; 
+                font-weight: 700;
+                background: linear-gradient(45deg, #fff, #e2e8f0);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                animation: slideInUp 1s ease-out;
+            ">IntegraEdu</h1>
+            <p style="
+                margin: 10px 0; 
+                font-size: 1.3rem; 
+                opacity: 0.9;
+                animation: slideInUp 1s ease-out 0.3s both;
+            ">Educação e trânsito integrados</p>
+        </div>
+        
+        <!-- Spinner moderno -->
+        <div style="
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+            margin-bottom: 30px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            z-index: 1;
+        "></div>
+        
+        <p style="
+            font-size: 1.1rem; 
+            opacity: 0.8;
+            animation: pulse 2s ease-in-out infinite;
+            z-index: 1;
+        ">Carregando experiência incrível...</p>
     </div>
 
     <!-- Botão voltar ao topo -->
@@ -331,64 +371,79 @@
                     
                     <div class="video-card" style="
                         background: #fff;
-                        padding: 15px;
+                        padding: 20px;
                         border-radius: 15px;
                         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                         text-align: center;
-                        min-width: 280px;
+                        min-width: 380px;
+                        max-width: 420px;
                         flex-shrink: 0;
                         border: 2px solid rgba(251,192,45,0.1);
                         transition: all 0.3s ease;
                     ">
                         <img src="img/foto2.jpg" alt="Direção Defensiva" style="
                             width: 100%; 
-                            max-width: 260px; 
-                            height: 170px; 
-                            object-fit: cover; 
+                            max-width: 400px; 
+                            height: auto; 
+                            object-fit: contain; 
                             border-radius: 12px; 
-                            margin-bottom: 10px;
-                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                            margin-bottom: 15px;
+                            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+                            background: rgba(255,255,255,0.1);
+                            padding: 8px;
+                            min-height: 250px;
                         ">
                     </div>
                     
                     <div class="video-card" style="
                         background: #fff;
-                        padding: 15px;
+                        padding: 20px;
                         border-radius: 15px;
                         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                         text-align: center;
-                        min-width: 280px;
+                        min-width: 380px;
+                        max-width: 420px;
                         flex-shrink: 0;
                         border: 2px solid rgba(251,192,45,0.1);
                         transition: all 0.3s ease;
                     ">
                         <img src="img/foto.jpg" alt="Segurança do Pedestre" style="
                             width: 100%; 
-                            max-width: 260px; 
-                            height: 170px; 
-                            object-fit: cover; 
+                            max-width: 400px; 
+                            height: auto; 
+                            object-fit: contain; 
                             border-radius: 12px; 
-                            margin-bottom: 10px;
-                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                            margin-bottom: 15px;
+                            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+                            background: rgba(255,255,255,0.1);
+                            padding: 8px;
+                            min-height: 250px;
                         ">
                     </div>
 
                     <div class="video-card" style="
                         background: #fff;
-                        padding: 15px;
+                        padding: 20px;
                         border-radius: 15px;
                         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                         text-align: center;
-                        min-width: 280px;
+                        min-width: 380px;
+                        max-width: 420px;
                         flex-shrink: 0;
                         border: 2px solid rgba(251,192,45,0.1);
                         transition: all 0.3s ease;
                     ">
                         <img src="img/foto1.jpg" alt="Segurança para Ciclistas" style="
                             width: 100%; 
-                            max-width: 260px; 
-                            height: 170px; 
-                            object-fit: cover; 
+                            max-width: 400px; 
+                            height: auto; 
+                            object-fit: contain; 
+                            border-radius: 12px; 
+                            margin-bottom: 15px;
+                            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+                            background: rgba(255,255,255,0.1);
+                            padding: 8px;
+                            min-height: 250px; 
                             border-radius: 12px; 
                             margin-bottom: 10px;
                             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -397,23 +452,27 @@
 
                     <div class="video-card" style="
                         background: #fff;
-                        padding: 15px;
+                        padding: 20px;
                         border-radius: 15px;
                         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                         text-align: center;
-                        min-width: 280px;
+                        min-width: 380px;
+                        max-width: 420px;
                         flex-shrink: 0;
                         border: 2px solid rgba(251,192,45,0.1);
                         transition: all 0.3s ease;
                     ">
                         <img src="img/foto4.jpg" alt="Primeiros Socorros no Trânsito" style="
                             width: 100%; 
-                            max-width: 260px; 
-                            height: 170px; 
-                            object-fit: cover; 
+                            max-width: 400px; 
+                            height: auto; 
+                            object-fit: contain; 
                             border-radius: 12px; 
-                            margin-bottom: 10px;
-                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                            margin-bottom: 15px;
+                            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+                            background: rgba(255,255,255,0.1);
+                            padding: 8px;
+                            min-height: 250px;
                         ">
                     </div>
                 </div>

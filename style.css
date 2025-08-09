@@ -21,11 +21,13 @@ html, body {
     box-sizing: border-box !important;
 }
 
-/* Configuração responsiva de imagens globalmente */
+/* Configuração responsiva de imagens globalmente - sem cortes */
 img, video, iframe {
     max-width: 100% !important;
     height: auto !important;
     display: block;
+    object-fit: contain !important;
+    border-radius: var(--border-radius-small);
 }
 
 /* Prevenção de zoom indesejado no iOS */
@@ -35,26 +37,56 @@ input, textarea, select {
 
 /* Variáveis CSS para cores e espaçamentos - otimizado para responsividade */
 :root {
-    /* Cores principais */
-    --primary-color: #fbc02d;
-    --primary-dark: #f57f17;
-    --secondary-color: #795548;
-    --accent-color: #4caf50;
-    --background: linear-gradient(135deg, #fffde7 0%, #fff8e1 50%, #ffe082 100%);
-    --surface: rgba(255, 255, 255, 0.95);
-    --surface-hover: rgba(255, 255, 255, 1);
-    --text-primary: #2c2c2c;
-    --text-secondary: #666;
+    /* Cores principais - Paleta moderna e atrativa */
+    --primary-color: #667eea;
+    --primary-dark: #5a67d8;
+    --primary-light: #7c3aed;
+    --secondary-color: #f093fb;
+    --accent-color: #4facfe;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
     
-    /* Sombras responsivas */
-    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.12);
-    --shadow-heavy: 0 8px 32px rgba(0, 0, 0, 0.16);
+    /* Gradientes modernos e atrativos */
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-warm: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --gradient-cool: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    --gradient-night: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
     
-    /* Bordas e transições */
-    --border-radius: clamp(8px, 2vw, 16px);
-    --border-radius-small: clamp(4px, 1vw, 8px);
+    /* Background principal - Gradiente animado */
+    --background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
+    --background-size: 400% 400%;
+    
+    /* Superfícies com glass morphism */
+    --surface: rgba(255, 255, 255, 0.1);
+    --surface-hover: rgba(255, 255, 255, 0.2);
+    --surface-glass: rgba(255, 255, 255, 0.05);
+    --surface-dark: rgba(0, 0, 0, 0.1);
+    
+    /* Cores de texto modernas */
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --text-light: #ffffff;
+    --text-muted: #a0aec0;
+    
+    /* Sombras com profundidade */
+    --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.07);
+    --shadow-medium: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-heavy: 0 25px 50px rgba(0, 0, 0, 0.15);
+    --shadow-glow: 0 0 20px rgba(102, 126, 234, 0.4);
+    --shadow-neon: 0 0 30px rgba(240, 147, 251, 0.5);
+    
+    /* Bordas modernas */
+    --border-radius: clamp(12px, 2vw, 20px);
+    --border-radius-small: clamp(6px, 1vw, 10px);
+    --border-radius-large: clamp(16px, 3vw, 30px);
+    
+    /* Transições suaves e modernas */
+    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     
     /* Espaçamentos responsivos */
     --spacing-xs: clamp(4px, 1vw, 8px);
@@ -87,7 +119,72 @@ input, textarea, select {
     --touch-target: 44px;
 }
 
-/* Animações melhoradas */
+/* Animações modernas e atrativas */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.4); }
+    50% { box-shadow: 0 0 30px rgba(102, 126, 234, 0.8); }
+}
+
+@keyframes slideInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounce {
+    0%, 20%, 53%, 80%, 100% { transform: translate3d(0,0,0); }
+    40%, 43% { transform: translate3d(0, -15px, 0); }
+    70% { transform: translate3d(0, -7px, 0); }
+    90% { transform: translate3d(0, -2px, 0); }
+}
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -147,23 +244,40 @@ input, textarea, select {
     100% { background-position: 0% 50%; }
 }
 
-/* Configuração do corpo - totalmente responsivo */
+/* Configuração do corpo - moderno e atrativo */
 body {
     background: var(--background);
-    background-size: 400% 400%;
-    animation: gradient-shift 15s ease infinite;
+    background-size: var(--background-size);
+    animation: gradientShift 20s ease infinite;
     margin: 0;
     min-height: 100vh;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     overflow-x: hidden;
-    line-height: 1.6;
+    line-height: 1.7;
     color: var(--text-primary);
     scroll-behavior: smooth;
     font-size: var(--font-md);
     width: 100%;
+    position: relative;
 }
 
-/* Container principal responsivo */
+/* Efeito de partículas de fundo */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(240, 147, 251, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(79, 172, 254, 0.2) 0%, transparent 50%);
+    z-index: -1;
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Container principal com glass morphism */
 main {
     position: relative;
     z-index: 1;
@@ -173,6 +287,9 @@ main {
     background: var(--surface);
     backdrop-filter: blur(20px);
     border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-heavy);
+    animation: slideInUp 0.8s ease-out;
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: var(--shadow-heavy);
     padding: var(--spacing-md);
@@ -191,45 +308,64 @@ main {
     }
 }
 
-/* Tipografia responsiva otimizada */
+/* Tipografia moderna com gradientes e efeitos */
 h1 {
     font-family: 'Poppins', sans-serif;
     font-weight: 800;
     font-size: var(--font-3xl);
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-align: center;
     margin-bottom: var(--spacing-md);
     line-height: 1.2;
-    animation: fadeInUp 0.8s ease-out 0.2s both;
+    animation: slideInUp 0.8s ease-out 0.2s both;
     word-break: break-word;
     hyphens: auto;
+    position: relative;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Efeito brilhante para h1 */
+h1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: sparkle 3s ease-in-out infinite;
 }
 
 h2 {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     font-size: var(--font-2xl);
-    color: var(--secondary-color);
+    background: var(--gradient-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: var(--spacing-sm);
     text-align: center;
     position: relative;
     word-break: break-word;
     hyphens: auto;
     padding-bottom: var(--spacing-xs);
+    animation: fadeInScale 0.6s ease-out 0.4s both;
 }
 
+/* Linha decorativa sob h2 */
 h2::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: clamp(40px, 15%, 80px);
+    width: 60px;
     height: 3px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    background: var(--gradient-accent);
     border-radius: 2px;
 }
 
@@ -238,11 +374,19 @@ h3 {
     font-weight: 600;
     font-size: var(--font-xl);
     color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+    position: relative;
+    animation: slideInRight 0.6s ease-out 0.6s both;
+}
+
+/* Parágrafos modernos */
+p {
+    font-family: 'Inter', sans-serif;
+    font-size: var(--font-md);
+    line-height: 1.7;
+    color: var(--text-secondary);
     margin-bottom: var(--spacing-sm);
-    text-align: center;
-    animation: fadeInUp 0.8s ease-out 0.4s both;
-    word-break: break-word;
-    hyphens: auto;
+    animation: fadeInScale 0.6s ease-out 0.8s both;
 }
 
 h4 {
@@ -307,16 +451,16 @@ section {
     margin: var(--spacing-md) 0;
 }
 
-/* Cards melhorados e totalmente responsivos */
+/* Cards modernos com glass morphism e efeitos visuais */
 .video-card, 
 .card,
 section > div[style*="background: #fff"],
 section > div[style*="background:#fff"] {
     background: var(--surface) !important;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-medium);
     transition: var(--transition);
     position: relative;
     overflow: hidden;
@@ -324,9 +468,23 @@ section > div[style*="background:#fff"] {
     width: 100%;
     max-width: 100%;
     margin-bottom: var(--spacing-sm);
+    animation: fadeInScale 0.6s ease-out;
 }
 
-/* Efeito shimmer nos cards */
+/* Efeito de gradiente nos cards */
+.video-card::after,
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: var(--border-radius-small) var(--border-radius-small) 0 0;
+}
+
+/* Efeito shimmer nos cards - mais suave */
 .video-card::before,
 .card::before,
 section > div[style*="background: #fff"]::before,
@@ -361,15 +519,46 @@ section > div[style*="background:#fff"]::before {
     }
 }
 
-/* Imagens responsivas em cards */
+/* Imagens responsivas em cards - tamanho maior */
 .video-card img,
 .card img,
 section img {
     width: 100%;
     height: auto;
     border-radius: var(--border-radius-small);
-    object-fit: cover;
-    max-height: 200px;
+    object-fit: contain;
+    max-height: 400px;
+    min-height: 250px;
+    background: var(--surface-glass);
+    display: block;
+    margin: 0 auto;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+/* Correção específica para imagens dos cards de vídeo - tamanho maior */
+.video-card img[src*="foto"] {
+    object-fit: contain !important;
+    height: auto !important;
+    max-height: 400px !important;
+    width: 100% !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    min-height: 250px !important;
+}
+
+/* Força todas as imagens a serem maiores e não cortadas */
+img[src*="foto"],
+img[src*="img/"] {
+    object-fit: contain !important;
+    object-position: center !important;
+    height: auto !important;
+    max-height: 400px !important;
+    min-height: 250px !important;
+    width: 100% !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
 }
 
 /* Container de vídeos responsivo */
@@ -516,13 +705,13 @@ nav a::before {
     }
 }
 
-/* Botões modernos e responsivos */
+/* Botões modernos com gradientes e efeitos visuais */
 button {
     font-family: 'Poppins', sans-serif !important;
     font-weight: 600 !important;
     border: none !important;
-    border-radius: 50px !important;
-    padding: 14px 28px !important;
+    border-radius: var(--border-radius) !important;
+    padding: 16px 32px !important;
     cursor: pointer !important;
     transition: var(--transition) !important;
     position: relative !important;
@@ -530,8 +719,13 @@ button {
     font-size: clamp(0.9rem, 2vw, 1.1rem) !important;
     text-transform: none !important;
     letter-spacing: 0.5px !important;
+    background: var(--gradient-primary) !important;
+    color: var(--text-light) !important;
+    box-shadow: var(--shadow-medium) !important;
+    transform: translateY(0) !important;
 }
 
+/* Efeito de brilho nos botões */
 button::before {
     content: '';
     position: absolute;
@@ -539,8 +733,8 @@ button::before {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
-    transition: left 0.4s ease;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s ease;
     z-index: 1;
 }
 
@@ -548,9 +742,27 @@ button:hover::before {
     left: 100%;
 }
 
+/* Estados hover dos botões */
 button:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: var(--shadow-medium);
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: var(--shadow-heavy) !important;
+    animation: glow 2s ease-in-out infinite alternate !important;
+}
+
+/* Botões secundários */
+.btn-secondary {
+    background: var(--gradient-secondary) !important;
+}
+
+.btn-accent {
+    background: var(--gradient-accent) !important;
+}
+
+/* Botão especial com efeito neon */
+.btn-special {
+    background: var(--gradient-night) !important;
+    border: 2px solid var(--primary-color) !important;
+    animation: pulse 3s ease-in-out infinite !important;
 }
 
 button:active {
@@ -2680,13 +2892,16 @@ nav a:hover {
         word-wrap: break-word !important;
     }
     
-    /* Imagens e vídeos responsivos */
+    /* Imagens e vídeos responsivos - sem cortes em mobile */
     img, video, iframe {
         width: 100% !important;
         max-width: 100% !important;
         height: auto !important;
-        object-fit: cover !important;
+        object-fit: contain !important;
         border-radius: var(--border-radius-small) !important;
+        background: var(--surface-glass) !important;
+        padding: 4px !important;
+        box-sizing: border-box !important;
     }
     
     /* Formulários mobile */
