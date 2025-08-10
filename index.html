@@ -565,82 +565,82 @@
         </section>
 
         <!-- Simulador de Situações de Trânsito -->
-        <section id="simulador" style="margin: 40px 0; padding: 25px; background: rgba(227, 242, 253, 0.9); border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
-            <h2 style="color: #1976d2; text-align: center; margin-bottom: 25px;">🚗 Simulador de Situações - Como Você Reagiria?</h2>
-            <div id="simulador-container" style="text-align: center; min-height: 300px; background: #fff; border-radius: 10px; padding: 25px;">
+        <section id="simulador">
+            <h2>🚗 Simulador de Situações - Como Você Reagiria?</h2>
+            <div id="simulador-container">
                 <div id="cenario">
-                    <div style="font-size: 4rem; margin-bottom: 20px;">🚦</div>
-                    <h3 style="color: #1976d2; margin-bottom: 15px;">Situação: Semáforo amarelo piscando</h3>
-                    <p style="color: #666; margin-bottom: 25px; line-height: 1.6;">Você está dirigindo a 50km/h e se aproxima de um cruzamento com semáforo amarelo piscando. Há pedestres aguardando para atravessar. O que você faz?</p>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 600px; margin: 0 auto;">
-                        <button class="sim-btn" data-action="parar" style="background: #f44336; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">🛑 Parar e dar preferência</button>
-                        <button class="sim-btn" data-action="acelerar" style="background: #ff9800; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">⚡ Acelerar para passar</button>
-                        <button class="sim-btn" data-action="reduzir" style="background: #4caf50; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">🐌 Reduzir e avaliar</button>
+                    <div class="cenario-icon">🚦</div>
+                    <h3 class="cenario-title">Situação: Semáforo amarelo piscando</h3>
+                    <p class="cenario-description">Você está dirigindo a 50km/h e se aproxima de um cruzamento com semáforo amarelo piscando. Há pedestres aguardando para atravessar. O que você faz?</p>
+                    <div class="cenario-actions">
+                        <button class="sim-btn" data-action="parar">🛑 Parar e dar preferência</button>
+                        <button class="sim-btn" data-action="acelerar">⚡ Acelerar para passar</button>
+                        <button class="sim-btn" data-action="reduzir">🐌 Reduzir e avaliar</button>
                     </div>
                 </div>
-                <div id="resultado-simulacao" style="display: none; margin-top: 25px;"></div>
+                <div id="resultado-simulacao"></div>
             </div>
         </section>
 
         <!-- Estatísticas de Trânsito -->
-        <section id="estatisticas" style="margin: 40px 0; padding: 30px; background: rgba(255, 248, 225, 0.95); backdrop-filter: blur(15px); border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.3); box-shadow: var(--shadow-medium);">
-            <h2 style="color: #ff9800; text-align: center; margin-bottom: 30px;">📊 Estatísticas de Trânsito no Brasil</h2>
+        <section id="estatisticas">
+            <h2>📊 Estatísticas de Trânsito no Brasil</h2>
             <div class="grid-cards">
-                <div class="stats-card" style="background: linear-gradient(135deg, rgba(244,67,54,0.1), rgba(244,67,54,0.05)) !important;">
-                    <div style="font-size: 4rem; margin-bottom: 20px;">📈</div>
-                    <h3 style="color: #f44336; margin: 15px 0; font-size: 2.5rem; font-weight: 800;">47.000</h3>
-                    <p style="color: var(--text-secondary); margin: 10px 0; font-size: 1.1rem; font-weight: 600;">Mortes no trânsito por ano</p>
-                    <small style="color: var(--text-secondary); opacity: 0.8; font-size: 0.9rem;">Fonte: PRF/DATASUS</small>
+                <div class="stats-card red">
+                    <div class="stats-icon">📈</div>
+                    <h3 class="stats-number red">47.000</h3>
+                    <p class="stats-label">Mortes no trânsito por ano</p>
+                    <small class="stats-source">Fonte: PRF/DATASUS</small>
                 </div>
-                <div class="stats-card" style="background: linear-gradient(135deg, rgba(255,152,0,0.1), rgba(255,152,0,0.05)) !important;">
-                    <div style="font-size: 4rem; margin-bottom: 20px;">🚗</div>
-                    <h3 style="color: #ff9800; margin: 15px 0; font-size: 2.5rem; font-weight: 800;">1.6mi</h3>
-                    <p style="color: var(--text-secondary); margin: 10px 0; font-size: 1.1rem; font-weight: 600;">Acidentes por ano</p>
-                    <small style="color: var(--text-secondary); opacity: 0.8; font-size: 0.9rem;">Dados oficiais</small>
+                <div class="stats-card orange">
+                    <div class="stats-icon">🚗</div>
+                    <h3 class="stats-number orange">1.6mi</h3>
+                    <p class="stats-label">Acidentes por ano</p>
+                    <small class="stats-source">Dados oficiais</small>
                 </div>
-                <div class="stats-card" style="background: linear-gradient(135deg, rgba(76,175,80,0.1), rgba(76,175,80,0.05)) !important;">
-                    <div style="font-size: 4rem; margin-bottom: 20px;">✅</div>
-                    <h3 style="color: #4caf50; margin: 15px 0; font-size: 2.5rem; font-weight: 800;">90%</h3>
-                    <p style="color: var(--text-secondary); margin: 10px 0; font-size: 1.1rem; font-weight: 600;">Acidentes evitáveis</p>
-                    <small style="color: var(--text-secondary); opacity: 0.8; font-size: 0.9rem;">Com educação</small>
+                <div class="stats-card green">
+                    <div class="stats-icon">✅</div>
+                    <h3 class="stats-number green">90%</h3>
+                    <p class="stats-label">Acidentes evitáveis</p>
+                    <small class="stats-source">Com educação</small>
                 </div>
-                <div class="stats-card" style="background: linear-gradient(135deg, rgba(156,39,176,0.1), rgba(156,39,176,0.05)) !important;">
-                    <div style="font-size: 4rem; margin-bottom: 20px;">💰</div>
-                    <h3 style="color: #9c27b0; margin: 15px 0; font-size: 2.5rem; font-weight: 800;">R$ 56bi</h3>
-                    <p style="color: var(--text-secondary); margin: 10px 0; font-size: 1.1rem; font-weight: 600;">Custo anual dos acidentes</p>
-                    <small style="color: var(--text-secondary); opacity: 0.8; font-size: 0.9rem;">Para a sociedade</small>
+                <div class="stats-card purple">
+                    <div class="stats-icon">💰</div>
+                    <h3 class="stats-number purple">R$ 56bi</h3>
+                    <p class="stats-label">Custo anual dos acidentes</p>
+                    <small class="stats-source">Para a sociedade</small>
                 </div>
             </div>
         </section>
 
         <!-- Sistema de Conquistas -->
-        <section id="conquistas" style="margin: 40px 0; padding: 30px; background: rgba(243, 229, 245, 0.95); backdrop-filter: blur(15px); border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.3); box-shadow: var(--shadow-medium);">
-            <h2 style="color: #9c27b0; text-align: center; margin-bottom: 30px;">🏆 Suas Conquistas em Educação no Trânsito</h2>
-            <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
-                <div class="badge" id="badge-quiz" data-badge="quiz" style="text-align: center; opacity: 0.5; transition: var(--transition);">
-                    <div class="badge-icon" style="width: 100px; height: 100px; background: linear-gradient(135deg, #ccc, #999); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; margin: 0 auto 15px; box-shadow: var(--shadow-light);">🧠</div>
-                    <p style="margin: 0; font-weight: bold; color: var(--text-primary); font-size: 1.1rem;">Expert em Quiz</p>
-                    <small style="color: var(--text-secondary); font-size: 0.9rem;">Complete o quiz</small>
+        <section id="conquistas">
+            <h2>🏆 Suas Conquistas em Educação no Trânsito</h2>
+            <div class="badges-container">
+                <div class="badge" id="badge-quiz" data-badge="quiz">
+                    <div class="badge-icon quiz">🧠</div>
+                    <p>Expert em Quiz</p>
+                    <small>Complete o quiz</small>
                 </div>
-                <div class="badge" id="badge-simulador" data-badge="simulador" style="text-align: center; opacity: 0.5; transition: var(--transition);">
-                    <div class="badge-icon" style="width: 100px; height: 100px; background: linear-gradient(135deg, #ccc, #999); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; margin: 0 auto 15px; box-shadow: var(--shadow-light);">🚗</div>
-                    <p style="margin: 0; font-weight: bold; color: var(--text-primary); font-size: 1.1rem;">Condutor Consciente</p>
-                    <small style="color: var(--text-secondary); font-size: 0.9rem;">Use o simulador</small>
+                <div class="badge" id="badge-simulador" data-badge="simulador">
+                    <div class="badge-icon simulador">🚗</div>
+                    <p>Condutor Consciente</p>
+                    <small>Use o simulador</small>
                 </div>
-                <div class="badge" id="badge-manual" data-badge="manual" style="text-align: center; opacity: 0.5; transition: var(--transition);">
-                    <div class="badge-icon" style="width: 100px; height: 100px; background: linear-gradient(135deg, #ccc, #999); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; margin: 0 auto 15px; box-shadow: var(--shadow-light);">📖</div>
-                    <p style="margin: 0; font-weight: bold; color: var(--text-primary); font-size: 1.1rem;">Estudioso</p>
-                    <small style="color: var(--text-secondary); font-size: 0.9rem;">Abra o manual</small>
+                <div class="badge" id="badge-manual" data-badge="manual">
+                    <div class="badge-icon manual">📖</div>
+                    <p>Estudioso</p>
+                    <small>Abra o manual</small>
                 </div>
             </div>
         </section>
 
         <!-- Calculadora de Multas -->
-        <section id="calculadora" style="margin: 40px 0; padding: 25px; background: rgba(255, 235, 238, 0.9); border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
-            <h2 style="color: #f44336; text-align: center; margin-bottom: 25px;">💰 Calculadora de Multas - Saiba o Valor</h2>
-            <div style="max-width: 500px; margin: 0 auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                <label style="display: block; margin-bottom: 10px; font-weight: bold; color: #795548;">Selecione a infração:</label>
-                <select id="tipo-infracao" style="width: 100%; padding: 12px; margin-bottom: 20px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;">
+        <section id="calculadora">
+            <h2>💰 Calculadora de Multas - Saiba o Valor</h2>
+            <div class="calculadora-form">
+                <label>Selecione a infração:</label>
+                <select id="tipo-infracao">
                     <option value="">Selecione uma infração</option>
                     <option value="130.16">Excesso de velocidade até 20% - MÉDIA</option>
                     <option value="195.23">Não usar cinto de segurança - GRAVE</option>
@@ -651,129 +651,136 @@
                     <!-- Pergunta personalizada sobre laudo -->
                     <option value="laudo">Quem tomou multa antes de comprar o laudo para primeira habilitação prejudica o processo?</option>
                 </select>
-                <button id="calcular-multa-btn" style="width: 100%; padding: 15px; background: #f44336; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: background 0.3s;">💸 Calcular Multa</button>
-                <div id="resultado-multa" style="margin-top: 20px; padding: 15px; background: #f5f5f5; border-radius: 8px; text-align: center; display: none;">
-                    <h4 style="color: #f44336; margin-bottom: 10px;">Valor da Multa:</h4>
-                    <div id="valor-multa" style="font-size: 2rem; font-weight: bold; color: #f44336; margin-bottom: 10px;"></div>
-                    <p style="margin: 0; color: #666; font-size: 0.9rem;">Lembre-se: além da multa, há pontos na CNH!</p>
+                <button id="calcular-multa-btn">💸 Calcular Multa</button>
+                <div id="resultado-multa">
+                    <h4>Valor da Multa:</h4>
+                    <div id="valor-multa"></div>
+                    <p>Lembre-se: além da multa, há pontos na CNH!</p>
                 </div>
             </div>
         </section>
 
         <!-- Seção de Dicas Rápidas -->
-        <section id="dicas" style="margin: 40px 0; padding: 30px; background: var(--surface); backdrop-filter: blur(15px); border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.3); box-shadow: var(--shadow-medium);">
-            <h2 style="color: var(--secondary-color); text-align: center; margin-bottom: 30px;">💡 Dicas Rápidas de Segurança</h2>
-            <div class="grid-cards">
-                <div style="background: linear-gradient(135deg, rgba(255,152,0,0.1), rgba(255,152,0,0.05)); padding: 25px; border-radius: var(--border-radius); border-left: 6px solid #ff9800; transition: var(--transition); backdrop-filter: blur(10px);" onmouseover="this.style.transform='translateY(-5px) scale(1.02)'" onmouseout="this.style.transform='translateY(0) scale(1)'">
-                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                        <span style="font-size: 2rem; margin-right: 15px;">🔧</span>
-                        <h4 style="color: #ff9800; margin: 0; font-size: 1.2rem; font-weight: 700;">Antes de Sair</h4>
+        <section id="dicas">
+            <div class="dicas-header">
+                <h2>💡 Dicas Rápidas de Segurança</h2>
+                <button id="nova-dica-btn" onclick="mostrarDicaAleatoria()">
+                    🎲 Nova Dica
+                </button>
+            </div>
+            
+            <!-- Contador de Dicas -->
+            <div id="dica-counter">
+                <span id="dica-atual">Dica vista nesta sessão: <strong id="numero-dica">1</strong> de <strong id="total-dicas">20</strong></span>
+                <button onclick="reiniciarContadorDicas()">
+                    🔄 Reiniciar
+                </button>
+            </div>
+            <div class="dicas-grid">
+                <div class="dica-card orange">
+                    <div class="dica-header">
+                        <span class="dica-icon">🔧</span>
+                        <h4 class="dica-title orange">Antes de Sair</h4>
                     </div>
-                    <p style="margin: 0; font-size: 1rem; line-height: 1.6; color: var(--text-secondary);">Verifique pneus, freios, luzes e documentos</p>
+                    <p class="dica-text">Verifique pneus, freios, luzes e documentos</p>
                 </div>
-                <div style="background: linear-gradient(135deg, rgba(33,150,243,0.1), rgba(33,150,243,0.05)); padding: 25px; border-radius: var(--border-radius); border-left: 6px solid #2196f3; transition: var(--transition); backdrop-filter: blur(10px);" onmouseover="this.style.transform='translateY(-5px) scale(1.02)'" onmouseout="this.style.transform='translateY(0) scale(1)'">
-                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                        <span style="font-size: 2rem; margin-right: 15px;">⚡</span>
-                        <h4 style="color: #2196f3; margin: 0; font-size: 1.2rem; font-weight: 700;">Durante o Trajeto</h4>
+                <div class="dica-card blue">
+                    <div class="dica-header">
+                        <span class="dica-icon">⚡</span>
+                        <h4 class="dica-title blue">Durante o Trajeto</h4>
                     </div>
-                    <p style="margin: 0; font-size: 1rem; line-height: 1.6; color: var(--text-secondary);">Mantenha atenção total e evite distrações</p>
+                    <p class="dica-text">Mantenha atenção total e evite distrações</p>
                 </div>
-                <div style="background: linear-gradient(135deg, rgba(76,175,80,0.1), rgba(76,175,80,0.05)); padding: 25px; border-radius: var(--border-radius); border-left: 6px solid #4caf50; transition: var(--transition); backdrop-filter: blur(10px);" onmouseover="this.style.transform='translateY(-5px) scale(1.02)'" onmouseout="this.style.transform='translateY(0) scale(1)'">
-                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                        <span style="font-size: 2rem; margin-right: 15px;">🛑</span>
-                        <h4 style="color: #4caf50; margin: 0; font-size: 1.2rem; font-weight: 700;">Em Emergências</h4>
+                <div class="dica-card green">
+                    <div class="dica-header">
+                        <span class="dica-icon">🛑</span>
+                        <h4 class="dica-title green">Em Emergências</h4>
                     </div>
-                    <p style="margin: 0; font-size: 1rem; line-height: 1.6; color: var(--text-secondary);">Mantenha calma e siga os protocolos de segurança</p>
+                    <p class="dica-text">Mantenha calma e siga os protocolos de segurança</p>
                 </div>
             </div>
         </section>
 
         <!-- Barra de Progresso do Usuário -->
-        <section id="progresso" style="margin: 40px 0; padding: 25px; background: rgba(255,255,255,0.9); border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
-            <h2 style="color: #795548; text-align: center; margin-bottom: 25px;">📈 Seu Progresso em Educação no Trânsito</h2>
-            <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <h4 style="color: #795548; margin: 0;">Conhecimento Adquirido</h4>
-                    <span id="progress-percentage" style="font-weight: bold; color: #4caf50; font-size: 1.2rem;">0%</span>
+        <section id="progresso">
+            <h2>📈 Seu Progresso em Educação no Trânsito</h2>
+            <div class="progresso-content">
+                <div class="progresso-header">
+                    <h4>Conhecimento Adquirido</h4>
+                    <span id="progress-percentage">0%</span>
                 </div>
-                <div style="background: #f0f0f0; height: 20px; border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
-                    <div id="progress-bar" style="background: linear-gradient(90deg, #4caf50, #8bc34a); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
-                </div>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                    <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 10px;">
-                        <div style="font-size: 2rem; margin-bottom: 10px;">🧠</div>
-                        <h5 style="margin: 0 0 5px 0; color: #795548;">Quiz Completos</h5>
-                        <p id="quiz-completed" style="margin: 0; font-weight: bold; color: #4caf50; font-size: 1.2rem;">0</p>
-                    </div>
-                    <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 10px;">
-                        <div style="font-size: 2rem; margin-bottom: 10px;">🚗</div>
-                        <h5 style="margin: 0 0 5px 0; color: #795548;">Simulações</h5>
-                        <p id="simulations-completed" style="margin: 0; font-weight: bold; color: #2196f3; font-size: 1.2rem;">0</p>
-                    </div>
-                    <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 10px;">
-                        <div style="font-size: 2rem; margin-bottom: 10px;">📖</div>
-                        <h5 style="margin: 0 0 5px 0; color: #795548;">Manual Acessado</h5>
-                        <p id="manual-accessed" style="margin: 0; font-weight: bold; color: #ff9800; font-size: 1.2rem;">Não</p>
-                    </div>
+                <div class="progress-bar-container">
+                    <div id="progress-bar"></div>
                 </div>
                 
-                <div style="margin-top: 20px; padding: 15px; background: linear-gradient(45deg, #e8f5e8, #f1f8e9); border-radius: 10px; text-align: center;">
-                    <p id="progress-message" style="margin: 0; color: #2e7d32; font-weight: bold;">🌟 Continue aprendendo para se tornar um especialista em trânsito!</p>
+                <div class="progress-stats">
+                    <div class="progress-stat">
+                        <div class="progress-stat-icon">🧠</div>
+                        <h5 class="progress-stat-label">Quiz Completos</h5>
+                        <p id="quiz-completed" class="progress-stat-number green">0</p>
+                    </div>
+                    <div class="progress-stat">
+                        <div class="progress-stat-icon">🚗</div>
+                        <h5 class="progress-stat-label">Simulações</h5>
+                        <p id="simulations-completed" class="progress-stat-number blue">0</p>
+                    </div>
+                    <div class="progress-stat">
+                        <div class="progress-stat-icon">📖</div>
+                        <h5 class="progress-stat-label">Manual Acessado</h5>
+                        <p id="manual-accessed" class="progress-stat-number orange">Não</p>
+                    </div>
+                </div>
+                
+                <div id="progress-message">
+                    🌟 Continue aprendendo para se tornar um especialista em trânsito!
                 </div>
             </div>
         </section>
 
         <!-- Seção de Contato -->
-        <section id="contato" style="margin: 40px 0; padding: 25px; background: rgba(255,255,255,0.7); border-radius: 15px; text-align: center;">
-            <h2 style="color: #795548; margin-bottom: 20px;">📞 Entre em Contato</h2>
-            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 20px 0;">
-                <div style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); min-width: 200px;">
-                    <h4 style="color: #4caf50; margin: 0 0 10px 0;">📱 WhatsApp</h4>
-                    <p style="margin: 0; font-weight: bold; color: #795548;">+55 75998332864</p>
+        <section id="contato">
+            <h2>📞 Entre em Contato</h2>
+            <div class="contact-cards">
+                <div class="contact-card whatsapp">
+                    <h4>📱 WhatsApp</h4>
+                    <p>+55 75998332864</p>
                 </div>
-                <div style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); min-width: 200px;">
-                    <h4 style="color: #2196f3; margin: 0 0 10px 0;">📧 E-mail</h4>
-                    <p style="margin: 0; font-weight: bold; color: #795548;">integraedu2025@hotmail.com</p>
+                <div class="contact-card email">
+                    <h4>📧 E-mail</h4>
+                    <p>integraedu2025@hotmail.com</p>
                 </div>
             </div>
         </section>
     </main>
     
     <!-- Footer -->
-    <footer style="
-        background: rgba(121, 85, 72, 0.9);
-        color: #fffde7;
-        padding: 40px 20px 20px 20px;
-        text-align: center;
-        margin-top: 60px;
-    ">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 30px;">
-                <div>
-                    <h3 style="color: #fbc02d; margin-bottom: 15px;">🎓 IntegraEdu</h3>
-                    <p style="font-size: 0.9rem; line-height: 1.6;">Educação e trânsito integrados para um futuro mais seguro e consciente.</p>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>🎓 IntegraEdu</h3>
+                    <p>Educação e trânsito integrados para um futuro mais seguro e consciente.</p>
                 </div>
-                <div>
-                    <h4 style="color: #fbc02d; margin-bottom: 15px;">📞 Contato</h4>
-                    <p style="font-size: 0.9rem; margin: 5px 0;">WhatsApp: +55 75998332864</p>
-                    <p style="font-size: 0.9rem; margin: 5px 0;">E-mail: integraedu2025@hotmail.com</p>
+                <div class="footer-section">
+                    <h4>📞 Contato</h4>
+                    <p>WhatsApp: +55 75998332864</p>
+                    <p>E-mail: integraedu2025@hotmail.com</p>
                 </div>
-                <div>
-                    <h4 style="color: #fbc02d; margin-bottom: 15px;">🔗 Links Úteis</h4>
-                    <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
-                        <a href="docs/manual-transito-2022.pdf" target="_blank" style="color: #fffde7; text-decoration: none; font-size: 0.9rem;">📖 Manual do Trânsito</a>
-                        <a href="#videos" style="color: #fffde7; text-decoration: none; font-size: 0.9rem;">🎥 Vídeos Educativos</a>
-                        <a href="#dicas" style="color: #fffde7; text-decoration: none; font-size: 0.9rem;">💡 Dicas de Segurança</a>
+                <div class="footer-section">
+                    <h4>🔗 Links Úteis</h4>
+                    <div class="footer-links">
+                        <a href="docs/manual-transito-2022.pdf" target="_blank">📖 Manual do Trânsito</a>
+                        <a href="#videos">🎥 Vídeos Educativos</a>
+                        <a href="#dicas">💡 Dicas de Segurança</a>
                     </div>
                 </div>
             </div>
             
-            <div style="border-top: 1px solid rgba(251,192,45,0.3); padding-top: 20px;">
-                <p style="margin: 0; font-size: 0.9rem; color: #ffe082;">
+            <div class="footer-bottom">
+                <p>
                     © 2025 IntegraEdu - Desenvolvido por Wayllahn e Gislândia | Todos os direitos reservados
                 </p>
-                <p style="margin: 10px 0 0 0; font-size: 0.8rem; color: #ffecb3;">
+                <p>
                     💚 Juntos por um trânsito mais seguro
                 </p>
             </div>

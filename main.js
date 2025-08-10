@@ -25,7 +25,7 @@ function preventIOSZoom() {
                 document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
             });
             input.addEventListener('blur', function() {
-                document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover');
             });
         });
     }
@@ -70,6 +70,9 @@ window.addEventListener('load', function() {
     // Inicializar otimizações para mobile
     optimizeTouchEvents();
     preventIOSZoom();
+    // Aplicar correções mobile
+    applyMobileFixes();
+    setTimeout(applyMobileFixes, 1000);
 });
 
 // Fallback - remover loading após 3 segundos no máximo
@@ -369,10 +372,14 @@ function updateProgress() {
     const simulationsCompleted = localStorage.getItem('simulations-completed') || '0';
     const manualAccessed = localStorage.getItem('badge-manual') === 'true';
     
-    // Atualizar contadores
-    document.getElementById('quiz-completed').textContent = quizCompleted;
-    document.getElementById('simulations-completed').textContent = simulationsCompleted;
-    document.getElementById('manual-accessed').textContent = manualAccessed ? 'Sim' : 'Não';
+    // Atualizar contadores com verificação de existência
+    const quizElement = document.getElementById('quiz-completed');
+    const simulationsElement = document.getElementById('simulations-completed');
+    const manualElement = document.getElementById('manual-accessed');
+    
+    if (quizElement) quizElement.textContent = quizCompleted;
+    if (simulationsElement) simulationsElement.textContent = simulationsCompleted;
+    if (manualElement) manualElement.textContent = manualAccessed ? 'Sim' : 'Não';
     
     // Calcular porcentagem
     const totalActivities = 3; // Quiz, Simulador, Manual
@@ -384,20 +391,25 @@ function updateProgress() {
     
     const percentage = Math.round((completedActivities / totalActivities) * 100);
     
-    // Atualizar barra de progresso
-    document.getElementById('progress-bar').style.width = percentage + '%';
-    document.getElementById('progress-percentage').textContent = percentage + '%';
+    // Atualizar barra de progresso com verificação de existência
+    const progressBar = document.getElementById('progress-bar');
+    const progressPercentage = document.getElementById('progress-percentage');
+    
+    if (progressBar) progressBar.style.width = percentage + '%';
+    if (progressPercentage) progressPercentage.textContent = percentage + '%';
     
     // Atualizar mensagem
     const messageElement = document.getElementById('progress-message');
-    if (percentage === 100) {
-        messageElement.textContent = '🎉 Parabéns! Você completou todos os módulos!';
-        messageElement.style.background = 'linear-gradient(45deg, #e8f5e8, #c8e6c9)';
-    } else if (percentage >= 50) {
-        messageElement.textContent = '👍 Ótimo progresso! Continue assim!';
-        messageElement.style.background = 'linear-gradient(45deg, #fff3e0, #ffe0b2)';
-    } else {
-        messageElement.textContent = '🌟 Continue aprendendo para se tornar um especialista em trânsito!';
+    if (messageElement) {
+        if (percentage === 100) {
+            messageElement.textContent = '🎉 Parabéns! Você completou todos os módulos!';
+            messageElement.style.background = 'linear-gradient(45deg, #e8f5e8, #c8e6c9)';
+        } else if (percentage >= 50) {
+            messageElement.textContent = '👍 Ótimo progresso! Continue assim!';
+            messageElement.style.background = 'linear-gradient(45deg, #fff3e0, #ffe0b2)';
+        } else {
+            messageElement.textContent = '🌟 Continue aprendendo para se tornar um especialista em trânsito!';
+        }
     }
 }
 
@@ -964,11 +976,12 @@ function calcularMulta() {
         resultadoDiv.style.display = 'block';
         showNotification('ℹ️ Informação exibida!');
     } else {
-        // Exibe valor da multa normalmente
-        valorDiv.textContent = `R$ ${valor}`;
-        // Restaura estrutura padrão, caso tenha sido alterada
-        const header = resultadoDiv.querySelector('h4');
-        if (header) header.textContent = 'Valor da Multa:';
+        // Restaura estrutura padrão para valores de multa
+        resultadoDiv.innerHTML = `
+            <h4 style="color: #f44336; margin-bottom: 10px;">Valor da Multa:</h4>
+            <div id="valor-multa" style="font-size: 2rem; font-weight: bold; color: #f44336; margin-bottom: 10px;">R$ ${valor}</div>
+            <p style="margin: 0; color: #666; font-size: 0.9rem;">Lembre-se: além da multa, há pontos na CNH!</p>
+        `;
         resultadoDiv.style.display = 'block';
         showNotification('💰 Multa calculada!');
     }
@@ -979,8 +992,12 @@ function unlockBadge(badgeType) {
     const badge = document.getElementById(`badge-${badgeType}`);
     if (badge && badge.style.opacity !== '1') {
         badge.style.opacity = '1';
-        badge.querySelector('div').style.background = badgeType === 'quiz' ? '#9c27b0' : 
-                                                    badgeType === 'simulador' ? '#1976d2' : '#ff9800';
+        
+        const badgeDiv = badge.querySelector('div');
+        if (badgeDiv) {
+            badgeDiv.style.background = badgeType === 'quiz' ? '#9c27b0' : 
+                                       badgeType === 'simulador' ? '#1976d2' : '#ff9800';
+        }
         
         // Salvar no localStorage
         localStorage.setItem(`badge-${badgeType}`, 'true');
@@ -991,7 +1008,9 @@ function unlockBadge(badgeType) {
             badge.style.transform = 'scale(1)';
         }, 300);
         
-        showNotification(`🏆 Conquista desbloqueada: ${badge.querySelector('p').textContent}!`);
+        const badgeText = badge.querySelector('p');
+        const badgeTitle = badgeText ? badgeText.textContent : badgeType;
+        showNotification(`🏆 Conquista desbloqueada: ${badgeTitle}!`);
     }
 }
 
@@ -1008,7 +1027,7 @@ function checkSavedBadges() {
     });
 }
 
-// Dicas do dia
+// Dicas do dia - Array expandido para mais variedade
 const dicasDiarias = [
     "🔧 Sempre verifique os pneus antes de viajar!",
     "🚗 Mantenha distância segura do veículo da frente.",
@@ -1016,15 +1035,150 @@ const dicasDiarias = [
     "📱 Nunca use o celular enquanto dirige.",
     "🌧️ Reduza a velocidade em dias chuvosos.",
     "🚦 Respeite sempre a sinalização de trânsito.",
-    "👀 Mantenha atenção total ao volante."
+    "👀 Mantenha atenção total ao volante.",
+    "⛽ Mantenha sempre o tanque com pelo menos 1/4 de combustível.",
+    "🔍 Faça revisões periódicas no seu veículo.",
+    "🌙 Use farol baixo durante a noite na cidade.",
+    "🚸 Reduza a velocidade próximo a escolas e hospitais.",
+    "🔄 Sinalize sempre suas intenções ao mudar de faixa.",
+    "⚡ Evite acelerar em cruzamentos e lombadas.",
+    "🛑 Pare completamente no sinal vermelho.",
+    "👥 Respeite a faixa de pedestres sempre.",
+    "🏍️ Motociclistas: usem equipamentos de proteção.",
+    "🚌 Dê preferência ao transporte público quando possível.",
+    "🎯 Mantenha foco total: dirigir exige concentração.",
+    "💧 Verifique regularmente os fluidos do veículo.",
+    "🔊 Evite som muito alto que prejudique a audição do trânsito."
 ];
 
 function mostrarDicaDoDia() {
-    const hoje = new Date().getDate();
-    const dicaIndex = hoje % dicasDiarias.length;
+    // Incrementar contador de visitas para variedade
+    let visitCount = parseInt(localStorage.getItem('visit-count') || '0');
+    visitCount++;
+    localStorage.setItem('visit-count', visitCount.toString());
+    
+    // Combinar dia do mês + número de visitas + hora para mais aleatoriedade
+    const hoje = new Date();
+    const dia = hoje.getDate();
+    const hora = hoje.getHours();
+    const seed = (dia * visitCount * hora) + visitCount;
+    
+    // Usar seed para selecionar dica, garantindo distribuição variada
+    const dicaIndex = seed % dicasDiarias.length;
     const dica = dicasDiarias[dicaIndex];
     
+    console.log(`🎯 Dica #${dicaIndex + 1} (Visita ${visitCount}):`, dica);
+    
     showNotification(`💡 Dica do dia: ${dica}`);
+    
+    // Atualizar contador visual
+    atualizarContadorDicas(dicaIndex + 1, true);
+    
+    // Iniciar rotação automática de dicas a cada 2 minutos (opcional)
+    iniciarRotacaoDicas();
+}
+
+// Sistema de rotação automática de dicas durante a sessão
+function iniciarRotacaoDicas() {
+    // Inicializar contador de sessão
+    if (!sessionStorage.getItem('dicas-vistas-sessao')) {
+        sessionStorage.setItem('dicas-vistas-sessao', '1');
+    }
+    
+    // Verificar se o usuário quer ver mais dicas (evitar spam)
+    const ultimaRotacao = localStorage.getItem('ultima-rotacao-dicas');
+    const agora = Date.now();
+    
+    // Só iniciar rotação se passou mais de 5 minutos da última ou é primeira vez
+    if (!ultimaRotacao || (agora - parseInt(ultimaRotacao)) > 300000) {
+        localStorage.setItem('ultima-rotacao-dicas', agora.toString());
+        
+        // Mostrar nova dica a cada 3 minutos (180000ms) - aumentado para não incomodar
+        const intervaloDicas = setInterval(() => {
+            // Parar rotação se usuário saiu da página ou ficou inativo
+            if (document.hidden || !document.hasFocus()) {
+                clearInterval(intervaloDicas);
+                return;
+            }
+            
+            // Só mostrar automaticamente se usuário não clicou muito no botão
+            const dicasVistas = parseInt(sessionStorage.getItem('dicas-vistas-sessao') || '1');
+            if (dicasVistas <= 8) { // Máximo 8 dicas automáticas por sessão
+                mostrarDicaAleatoria();
+            } else {
+                clearInterval(intervaloDicas); // Parar se usuário já viu muitas dicas
+            }
+        }, 180000); // 3 minutos
+        
+        // Parar rotação após 15 minutos para não incomodar
+        setTimeout(() => {
+            clearInterval(intervaloDicas);
+        }, 900000); // 15 minutos
+    }
+}
+
+// Função para mostrar dica aleatória (sem incrementar contador de visitas)
+function mostrarDicaAleatoria() {
+    const agora = new Date();
+    const randomSeed = agora.getTime() + Math.random() * 1000;
+    const dicaIndex = Math.floor(randomSeed) % dicasDiarias.length;
+    const dica = dicasDiarias[dicaIndex];
+    
+    console.log(`🔄 Dica aleatória #${dicaIndex + 1}:`, dica);
+    showNotification(`💡 Dica de segurança: ${dica}`);
+    
+    // Atualizar contador visual
+    atualizarContadorDicas(dicaIndex + 1, false);
+    
+    // Incrementar contador de dicas vistas na sessão
+    let dicasVistas = parseInt(sessionStorage.getItem('dicas-vistas-sessao') || '1');
+    dicasVistas++;
+    sessionStorage.setItem('dicas-vistas-sessao', dicasVistas.toString());
+}
+
+// Função para atualizar o contador visual de dicas
+function atualizarContadorDicas(numeroDica, isPrimeiraDica = false) {
+    const counterDiv = document.getElementById('dica-counter');
+    const numeroDicaSpan = document.getElementById('numero-dica');
+    const totalDicasSpan = document.getElementById('total-dicas');
+    const dicaAtualSpan = document.getElementById('dica-atual');
+    
+    if (counterDiv && numeroDicaSpan && totalDicasSpan && dicaAtualSpan) {
+        // Mostrar o contador após a primeira dica
+        counterDiv.style.display = 'block';
+        
+        // Atualizar números
+        const dicasVistas = parseInt(sessionStorage.getItem('dicas-vistas-sessao') || '1');
+        numeroDicaSpan.textContent = numeroDica;
+        totalDicasSpan.textContent = dicasDiarias.length;
+        
+        // Atualizar texto baseado no contexto
+        if (isPrimeiraDica) {
+            dicaAtualSpan.innerHTML = `Dica do dia exibida: <strong>${numeroDica}</strong> de <strong>${dicasDiarias.length}</strong> disponíveis`;
+        } else {
+            dicaAtualSpan.innerHTML = `Dicas vistas nesta sessão: <strong>${dicasVistas}</strong> | Última: <strong>#${numeroDica}</strong>`;
+        }
+        
+        // Animação de atualização
+        counterDiv.style.transform = 'scale(1.05)';
+        setTimeout(() => {
+            counterDiv.style.transform = 'scale(1)';
+        }, 200);
+    }
+}
+
+// Função para reiniciar o contador de dicas
+function reiniciarContadorDicas() {
+    sessionStorage.removeItem('dicas-vistas-sessao');
+    sessionStorage.setItem('dicas-vistas-sessao', '1');
+    
+    const counterDiv = document.getElementById('dica-counter');
+    if (counterDiv) {
+        counterDiv.style.display = 'none';
+    }
+    
+    showNotification('🔄 Contador de dicas reiniciado!');
+    console.log('🔄 Contador de dicas da sessão foi reiniciado');
 }
 
 function showNotification(message) {
@@ -1153,10 +1307,12 @@ document.addEventListener('click', function(event) {
 // Botão voltar ao topo
 window.addEventListener('scroll', function() {
     const backToTopBtn = document.getElementById('back-to-top');
-    if (window.pageYOffset > 300) {
-        backToTopBtn.style.display = 'block';
-    } else {
-        backToTopBtn.style.display = 'none';
+    if (backToTopBtn) {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
     }
 });
 
@@ -1170,6 +1326,8 @@ function scrollToTop() {
 // Função para controlar o scroll dos vídeos com snap
 function scrollVideos(direction) {
     const container = document.getElementById('videos-container');
+    if (!container) return;
+    
     const cardWidth = 340; // Largura de um card + gap
     const totalCards = container.children.length;
     
@@ -1385,11 +1543,6 @@ function initializeVideoScrollEvents() {
 }
 
 // === FUNÇÕES AUXILIARES ===
-
-// Função para abrir o manual de trânsito
-function abrirManual() {
-    window.open('docs/manual-transito-2022.pdf', '_blank');
-}
 
 // Função para enviar questão do chat (botões de sugestão)
 function chatQuestion(topic) {
@@ -1732,12 +1885,6 @@ function applyMobileFixes() {
 // Executar otimizações
 optimizeForMobile();
 fixMobileIssues();
-
-// Aplicar correções após carregamento completo
-window.addEventListener('load', () => {
-    applyMobileFixes();
-    setTimeout(applyMobileFixes, 1000); // Aplicar novamente após 1 segundo
-});
 
 // Aplicar correções quando a orientação muda
 window.addEventListener('orientationchange', () => {
