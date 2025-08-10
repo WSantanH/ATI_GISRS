@@ -79,24 +79,36 @@ setTimeout(removeLoadingScreen, 3000);
 function initializeEventListeners() {
     console.log('Inicializando event listeners...');
     
-    // Event listeners para sugestões do chat
+    // Event listeners para sugestões do chat (se existirem)
     const chatSuggestionBtns = document.querySelectorAll('.chat-suggestion-btn');
-    chatSuggestionBtns.forEach(btn => {
-        const topic = btn.getAttribute('data-topic');
-        btn.addEventListener('click', () => chatQuestion(topic));
-        addHoverEffect(btn);
-    });
+    if (chatSuggestionBtns.length > 0) {
+        chatSuggestionBtns.forEach(btn => {
+            const topic = btn.getAttribute('data-topic');
+            btn.addEventListener('click', () => {
+                if (typeof chatQuestion === 'function') {
+                    chatQuestion(topic);
+                }
+            });
+            if (typeof addHoverEffect === 'function') {
+                addHoverEffect(btn);
+            }
+        });
+    }
 
     // Event listener para o input do chat
     const chatInput = document.getElementById('chat-input');
     if (chatInput) {
-        chatInput.addEventListener('keypress', handleChatKeyPress);
+        chatInput.addEventListener('keypress', function(e) {
+            if (typeof handleChatKeyPress === 'function') {
+                handleChatKeyPress(e);
+            }
+        });
         chatInput.addEventListener('focus', function() {
             this.style.borderColor = '#4caf50';
             this.style.background = 'white';
             
             // Detectar dispositivos móveis e ajustar chat quando teclado abre
-            if (window.innerWidth <= 600) {
+            if (window.innerWidth <= 600 && typeof handleMobileKeyboard === 'function') {
                 handleMobileKeyboard(true);
             }
         });
@@ -105,7 +117,7 @@ function initializeEventListeners() {
             this.style.background = '#f8f9fa';
             
             // Restaurar posição normal do chat
-            if (window.innerWidth <= 600) {
+            if (window.innerWidth <= 600 && typeof handleMobileKeyboard === 'function') {
                 handleMobileKeyboard(false);
             }
         });
@@ -114,8 +126,14 @@ function initializeEventListeners() {
     // Event listener para o botão de enviar mensagem
     const sendBtn = document.getElementById('chat-send-btn');
     if (sendBtn) {
-        sendBtn.addEventListener('click', sendChatMessage);
-        addHoverEffect(sendBtn, 'scale(1.1)');
+        sendBtn.addEventListener('click', function() {
+            if (typeof sendChatMessage === 'function') {
+                sendChatMessage();
+            }
+        });
+        if (typeof addHoverEffect === 'function') {
+            addHoverEffect(sendBtn, 'scale(1.1)');
+        }
     }
 
     // Event listener para botão voltar ao topo
@@ -175,15 +193,24 @@ function initializeEventListeners() {
     initializeSimuladorEventListeners();
 
     // Event listeners para calculadora de multas
+    console.log('🧮 Inicializando calculadora de multas...');
     const calcMultaBtn = document.getElementById('calcular-multa-btn');
+    console.log('Botão calcular multa encontrado:', calcMultaBtn ? 'SIM' : 'NÃO');
+    
     if (calcMultaBtn) {
-        calcMultaBtn.addEventListener('click', calcularMulta);
+        calcMultaBtn.addEventListener('click', function() {
+            console.log('🎯 Clique detectado na calculadora!');
+            calcularMulta();
+        });
         calcMultaBtn.addEventListener('mouseover', function() {
             this.style.background = '#d32f2f';
         });
         calcMultaBtn.addEventListener('mouseout', function() {
             this.style.background = '#f44336';
         });
+        console.log('✅ Event listeners da calculadora configurados!');
+    } else {
+        console.error('❌ Botão calcular-multa-btn não encontrado!');
     }
 
     // Event listeners para dicas (hover effects)
@@ -284,26 +311,6 @@ function addHoverEffect(element, transform = 'scale(1.05)') {
     element.addEventListener('mouseout', function() {
         this.style.transform = 'scale(1)';
     });
-}
-
-// Função para inicializar event listeners do quiz
-function initializeQuizEventListeners() {
-    // Quiz buttons
-    const quizButtons = document.querySelectorAll('.quiz-btn');
-    quizButtons.forEach(btn => {
-        const isCorrect = btn.getAttribute('data-correct') === 'true';
-        const questionNum = parseInt(btn.getAttribute('data-question'));
-        
-        btn.addEventListener('click', function() {
-            checkAnswer(this, isCorrect, questionNum);
-        });
-    });
-
-    // Restart quiz button
-    const restartBtn = document.getElementById('restart-quiz-btn');
-    if (restartBtn) {
-        restartBtn.addEventListener('click', restartQuiz);
-    }
 }
 
 // Função para inicializar event listeners do simulador
@@ -595,11 +602,17 @@ let quizScore = 0;
 let isQuizActive = false;
 
 function initializeQuizEventListeners() {
+    console.log('🧠 Inicializando quiz event listeners...');
+    
     // Category buttons
     const categoryButtons = document.querySelectorAll('.category-btn');
-    categoryButtons.forEach(btn => {
+    console.log('Botões de categoria encontrados:', categoryButtons.length);
+    
+    categoryButtons.forEach((btn, index) => {
+        console.log(`Configurando botão ${index + 1}:`, btn.textContent.trim(), 'categoria:', btn.dataset.category);
         btn.addEventListener('click', () => {
             const category = btn.dataset.category;
+            console.log('🎯 Categoria selecionada:', category);
             startQuiz(category);
         });
     });
@@ -629,11 +642,18 @@ function initializeQuizEventListeners() {
 }
 
 function startQuiz(category) {
+    console.log('🎯 Iniciando quiz para categoria:', category);
+    
     currentQuizCategory = category;
     currentQuestions = getRandomQuestions(category, 3);
     currentQuestionIndex = 0;
     quizScore = 0;
     isQuizActive = true;
+    
+    console.log('Quiz configurado:');
+    console.log('- Categoria:', currentQuizCategory);
+    console.log('- Questões selecionadas:', currentQuestions.length);
+    console.log('- Primeira questão:', currentQuestions[0] ? currentQuestions[0].question : 'ERRO: Nenhuma questão encontrada');
     
     // Hide category selector and show quiz
     document.getElementById('category-selector').style.display = 'none';
@@ -651,7 +671,7 @@ function startQuiz(category) {
     };
     
     document.getElementById('current-category').textContent = categoryNames[category];
-    document.getElementById('total-questions').textContent = currentQuestions.length;
+    document.getElementById('total-questions-count').textContent = currentQuestions.length;
     document.getElementById('total-questions-display').textContent = currentQuestions.length;
     
     // Reset scores
@@ -687,7 +707,7 @@ function startRandomQuiz() {
     document.getElementById('quiz-result').style.display = 'none';
     
     document.getElementById('current-category').textContent = 'Questões Mistas';
-    document.getElementById('total-questions').textContent = currentQuestions.length;
+    document.getElementById('total-questions-count').textContent = currentQuestions.length;
     document.getElementById('total-questions-display').textContent = currentQuestions.length;
     
     document.getElementById('points').textContent = '0';
@@ -916,13 +936,22 @@ function carregarCenario() {
 
 // Calculadora de Multas
 function calcularMulta() {
+    console.log('🧮 Função calcularMulta executada!');
+    
     const select = document.getElementById('tipo-infracao');
-    const valor = select.value;
+    const valor = select ? select.value : null;
     const resultadoDiv = document.getElementById('resultado-multa');
     const valorDiv = document.getElementById('valor-multa');
     
+    console.log('Elementos encontrados:');
+    console.log('- Select:', select ? 'SIM' : 'NÃO');
+    console.log('- Resultado div:', resultadoDiv ? 'SIM' : 'NÃO');
+    console.log('- Valor div:', valorDiv ? 'SIM' : 'NÃO');
+    console.log('- Valor selecionado:', valor);
+    
     if (!valor) {
         alert('Por favor, selecione uma infração!');
+        console.log('❌ Nenhuma infração selecionada');
         return;
     }
     // Tratamento especial para opção de laudo
@@ -1384,6 +1413,23 @@ function handleChatKeyPress(event) {
     }
 }
 
+// Função para enviar mensagem no chat
+function sendChatMessage() {
+    const chatInput = document.getElementById('chat-input');
+    if (!chatInput) return;
+    
+    const message = chatInput.value.trim();
+    if (!message) return;
+    
+    // Simular envio de mensagem (pode ser substituído por integração real)
+    console.log('💬 Mensagem enviada:', message);
+    chatInput.value = '';
+    
+    // Aqui você pode adicionar a lógica para processar a mensagem
+    // Por exemplo, enviar para um chatbot ou sistema de suporte
+    showNotification('✉️ Mensagem enviada!');
+}
+
 // Função para scroll suave ao topo
 function scrollToTop() {
     window.scrollTo({
@@ -1501,21 +1547,20 @@ function initMobileOptimizations() {
         
         // Ajustar chat para mobile
         const chatWindow = document.getElementById('chat-window');
-        if (chatWindow) {
+        const chatToggle = document.getElementById('chat-toggle');
+        
+        if (chatWindow && chatToggle) {
             // Prevenir scroll do body quando chat está aberto
-            const chatToggle = document.getElementById('chat-toggle');
-            if (chatToggle) {
-                chatToggle.addEventListener('click', function() {
-                    setTimeout(() => {
-                        const isOpen = chatWindow.style.display !== 'none';
-                        if (isOpen) {
-                            document.body.style.overflow = 'hidden';
-                        } else {
-                            document.body.style.overflow = 'auto';
-                        }
-                    }, 100);
-                });
-            }
+            chatToggle.addEventListener('click', function() {
+                setTimeout(() => {
+                    const isOpen = chatWindow.style.display !== 'none';
+                    if (isOpen) {
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        document.body.style.overflow = 'auto';
+                    }
+                }, 100);
+            });
         }
         
         // Ajustar altura de seções para mobile
