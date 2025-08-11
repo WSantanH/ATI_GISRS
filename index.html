@@ -13,160 +13,32 @@
 </head>
 <body>
     <!-- Tela de Loading Moderna -->
-    <div id="loading-screen" style="
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
-        background-size: 400% 400%;
-        animation: gradientShift 4s ease infinite;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        color: white;
-        font-family: 'Inter', sans-serif;
-    ">
+    <div id="loading-screen">
         <!-- Partículas de fundo -->
-        <div style="
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            animation: float 6s ease-in-out infinite;
-        "></div>
+        <div class="loading-particles"></div>
         
-        <div style="text-align: center; margin-bottom: 40px; z-index: 1;">
-            <div style="
-                font-size: 5rem; 
-                margin-bottom: 20px; 
-                animation: bounce 2s ease-in-out infinite;
-                text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            ">🚗📚</div>
-            <h1 style="
-                margin: 0; 
-                font-size: 2.8rem; 
-                font-weight: 700;
-                background: linear-gradient(45deg, #fff, #e2e8f0);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                animation: slideInUp 1s ease-out;
-            ">IntegraEdu</h1>
-            <p style="
-                margin: 10px 0; 
-                font-size: 1.3rem; 
-                opacity: 0.9;
-                animation: slideInUp 1s ease-out 0.3s both;
-            ">Educação e trânsito integrados</p>
+        <div class="loading-content">
+            <div class="loading-icon">🚗📚</div>
+            <h1 class="loading-title">IntegraEdu</h1>
+            <p class="loading-subtitle">Educação e trânsito integrados</p>
         </div>
         
         <!-- Spinner moderno -->
-        <div style="
-            width: 80px;
-            height: 80px;
-            border: 4px solid rgba(255, 255, 255, 0.2);
-            border-top: 4px solid #fff;
-            border-radius: 50%;
-            animation: spin 1.5s linear infinite;
-            margin-bottom: 30px;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-            z-index: 1;
-        "></div>
+        <div class="loading-spinner"></div>
         
-        <p style="
-            font-size: 1.1rem; 
-            opacity: 0.8;
-            animation: pulse 2s ease-in-out infinite;
-            z-index: 1;
-        ">Carregando experiência incrível...</p>
+        <p class="loading-message">Carregando experiência incrível...</p>
     </div>
 
     <!-- Botão voltar ao topo -->
-    <button id="back-to-top" style="
-        display: none;
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 99;
-        background: linear-gradient(135deg, #fbc02d, #ffe082);
-        color: #795548;
-        border: none;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        cursor: pointer;
-        font-size: 20px;
-        box-shadow: 0 4px 15px rgba(251,192,45,0.3);
-        transition: all 0.3s ease;
-        animation: float 3s ease-in-out infinite;
-    ">↑</button>
+    <button id="back-to-top">↑</button>
 
     <!-- Menu de Navegação -->
-    <nav style="
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: rgba(255, 253, 231, 0.95);
-        backdrop-filter: blur(10px);
-        z-index: 50;
-        padding: 15px 0;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    ">
-        <div style="
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-            flex-wrap: wrap;
-        ">
-            <a href="#inicio" style="
-                color: #795548;
-                text-decoration: none;
-                font-weight: bold;
-                padding: 8px 16px;
-                border-radius: 20px;
-                transition: all 0.3s ease;
-                font-size: clamp(0.9rem, 2vw, 1rem);
-            " class="nav-link">🏠 Início</a>
-            
-            <a href="#videos" style="
-                color: #795548;
-                text-decoration: none;
-                font-weight: bold;
-                padding: 8px 16px;
-                border-radius: 20px;
-                transition: all 0.3s ease;
-                font-size: clamp(0.9rem, 2vw, 1rem);
-            " class="nav-link">🎥 Vídeos</a>
-            
-            <a href="#dicas" style="
-                color: #795548;
-                text-decoration: none;
-                font-weight: bold;
-                padding: 8px 16px;
-                border-radius: 20px;
-                transition: all 0.3s ease;
-                font-size: clamp(0.9rem, 2vw, 1rem);
-            " class="nav-link">💡 Dicas</a>
-            
-            <a href="#contato" style="
-                color: #795548;
-                text-decoration: none;
-                font-weight: bold;
-                padding: 8px 16px;
-                border-radius: 20px;
-                transition: all 0.3s ease;
-                font-size: clamp(0.9rem, 2vw, 1rem);
-            " class="nav-link">📞 Contato</a>
+    <nav>
+        <div class="nav-container">
+            <a href="#inicio" class="nav-link">🏠 Início</a>
+            <a href="#videos" class="nav-link">🎥 Vídeos</a>
+            <a href="#dicas" class="nav-link">💡 Dicas</a>
+            <a href="#contato" class="nav-link">📞 Contato</a>
         </div>
     </nav>
 
@@ -210,189 +82,36 @@
 
         <!-- Área para vídeos de palestras -->
         <section class="videos-palestras" id="videos" style="margin: 40px 0; padding: 25px; background: rgba(255,255,255,0.9); border-radius: 15px; overflow: hidden;">
-            <button id="manual-transito-btn" style="
-                background: linear-gradient(135deg, #fbc02d, #ffe082);
-                color: #795548;
-                border: none;
-                padding: 15px 30px;
-                border-radius: 12px;
-                font-weight: bold;
-                cursor: pointer;
-                font-size: 1rem;
-                margin: 0 auto 20px auto;
-                display: block;
-                box-shadow: 0 4px 15px rgba(251,192,45,0.3);
-                transition: all 0.3s ease;
-                max-width: 100%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            ">
+            <button id="manual-transito-btn" class="manual-button">
                 📖 Manual do Trânsito
             </button>
-            <div style="
-                text-align: center; 
-                margin-bottom: 15px; 
-                font-family: 'Arial', sans-serif; 
-                font-size: clamp(0.9rem, 2.5vw, 1.1rem); 
-                color: #795548; 
-                font-weight: bold; 
-                word-break: break-all;
-                padding: 10px;
-                background: rgba(251,192,45,0.1);
-                border-radius: 8px;
-                border: 2px solid rgba(251,192,45,0.3);
-            ">
+            <div class="contact-phone">
                 📞 +55 75998332864
             </div>
             <h2>🎥 Vídeos de Palestras</h2>
             <p>Em breve você encontrará aqui vídeos de palestras sobre educação e trânsito.</p>
             
             <!-- Container com scroll horizontal para vídeos -->
-            <div class="videos-scroll-container" style="
-                position: relative;
-                margin: 30px -25px 20px -25px;
-                overflow: hidden;
-                border-radius: 15px;
-                padding: 10px 0;
-                background: rgba(255,255,255,0.5);
-            ">
+            <div class="videos-scroll-container">
                 <!-- Botões de navegação aprimorados -->
-                <button id="scroll-left" class="nav-button" style="
-                    position: absolute;
-                    left: 15px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    z-index: 10;
-                    background: rgba(251, 192, 45, 0.95);
-                    color: #795548;
-                    border: none;
-                    border-radius: 50%;
-                    width: 45px;
-                    height: 45px;
-                    cursor: pointer;
-                    font-size: 20px;
-                    font-weight: bold;
-                    box-shadow: 0 6px 16px rgba(251,192,45,0.3);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    transition: all 0.3s ease;
-                ">❮</button>
+                <button id="scroll-left" class="videos-nav-button left">❮</button>
                 
-                <button id="scroll-right" class="nav-button" style="
-                    position: absolute;
-                    right: 15px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    z-index: 10;
-                    background: rgba(251, 192, 45, 0.95);
-                    color: #795548;
-                    border: none;
-                    border-radius: 50%;
-                    width: 45px;
-                    height: 45px;
-                    cursor: pointer;
-                    font-size: 20px;
-                    font-weight: bold;
-                    box-shadow: 0 6px 16px rgba(251,192,45,0.3);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    transition: all 0.3s ease;
-                ">❯</button>
+                <button id="scroll-right" class="videos-nav-button right">❯</button>
                 
                 <!-- Container scrollável dos vídeos -->
-                <div id="videos-container" style="
-                    display: flex;
-                    gap: 20px;
-                    overflow-x: auto;
-                    overflow-y: hidden;
-                    padding: 20px 70px;
-                    scroll-behavior: smooth;
-                    scrollbar-width: none;
-                    -ms-overflow-style: none;
-                    -webkit-overflow-scrolling: touch;
-                " onscroll="updateScrollIndicator()">
-                    <style>
-                        #videos-container::-webkit-scrollbar {
-                            display: none;
-                        }
-                    </style>
-                    <div class="video-card" style="
-                        background: #fff;
-                        padding: 20px;
-                        border-radius: 15px;
-                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                        text-align: center;
-                        min-width: 320px;
-                        flex-shrink: 0;
-                        border: 2px solid rgba(251,192,45,0.2);
-                    ">
-                        <video controls preload="metadata" style="
-                            width: 100%; 
-                            max-width: 280px; 
-                            height: 180px; 
-                            border-radius: 12px; 
-                            margin-bottom: 15px; 
-                            object-fit: contain; 
-                            background: #f5f5f5;
-                            outline: none;
-                        " poster="img/palestra.jpg">
+                <div id="videos-container" onscroll="updateScrollIndicator()">
+                    <div class="video-card">
+                        <video controls preload="metadata" poster="img/palestra.jpg">
                             <source src="img/video-whatsapp.mp4" type="video/mp4">
                             Seu navegador não suporta vídeo HTML5.
                         </video>
-                        <h4 style="
-                            color: #795548; 
-                            margin: 15px 0 10px 0; 
-                            font-size: clamp(1rem, 2.5vw, 1.2rem);
-                            line-height: 1.3;
-                        ">Vídeo do dia da mulher</h4>
-                        <p style="
-                            font-size: clamp(0.8rem, 2vw, 0.9rem); 
-                            color: #666; 
-                            margin-bottom: 15px; 
-                            line-height: 1.4;
-                            padding: 0 5px;
-                        ">Aprenda os conceitos básicos sobre o respeito a cada mulher.</p>
-                        <button class="play-video-btn" style="
-                            background: linear-gradient(135deg, #ff4444, #ff6666); 
-                            color: white; 
-                            border: none; 
-                            padding: 10px 20px; 
-                            border-radius: 8px; 
-                            cursor: pointer; 
-                            font-weight: bold; 
-                            transition: all 0.3s ease;
-                            font-size: clamp(0.8rem, 2vw, 0.9rem);
-                            box-shadow: 0 4px 12px rgba(255,68,68,0.3);
-                        ">▶️ Assistir Vídeo</button>
+                        <h4>Vídeo do dia da mulher</h4>
+                        <p>Aprenda os conceitos básicos sobre o respeito a cada mulher.</p>
+                        <button class="play-video-btn">▶️ Assistir Vídeo</button>
                     </div>
                     
-                    <div class="video-card" style="
-                        background: #fff;
-                        padding: 20px;
-                        border-radius: 15px;
-                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                        text-align: center;
-                        min-width: 380px;
-                        max-width: 420px;
-                        flex-shrink: 0;
-                        border: 2px solid rgba(251,192,45,0.1);
-                        transition: all 0.3s ease;
-                    ">
-                        <img src="img/foto2.jpg" alt="Direção Defensiva" style="
-                            width: 100%; 
-                            max-width: 400px; 
-                            height: auto; 
-                            object-fit: contain; 
-                            border-radius: 12px; 
-                            margin-bottom: 15px;
-                            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-                            background: rgba(255,255,255,0.1);
-                            padding: 8px;
-                            min-height: 250px;
-                        ">
+                    <div class="video-card wide">
+                        <img src="img/foto2.jpg" alt="Direção Defensiva">
                     </div>
                     
                     <div class="video-card" style="
@@ -420,210 +139,135 @@
                             min-height: 250px;
                         ">
                     </div>
-
-                    <div class="video-card" style="
-                        background: #fff;
-                        padding: 20px;
-                        border-radius: 15px;
-                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                        text-align: center;
-                        min-width: 380px;
-                        max-width: 420px;
-                        flex-shrink: 0;
-                        border: 2px solid rgba(251,192,45,0.1);
-                        transition: all 0.3s ease;
-                    ">
-                        <img src="img/foto1.jpg" alt="Segurança para Ciclistas" style="
-                            width: 100%; 
-                            max-width: 400px; 
-                            height: auto; 
-                            object-fit: contain; 
-                            border-radius: 12px; 
-                            margin-bottom: 15px;
-                            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-                            background: rgba(255,255,255,0.1);
-                            padding: 8px;
-                            min-height: 250px; 
-                            border-radius: 12px; 
-                            margin-bottom: 10px;
-                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-                        ">
+                    <div class="video-card wide">
+                        <img src="img/foto1.jpg" alt="Segurança para Ciclistas">
                     </div>
 
-                    <div class="video-card" style="
-                        background: #fff;
-                        padding: 20px;
-                        border-radius: 15px;
-                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                        text-align: center;
-                        min-width: 380px;
-                        max-width: 420px;
-                        flex-shrink: 0;
-                        border: 2px solid rgba(251,192,45,0.1);
-                        transition: all 0.3s ease;
-                    ">
-                        <img src="img/foto4.jpg" alt="Primeiros Socorros no Trânsito" style="
-                            width: 100%; 
-                            max-width: 400px; 
-                            height: auto; 
-                            object-fit: contain; 
-                            border-radius: 12px; 
-                            margin-bottom: 15px;
-                            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-                            background: rgba(255,255,255,0.1);
-                            padding: 8px;
-                            min-height: 250px;
-                        ">
+                    <div class="video-card wide">
+                        <img src="img/foto4.jpg" alt="Primeiros Socorros no Trânsito">
                     </div>
                 </div>
                 
                 <!-- Indicador de scroll melhorado -->
-                <div style="
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    margin-top: 20px;
-                    gap: 12px;
-                ">
-                    <div style="
-                        background: rgba(251,192,45,0.3);
-                        height: 6px;
-                        width: 120px;
-                        border-radius: 3px;
-                        overflow: hidden;
-                        position: relative;
-                    ">
-                        <div id="scroll-indicator" style="
-                            height: 100%;
-                            background: linear-gradient(90deg, #fbc02d, #ff9800);
-                            border-radius: 3px;
-                            width: 30%;
-                            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                            box-shadow: 0 2px 8px rgba(251,192,45,0.3);
-                        "></div>
+                <div class="scroll-indicator-container">
+                    <div class="scroll-indicator-track">
+                        <div id="scroll-indicator" class="scroll-indicator-thumb"></div>
                     </div>
-                    <div style="
-                        background: rgba(251,192,45,0.1);
-                        color: #795548;
-                        padding: 4px 12px;
-                        border-radius: 12px;
-                        font-size: 0.8rem;
-                        font-weight: bold;
-                    " id="scroll-position">1 / 6</div>
+                    <div class="scroll-position-text" id="scroll-position">1 / 6</div>
                 </div>
             </div>
         </section>
 
         <!-- Quiz Dinâmico de Trânsito -->
-        <section id="quiz" style="margin: 40px 0; padding: 25px; background: rgba(255,255,255,0.9); border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
-            <h2 style="color: #795548; text-align: center; margin-bottom: 25px;">🧠 Quiz de Trânsito - Teste seus Conhecimentos</h2>
+        <section id="quiz" class="quiz-section">
+            <h2 class="quiz-title">🧠 Quiz de Trânsito - Teste seus Conhecimentos</h2>
             
             <!-- Seletor de Categoria -->
-            <div id="category-selector" style="text-align: center; margin-bottom: 25px;">
-                <p style="color: #795548; margin-bottom: 15px; font-weight: 600;">Escolha uma categoria de perguntas:</p>
-                <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
-                    <button class="category-btn" data-category="basico" style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">📚 Básico</button>
-                    <button class="category-btn" data-category="sinalizacao" style="background: #ff9800; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">🚦 Sinalização</button>
-                    <button class="category-btn" data-category="multas" style="background: #f44336; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">💰 Multas</button>
-                    <button class="category-btn" data-category="seguranca" style="background: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">🛡️ Segurança</button>
-                    <button class="category-btn" data-category="avancado" style="background: #9c27b0; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">🏆 Avançado</button>
+            <div id="category-selector" class="category-selector">
+                <p>Escolha uma categoria de perguntas:</p>
+                <div class="category-buttons">
+                    <button class="category-btn basico" data-category="basico">📚 Básico</button>
+                    <button class="category-btn sinalizacao" data-category="sinalizacao">🚦 Sinalização</button>
+                    <button class="category-btn multas" data-category="multas">💰 Multas</button>
+                    <button class="category-btn seguranca" data-category="seguranca">🛡️ Segurança</button>
+                    <button class="category-btn avancado" data-category="avancado">🏆 Avançado</button>
                 </div>
             </div>
             
             <!-- Container de Perguntas Dinâmicas -->
-            <div id="quiz-container" style="display: none;">
-                <div id="current-question-container" style="background: #fffde7; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+            <div id="quiz-container" class="quiz-container">
+                <div id="current-question-container" class="current-question-container">
                     <!-- As perguntas serão geradas dinamicamente aqui -->
                 </div>
             </div>
             
             <!-- Informações do Quiz -->
-            <div id="quiz-info" style="text-align: center; margin-top: 20px; display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                    <div style="font-size: 1.1rem; font-weight: bold; color: #795548;">
+            <div id="quiz-info" class="quiz-info">
+                <div class="quiz-info-row">
+                    <div class="quiz-info-item">
                         Pontuação: <span id="points">0</span>/<span id="total-questions-count">3</span>
                     </div>
-                    <div style="font-size: 1.1rem; font-weight: bold; color: #795548;">
+                    <div class="quiz-info-item">
                         Pergunta: <span id="current-question">1</span>/<span id="total-questions-display">3</span>
                     </div>
-                    <div style="font-size: 1rem; color: #666;">
+                    <div class="quiz-info-category">
                         Categoria: <span id="current-category" style="font-weight: bold;"></span>
                     </div>
                 </div>
             </div>
             
             <!-- Resultado do Quiz -->
-            <div id="quiz-result" style="display: none; text-align: center; padding: 20px; background: #e8f5e8; border-radius: 10px; margin-top: 20px;">
-                <h3 id="result-title" style="color: #4caf50; margin-bottom: 10px;"></h3>
-                <p id="result-message" style="margin-bottom: 15px;"></p>
-                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                    <button id="restart-quiz-btn" style="background: #fbc02d; color: #795548; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold;">🔄 Mesma Categoria</button>
-                    <button id="new-category-btn" style="background: #2196f3; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold;">📚 Nova Categoria</button>
-                    <button id="random-questions-btn" style="background: #9c27b0; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold;">🎲 Questões Aleatórias</button>
+            <div id="quiz-result" class="quiz-result">
+                <h3 id="result-title" class="result-title"></h3>
+                <p id="result-message" class="result-message"></p>
+                <div class="result-buttons">
+                    <button id="restart-quiz-btn" class="result-btn restart">🔄 Mesma Categoria</button>
+                    <button id="new-category-btn" class="result-btn new-category">📚 Nova Categoria</button>
+                    <button id="random-questions-btn" class="result-btn random">🎲 Questões Aleatórias</button>
                 </div>
             </div>
         </section>
 
         <!-- Simulador de Situações de Trânsito -->
-        <section id="simulador">
-            <h2>🚗 Simulador de Situações - Como Você Reagiria?</h2>
-            <div id="simulador-container">
+        <section id="simulador" class="simulator-section">
+            <h2 class="simulator-title">🚗 Simulador de Situações - Como Você Reagiria?</h2>
+            <div id="simulador-container" class="simulator-container">
                 <div id="cenario">
-                    <div class="cenario-icon">🚦</div>
-                    <h3 class="cenario-title">Situação: Semáforo amarelo piscando</h3>
-                    <p class="cenario-description">Você está dirigindo a 50km/h e se aproxima de um cruzamento com semáforo amarelo piscando. Há pedestres aguardando para atravessar. O que você faz?</p>
-                    <div class="cenario-actions">
-                        <button class="sim-btn" data-action="parar">🛑 Parar e dar preferência</button>
-                        <button class="sim-btn" data-action="acelerar">⚡ Acelerar para passar</button>
-                        <button class="sim-btn" data-action="reduzir">🐌 Reduzir e avaliar</button>
+                    <div class="scenario-icon">🚦</div>
+                    <h3 class="scenario-title">Situação: Semáforo amarelo piscando</h3>
+                    <p class="scenario-description">Você está dirigindo a 50km/h e se aproxima de um cruzamento com semáforo amarelo piscando. Há pedestres aguardando para atravessar. O que você faz?</p>
+                    <div class="scenario-buttons">
+                        <button class="sim-btn parar" data-action="parar">🛑 Parar e dar preferência</button>
+                        <button class="sim-btn acelerar" data-action="acelerar">⚡ Acelerar para passar</button>
+                        <button class="sim-btn reduzir" data-action="reduzir">🐌 Reduzir e avaliar</button>
                     </div>
                 </div>
-                <div id="resultado-simulacao"></div>
+                <div id="resultado-simulacao" class="resultado-simulacao"></div>
             </div>
         </section>
 
         <!-- Estatísticas de Trânsito -->
-        <section id="estatisticas">
-            <h2>📊 Estatísticas de Trânsito no Brasil</h2>
+        <section id="estatisticas" class="statistics-section">
+            <h2 class="statistics-title">📊 Estatísticas de Trânsito no Brasil</h2>
             <div class="grid-cards">
-                <div class="stats-card red">
-                    <div class="stats-icon">📈</div>
-                    <h3 class="stats-number red">47.000</h3>
-                    <p class="stats-label">Mortes no trânsito por ano</p>
-                    <small class="stats-source">Fonte: PRF/DATASUS</small>
+                <div class="stats-card deaths">
+                    <div class="icon">📈</div>
+                    <h3 class="red">47.000</h3>
+                    <p>Mortes no trânsito por ano</p>
+                    <small>Fonte: PRF/DATASUS</small>
                 </div>
-                <div class="stats-card orange">
-                    <div class="stats-icon">🚗</div>
-                    <h3 class="stats-number orange">1.6mi</h3>
-                    <p class="stats-label">Acidentes por ano</p>
-                    <small class="stats-source">Dados oficiais</small>
+                <div class="stats-card accidents">
+                    <div class="icon">🚗</div>
+                    <h3 class="orange">1.6mi</h3>
+                    <p>Acidentes por ano</p>
+                    <small>Dados oficiais</small>
                 </div>
-                <div class="stats-card green">
-                    <div class="stats-icon">✅</div>
-                    <h3 class="stats-number green">90%</h3>
-                    <p class="stats-label">Acidentes evitáveis</p>
-                    <small class="stats-source">Com educação</small>
+                <div class="stats-card preventable">
+                    <div class="icon">✅</div>
+                    <h3 class="green">90%</h3>
+                    <p>Acidentes evitáveis</p>
+                    <small>Com educação</small>
                 </div>
-                <div class="stats-card purple">
-                    <div class="stats-icon">💰</div>
-                    <h3 class="stats-number purple">R$ 56bi</h3>
-                    <p class="stats-label">Custo anual dos acidentes</p>
-                    <small class="stats-source">Para a sociedade</small>
+                <div class="stats-card costs">
+                    <div class="icon">💰</div>
+                    <h3 class="purple">R$ 56bi</h3>
+                    <p>Custo anual dos acidentes</p>
+                    <small>Para a sociedade</small>
                 </div>
             </div>
         </section>
 
         <!-- Sistema de Conquistas -->
-        <section id="conquistas">
-            <h2>🏆 Suas Conquistas em Educação no Trânsito</h2>
-            <div class="badges-container">
+        <section id="conquistas" class="achievements-section">
+            <h2 class="achievements-title">🏆 Suas Conquistas em Educação no Trânsito</h2>
+            <div class="achievements-container">
                 <div class="badge" id="badge-quiz" data-badge="quiz">
                     <div class="badge-icon quiz">🧠</div>
                     <p>Expert em Quiz</p>
                     <small>Complete o quiz</small>
                 </div>
                 <div class="badge" id="badge-simulador" data-badge="simulador">
-                    <div class="badge-icon simulador">🚗</div>
+                    <div class="badge-icon simulator">🚗</div>
                     <p>Condutor Consciente</p>
                     <small>Use o simulador</small>
                 </div>
@@ -636,11 +280,11 @@
         </section>
 
         <!-- Calculadora de Multas -->
-        <section id="calculadora">
-            <h2>💰 Calculadora de Multas - Saiba o Valor</h2>
-            <div class="calculadora-form">
-                <label>Selecione a infração:</label>
-                <select id="tipo-infracao">
+        <section id="calculadora" class="calculator-section">
+            <h2 class="calculator-title">💰 Calculadora de Multas - Saiba o Valor</h2>
+            <div class="calculator-container">
+                <label class="calculator-label">Selecione a infração:</label>
+                <select id="tipo-infracao" class="calculator-select">
                     <option value="">Selecione uma infração</option>
                     <option value="130.16">Excesso de velocidade até 20% - MÉDIA</option>
                     <option value="195.23">Não usar cinto de segurança - GRAVE</option>
@@ -651,136 +295,174 @@
                     <!-- Pergunta personalizada sobre laudo -->
                     <option value="laudo">Quem tomou multa antes de comprar o laudo para primeira habilitação prejudica o processo?</option>
                 </select>
-                <button id="calcular-multa-btn">💸 Calcular Multa</button>
-                <div id="resultado-multa">
+                <button id="calcular-multa-btn" class="calculator-button">💸 Calcular Multa</button>
+                <div id="resultado-multa" class="calculator-result">
                     <h4>Valor da Multa:</h4>
-                    <div id="valor-multa"></div>
-                    <p>Lembre-se: além da multa, há pontos na CNH!</p>
+                    <div id="valor-multa" style="font-size: 2rem; font-weight: bold; color: #f44336; margin-bottom: 10px;"></div>
+                    <p style="margin: 0; color: #666; font-size: 0.9rem;">Lembre-se: além da multa, há pontos na CNH!</p>
                 </div>
             </div>
         </section>
 
         <!-- Seção de Dicas Rápidas -->
-        <section id="dicas">
-            <div class="dicas-header">
-                <h2>💡 Dicas Rápidas de Segurança</h2>
-                <button id="nova-dica-btn" onclick="mostrarDicaAleatoria()">
+        <section id="dicas" style="margin: 40px 0; padding: 30px; background: var(--surface); backdrop-filter: blur(15px); border-radius: var(--border-radius); border: 1px solid rgba(255,255,255,0.3); box-shadow: var(--shadow-medium);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+                <h2 style="color: var(--secondary-color); margin: 0;">💡 Dicas Rápidas de Segurança</h2>
+                <button id="nova-dica-btn" onclick="mostrarDicaAleatoria()" style="
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    font-size: 0.9rem;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+                " onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(102, 126, 234, 0.4)'" 
+                   onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(102, 126, 234, 0.3)'">
                     🎲 Nova Dica
                 </button>
             </div>
             
             <!-- Contador de Dicas -->
-            <div id="dica-counter">
+            <div id="dica-counter" style="
+                text-align: center; 
+                margin-bottom: 20px; 
+                padding: 10px; 
+                background: rgba(255,255,255,0.1); 
+                border-radius: 10px; 
+                font-size: 0.9rem; 
+                color: var(--text-secondary);
+                display: none;
+            ">
                 <span id="dica-atual">Dica vista nesta sessão: <strong id="numero-dica">1</strong> de <strong id="total-dicas">20</strong></span>
-                <button onclick="reiniciarContadorDicas()">
+                <button onclick="reiniciarContadorDicas()" style="
+                    background: rgba(255,255,255,0.2);
+                    color: var(--text-secondary);
+                    border: 1px solid rgba(255,255,255,0.3);
+                    padding: 5px 10px;
+                    border-radius: 15px;
+                    cursor: pointer;
+                    font-size: 0.8rem;
+                    margin-left: 15px;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.background='rgba(255,255,255,0.3)'" 
+                   onmouseout="this.style.background='rgba(255,255,255,0.2)'">
                     🔄 Reiniciar
                 </button>
             </div>
-            <div class="dicas-grid">
-                <div class="dica-card orange">
-                    <div class="dica-header">
-                        <span class="dica-icon">🔧</span>
-                        <h4 class="dica-title orange">Antes de Sair</h4>
+            <div class="grid-cards">
+                <div style="background: linear-gradient(135deg, rgba(255,152,0,0.1), rgba(255,152,0,0.05)); padding: 25px; border-radius: var(--border-radius); border-left: 6px solid #ff9800; transition: var(--transition); backdrop-filter: blur(10px);" onmouseover="this.style.transform='translateY(-5px) scale(1.02)'" onmouseout="this.style.transform='translateY(0) scale(1)'">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span style="font-size: 2rem; margin-right: 15px;">🔧</span>
+                        <h4 style="color: #ff9800; margin: 0; font-size: 1.2rem; font-weight: 700;">Antes de Sair</h4>
                     </div>
-                    <p class="dica-text">Verifique pneus, freios, luzes e documentos</p>
+                    <p style="margin: 0; font-size: 1rem; line-height: 1.6; color: var(--text-secondary);">Verifique pneus, freios, luzes e documentos</p>
                 </div>
-                <div class="dica-card blue">
-                    <div class="dica-header">
-                        <span class="dica-icon">⚡</span>
-                        <h4 class="dica-title blue">Durante o Trajeto</h4>
+                <div style="background: linear-gradient(135deg, rgba(33,150,243,0.1), rgba(33,150,243,0.05)); padding: 25px; border-radius: var(--border-radius); border-left: 6px solid #2196f3; transition: var(--transition); backdrop-filter: blur(10px);" onmouseover="this.style.transform='translateY(-5px) scale(1.02)'" onmouseout="this.style.transform='translateY(0) scale(1)'">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span style="font-size: 2rem; margin-right: 15px;">⚡</span>
+                        <h4 style="color: #2196f3; margin: 0; font-size: 1.2rem; font-weight: 700;">Durante o Trajeto</h4>
                     </div>
-                    <p class="dica-text">Mantenha atenção total e evite distrações</p>
+                    <p style="margin: 0; font-size: 1rem; line-height: 1.6; color: var(--text-secondary);">Mantenha atenção total e evite distrações</p>
                 </div>
-                <div class="dica-card green">
-                    <div class="dica-header">
-                        <span class="dica-icon">🛑</span>
-                        <h4 class="dica-title green">Em Emergências</h4>
+                <div style="background: linear-gradient(135deg, rgba(76,175,80,0.1), rgba(76,175,80,0.05)); padding: 25px; border-radius: var(--border-radius); border-left: 6px solid #4caf50; transition: var(--transition); backdrop-filter: blur(10px);" onmouseover="this.style.transform='translateY(-5px) scale(1.02)'" onmouseout="this.style.transform='translateY(0) scale(1)'">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span style="font-size: 2rem; margin-right: 15px;">🛑</span>
+                        <h4 style="color: #4caf50; margin: 0; font-size: 1.2rem; font-weight: 700;">Em Emergências</h4>
                     </div>
-                    <p class="dica-text">Mantenha calma e siga os protocolos de segurança</p>
+                    <p style="margin: 0; font-size: 1rem; line-height: 1.6; color: var(--text-secondary);">Mantenha calma e siga os protocolos de segurança</p>
                 </div>
             </div>
         </section>
 
         <!-- Barra de Progresso do Usuário -->
-        <section id="progresso">
-            <h2>📈 Seu Progresso em Educação no Trânsito</h2>
-            <div class="progresso-content">
-                <div class="progresso-header">
-                    <h4>Conhecimento Adquirido</h4>
-                    <span id="progress-percentage">0%</span>
+        <section id="progresso" style="margin: 40px 0; padding: 25px; background: rgba(255,255,255,0.9); border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+            <h2 style="color: #795548; text-align: center; margin-bottom: 25px;">📈 Seu Progresso em Educação no Trânsito</h2>
+            <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h4 style="color: #795548; margin: 0;">Conhecimento Adquirido</h4>
+                    <span id="progress-percentage" style="font-weight: bold; color: #4caf50; font-size: 1.2rem;">0%</span>
                 </div>
-                <div class="progress-bar-container">
-                    <div id="progress-bar"></div>
-                </div>
-                
-                <div class="progress-stats">
-                    <div class="progress-stat">
-                        <div class="progress-stat-icon">🧠</div>
-                        <h5 class="progress-stat-label">Quiz Completos</h5>
-                        <p id="quiz-completed" class="progress-stat-number green">0</p>
-                    </div>
-                    <div class="progress-stat">
-                        <div class="progress-stat-icon">🚗</div>
-                        <h5 class="progress-stat-label">Simulações</h5>
-                        <p id="simulations-completed" class="progress-stat-number blue">0</p>
-                    </div>
-                    <div class="progress-stat">
-                        <div class="progress-stat-icon">📖</div>
-                        <h5 class="progress-stat-label">Manual Acessado</h5>
-                        <p id="manual-accessed" class="progress-stat-number orange">Não</p>
-                    </div>
+                <div style="background: #f0f0f0; height: 20px; border-radius: 10px; overflow: hidden; margin-bottom: 20px;">
+                    <div id="progress-bar" style="background: linear-gradient(90deg, #4caf50, #8bc34a); height: 100%; width: 0%; transition: width 0.3s ease;"></div>
                 </div>
                 
-                <div id="progress-message">
-                    🌟 Continue aprendendo para se tornar um especialista em trânsito!
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 10px;">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">🧠</div>
+                        <h5 style="margin: 0 0 5px 0; color: #795548;">Quiz Completos</h5>
+                        <p id="quiz-completed" style="margin: 0; font-weight: bold; color: #4caf50; font-size: 1.2rem;">0</p>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 10px;">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">🚗</div>
+                        <h5 style="margin: 0 0 5px 0; color: #795548;">Simulações</h5>
+                        <p id="simulations-completed" style="margin: 0; font-weight: bold; color: #2196f3; font-size: 1.2rem;">0</p>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: #f9f9f9; border-radius: 10px;">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">📖</div>
+                        <h5 style="margin: 0 0 5px 0; color: #795548;">Manual Acessado</h5>
+                        <p id="manual-accessed" style="margin: 0; font-weight: bold; color: #ff9800; font-size: 1.2rem;">Não</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: linear-gradient(45deg, #e8f5e8, #f1f8e9); border-radius: 10px; text-align: center;">
+                    <p id="progress-message" style="margin: 0; color: #2e7d32; font-weight: bold;">🌟 Continue aprendendo para se tornar um especialista em trânsito!</p>
                 </div>
             </div>
         </section>
 
         <!-- Seção de Contato -->
-        <section id="contato">
-            <h2>📞 Entre em Contato</h2>
-            <div class="contact-cards">
-                <div class="contact-card whatsapp">
-                    <h4>📱 WhatsApp</h4>
-                    <p>+55 75998332864</p>
+        <section id="contato" style="margin: 40px 0; padding: 25px; background: rgba(255,255,255,0.7); border-radius: 15px; text-align: center;">
+            <h2 style="color: #795548; margin-bottom: 20px;">📞 Entre em Contato</h2>
+            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 20px 0;">
+                <div style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); min-width: 200px;">
+                    <h4 style="color: #4caf50; margin: 0 0 10px 0;">📱 WhatsApp</h4>
+                    <p style="margin: 0; font-weight: bold; color: #795548;">+55 75998332864</p>
                 </div>
-                <div class="contact-card email">
-                    <h4>📧 E-mail</h4>
-                    <p>integraedu2025@hotmail.com</p>
+                <div style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); min-width: 200px;">
+                    <h4 style="color: #2196f3; margin: 0 0 10px 0;">📧 E-mail</h4>
+                    <p style="margin: 0; font-weight: bold; color: #795548;">integraedu2025@hotmail.com</p>
                 </div>
             </div>
         </section>
     </main>
     
     <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h3>🎓 IntegraEdu</h3>
-                    <p>Educação e trânsito integrados para um futuro mais seguro e consciente.</p>
+    <footer style="
+        background: rgba(121, 85, 72, 0.9);
+        color: #fffde7;
+        padding: 40px 20px 20px 20px;
+        text-align: center;
+        margin-top: 60px;
+    ">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 30px;">
+                <div>
+                    <h3 style="color: #fbc02d; margin-bottom: 15px;">🎓 IntegraEdu</h3>
+                    <p style="font-size: 0.9rem; line-height: 1.6;">Educação e trânsito integrados para um futuro mais seguro e consciente.</p>
                 </div>
-                <div class="footer-section">
-                    <h4>📞 Contato</h4>
-                    <p>WhatsApp: +55 75998332864</p>
-                    <p>E-mail: integraedu2025@hotmail.com</p>
+                <div>
+                    <h4 style="color: #fbc02d; margin-bottom: 15px;">📞 Contato</h4>
+                    <p style="font-size: 0.9rem; margin: 5px 0;">WhatsApp: +55 75998332864</p>
+                    <p style="font-size: 0.9rem; margin: 5px 0;">E-mail: integraedu2025@hotmail.com</p>
                 </div>
-                <div class="footer-section">
-                    <h4>🔗 Links Úteis</h4>
-                    <div class="footer-links">
-                        <a href="docs/manual-transito-2022.pdf" target="_blank">📖 Manual do Trânsito</a>
-                        <a href="#videos">🎥 Vídeos Educativos</a>
-                        <a href="#dicas">💡 Dicas de Segurança</a>
+                <div>
+                    <h4 style="color: #fbc02d; margin-bottom: 15px;">🔗 Links Úteis</h4>
+                    <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
+                        <a href="docs/manual-transito-2022.pdf" target="_blank" style="color: #fffde7; text-decoration: none; font-size: 0.9rem;">📖 Manual do Trânsito</a>
+                        <a href="#videos" style="color: #fffde7; text-decoration: none; font-size: 0.9rem;">🎥 Vídeos Educativos</a>
+                        <a href="#dicas" style="color: #fffde7; text-decoration: none; font-size: 0.9rem;">💡 Dicas de Segurança</a>
                     </div>
                 </div>
             </div>
             
-            <div class="footer-bottom">
-                <p>
+            <div style="border-top: 1px solid rgba(251,192,45,0.3); padding-top: 20px;">
+                <p style="margin: 0; font-size: 0.9rem; color: #ffe082;">
                     © 2025 IntegraEdu - Desenvolvido por Wayllahn e Gislândia | Todos os direitos reservados
                 </p>
-                <p>
+                <p style="margin: 10px 0 0 0; font-size: 0.8rem; color: #ffecb3;">
                     💚 Juntos por um trânsito mais seguro
                 </p>
             </div>
