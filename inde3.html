@@ -726,6 +726,44 @@
             box-shadow: 0 15px 45px rgba(102, 126, 234, 0.6);
         }
 
+        .access-site-btn {
+            background: linear-gradient(135deg, #26de81, #20bf6b);
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 30px rgba(38, 222, 129, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .access-site-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .access-site-btn:hover::before {
+            left: 100%;
+        }
+
+        .access-site-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 45px rgba(38, 222, 129, 0.6);
+        }
+
         .course-access-modal {
             display: none;
             position: fixed;
@@ -1123,7 +1161,7 @@
                 <div class="pix-code" id="pixCode">00020101021126580014br.gov.bcb.pix0136ac2d3760-ff82-406f-ad66-420fcd0872df520400005303986540516.995802BR5921WAYLLAHN S DOS SANTOS6006BANZAE62070503***63041725</div>
                 
                 <button class="copy-btn" onclick="copyPix()">📋 Copiar Código PIX</button>
-                <button class="copy-btn" onclick="confirmPayment()">✅ Pagamento Realizado</button>
+                <button class="copy-btn" id="confirmPaymentBtn" onclick="confirmPayment()" style="display: none;">✅ Pagamento Realizado</button>
                 
                 <div class="success-message" id="successMessage">
                     ✅ Código PIX copiado com sucesso!
@@ -1135,6 +1173,9 @@
                     </div>
                     <button class="access-course-btn" onclick="accessCourse()">
                         🎓 Acesse o Curso Aqui
+                    </button>
+                    <button class="access-site-btn" onclick="accessSite()">
+                        🌐 Acessar o Site
                     </button>
                 </div>
             </div>
@@ -1196,6 +1237,20 @@
             
             // Reset do modal para estado inicial
             document.getElementById('paymentConfirmed').style.display = 'none';
+            
+            // Verificar se o PIX já foi copiado anteriormente
+            const pixCopiedBefore = localStorage.getItem('pixCopied_' + courseIndex);
+            const copyBtn = document.querySelector('[onclick="copyPix()"]');
+            
+            if (pixCopiedBefore === 'true') {
+                document.getElementById('confirmPaymentBtn').style.display = 'inline-block';
+                copyBtn.innerHTML = '✅ PIX Já Copiado - Copiar Novamente';
+                copyBtn.style.background = 'linear-gradient(135deg, #26de81, #20bf6b)';
+            } else {
+                document.getElementById('confirmPaymentBtn').style.display = 'none';
+                copyBtn.innerHTML = '📋 Copiar Código PIX';
+                copyBtn.style.background = 'linear-gradient(135deg, #00d2d3, #54a0ff)';
+            }
         }
 
         // Função para fechar o modal PIX
@@ -1214,9 +1269,23 @@
         function copyPix() {
             navigator.clipboard.writeText(pixCode).then(function() {
                 const successMessage = document.getElementById('successMessage');
+                const confirmPaymentBtn = document.getElementById('confirmPaymentBtn');
+                const copyBtn = document.querySelector('[onclick="copyPix()"]');
+                
                 successMessage.style.display = 'block';
+                confirmPaymentBtn.style.display = 'inline-block'; // Mostrar botão de confirmar
+                
+                // Salvar no localStorage que o PIX foi copiado para este curso
+                localStorage.setItem('pixCopied_' + currentCourseIndex, 'true');
+                
+                // Atualizar o texto e cor do botão
+                copyBtn.innerHTML = '✅ Código Copiado!';
+                copyBtn.style.background = 'linear-gradient(135deg, #26de81, #20bf6b)';
+                
                 setTimeout(() => {
                     successMessage.style.display = 'none';
+                    // Texto para quando já foi copiado antes
+                    copyBtn.innerHTML = '✅ PIX Já Copiado - Copiar Novamente';
                 }, 3000);
             }).catch(function(err) {
                 // Fallback para navegadores mais antigos
@@ -1228,9 +1297,23 @@
                 document.body.removeChild(textArea);
                 
                 const successMessage = document.getElementById('successMessage');
+                const confirmPaymentBtn = document.getElementById('confirmPaymentBtn');
+                const copyBtn = document.querySelector('[onclick="copyPix()"]');
+                
                 successMessage.style.display = 'block';
+                confirmPaymentBtn.style.display = 'inline-block'; // Mostrar botão de confirmar
+                
+                // Salvar no localStorage que o PIX foi copiado para este curso
+                localStorage.setItem('pixCopied_' + currentCourseIndex, 'true');
+                
+                // Atualizar o texto e cor do botão
+                copyBtn.innerHTML = '✅ Código Copiado!';
+                copyBtn.style.background = 'linear-gradient(135deg, #26de81, #20bf6b)';
+                
                 setTimeout(() => {
                     successMessage.style.display = 'none';
+                    // Texto para quando já foi copiado antes
+                    copyBtn.innerHTML = '✅ PIX Já Copiado - Copiar Novamente';
                 }, 3000);
             });
         }
@@ -1262,6 +1345,12 @@
             
             // Mostrar modal de acesso ao curso
             courseAccessModal.style.display = 'block';
+        }
+
+        // Função para acessar o site
+        function accessSite() {
+            // Redirecionar para a página principal ou outra página desejada
+            window.open('index.html', '_blank');
         }
 
         // Event listeners para fechar modais
