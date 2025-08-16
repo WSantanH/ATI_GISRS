@@ -1146,6 +1146,8 @@ function iniciarRotacaoDicas() {
 
 // Função para mostrar dica aleatória (sem incrementar contador de visitas)
 function mostrarDicaAleatoria() {
+    console.log('🔄 Função mostrarDicaAleatoria foi chamada!');
+    
     const agora = new Date();
     const randomSeed = agora.getTime() + Math.random() * 1000;
     const dicaIndex = Math.floor(randomSeed) % dicasDiarias.length;
@@ -1161,6 +1163,8 @@ function mostrarDicaAleatoria() {
     let dicasVistas = parseInt(sessionStorage.getItem('dicas-vistas-sessao') || '1');
     dicasVistas++;
     sessionStorage.setItem('dicas-vistas-sessao', dicasVistas.toString());
+    
+    console.log('✅ Dica aleatória executada com sucesso!');
 }
 
 // Função para atualizar o contador visual de dicas
@@ -1209,6 +1213,8 @@ function reiniciarContadorDicas() {
 }
 
 function showNotification(message) {
+    console.log('📢 Exibindo notificação:', message);
+    
     // Criar elemento de notificação
     const notification = document.createElement('div');
     notification.textContent = message;
@@ -1230,11 +1236,13 @@ function showNotification(message) {
     `;
     
     document.body.appendChild(notification);
+    console.log('✅ Notificação adicionada ao DOM');
     
     // Animar entrada
     setTimeout(() => {
         notification.style.opacity = '1';
         notification.style.transform = 'translateX(0)';
+        console.log('✅ Animação de entrada executada');
     }, 100);
     
     // Remover após 3 segundos
@@ -1242,7 +1250,10 @@ function showNotification(message) {
         notification.style.opacity = '0';
         notification.style.transform = 'translateX(100%)';
         setTimeout(() => {
-            document.body.removeChild(notification);
+            if (notification.parentNode) {
+                document.body.removeChild(notification);
+                console.log('✅ Notificação removida do DOM');
+            }
         }, 300);
     }, 3000);
 }
@@ -1992,10 +2003,17 @@ window.addEventListener('orientationchange', () => {
 
 // Função para inicializar eventos inline convertidos
 function initializeInlineEvents() {
+    console.log('🚀 Inicializando eventos inline...');
+    
     // Botão Nova Dica
     const novaDicaBtn = document.getElementById('nova-dica-btn');
+    console.log('🔍 Botão Nova Dica encontrado:', novaDicaBtn);
+    
     if (novaDicaBtn) {
-        novaDicaBtn.addEventListener('click', mostrarDicaAleatoria);
+        novaDicaBtn.addEventListener('click', function() {
+            console.log('🎲 Botão Nova Dica clicado!');
+            mostrarDicaAleatoria();
+        });
         
         // Eventos de hover para Nova Dica
         novaDicaBtn.addEventListener('mouseenter', function() {
@@ -2007,6 +2025,10 @@ function initializeInlineEvents() {
             this.style.transform = 'scale(1)';
             this.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.3)';
         });
+        
+        console.log('✅ Event listeners adicionados ao botão Nova Dica');
+    } else {
+        console.error('❌ Botão Nova Dica não encontrado!');
     }
     
     // Botão Reiniciar Contador
