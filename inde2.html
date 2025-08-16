@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntegraEdu - Posts de Palestras</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .posts-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top: 120px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            color: white;
+        }
+        
+        .page-header h1 {
+            font-weight: bold;
+            font-size: 2.2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .post-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .post-title {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .post-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .post-content {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .post-tags {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .back-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu de Navegação -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-link">🏠 Voltar ao Início</a>
+            <a href="#palestras" class="nav-link">🎤 Palestras</a>
+            <a href="#posts" class="nav-link">📝 Posts</a>
+            <a href="#videos" class="nav-link">🎥 Vídeos</a>
+        </div>
+    </nav>
+
+    <div class="posts-container">
+        <a href="index.html" class="back-btn">
+            ← Voltar ao Site Principal
+        </a>
+        
+        <div class="page-header">
+            <h1>🎤 Bem vindo. aqui você irá encontrar posts de Palestras sobre Trânsito</h1>
+            <p>Confira nossos conteúdos exclusivos sobre educação no trânsito</p>
+        </div>
+
+        <section id="posts">
+            <article class="post-card">
+                <h2 class="post-title">🚦 A Importância da Sinalização no Trânsito</h2>
+                <div class="post-date">📅 Publicado em: 10 de agosto de 2025</div>
+                <div class="post-content">
+                    <p>A sinalização de trânsito é fundamental para a segurança viária. Nesta palestra, abordamos como interpretar corretamente os sinais de trânsito e a importância de respeitá-los para evitar acidentes.</p>
+                    <p>Principais tópicos abordados:</p>
+                    <ul>
+                        <li>Tipos de sinalização: vertical, horizontal e semafórica</li>
+                        <li>Como interpretar placas de regulamentação</li>
+                        <li>Sinais de advertência e sua importância</li>
+                        <li>Consequências do desrespeito à sinalização</li>
+                    </ul>
+                </div>
+                <div class="post-tags">
+                    <span class="tag">Sinalização</span>
+                    <span class="tag">Segurança</span>
+                    <span class="tag">Educação</span>
+                </div>
+            </article>
+
+            <article class="post-card">
+                <h2 class="post-title">🚗 Direção Defensiva: Salvando Vidas</h2>
+                <div class="post-date">📅 Publicado em: 8 de agosto de 2025</div>
+                <div class="post-content">
+                    <p>A direção defensiva é uma técnica que pode salvar vidas. Esta palestra apresenta as principais estratégias para se tornar um motorista mais consciente e responsável.</p>
+                    <p>O que você aprenderá:</p>
+                    <ul>
+                        <li>Técnicas de antecipação de situações perigosas</li>
+                        <li>Manutenção preventiva do veículo</li>
+                        <li>Como lidar com condições adversas</li>
+                        <li>Importância do estado físico e emocional</li>
+                    </ul>
+                </div>
+                <div class="post-tags">
+                    <span class="tag">Direção Defensiva</span>
+                    <span class="tag">Prevenção</span>
+                    <span class="tag">Responsabilidade</span>
+                </div>
+            </article>
+
+            <article class="post-card">
+                <h2 class="post-title">🚶‍♂️ Segurança do Pedestre nas Cidades</h2>
+                <div class="post-date">📅 Publicado em: 5 de agosto de 2025</div>
+                <div class="post-content">
+                    <p>Os pedestres são os usuários mais vulneráveis do trânsito. Esta palestra aborda medidas essenciais para garantir a segurança de quem anda a pé nas cidades.</p>
+                    <p>Temas importantes discutidos:</p>
+                    <ul>
+                        <li>Uso correto das faixas de pedestres</li>
+                        <li>Comportamento seguro nas calçadas</li>
+                        <li>Cuidados especiais durante a noite</li>
+                        <li>Direitos e deveres dos pedestres</li>
+                    </ul>
+                </div>
+                <div class="post-tags">
+                    <span class="tag">Pedestres</span>
+                    <span class="tag">Mobilidade Urbana</span>
+                    <span class="tag">Segurança</span>
+                </div>
+            </article>
+
+            <article class="post-card">
+                <h2 class="post-title">🏍️ Motociclistas: Condução Segura e Responsável</h2>
+                <div class="post-date">📅 Publicado em: 3 de agosto de 2025</div>
+                <div class="post-content">
+                    <p>Os motociclistas enfrentam desafios únicos no trânsito. Esta palestra oferece orientações específicas para uma condução mais segura e responsável.</p>
+                    <p>Conteúdo da palestra:</p>
+                    <ul>
+                        <li>Equipamentos de proteção individual obrigatórios</li>
+                        <li>Técnicas de pilotagem defensiva</li>
+                        <li>Como ser visto pelos outros motoristas</li>
+                        <li>Manutenção básica da motocicleta</li>
+                    </ul>
+                </div>
+                <div class="post-tags">
+                    <span class="tag">Motociclistas</span>
+                    <span class="tag">EPI</span>
+                    <span class="tag">Pilotagem Defensiva</span>
+                </div>
+            </article>
+
+            <article class="post-card">
+                <h2 class="post-title">🚨 Primeiros Socorros no Trânsito</h2>
+                <div class="post-date">📅 Publicado em: 1 de agosto de 2025</div>
+                <div class="post-content">
+                    <p>Saber como agir em situações de emergência pode fazer a diferença entre a vida e a morte. Esta palestra ensina técnicas básicas de primeiros socorros específicas para acidentes de trânsito.</p>
+                    <p>Principais ensinamentos:</p>
+                    <ul>
+                        <li>Como avaliar a gravidade da situação</li>
+                        <li>Técnicas básicas de estabilização</li>
+                        <li>Quando e como remover vítimas</li>
+                        <li>Importância de acionar o socorro especializado</li>
+                    </ul>
+                </div>
+                <div class="post-tags">
+                    <span class="tag">Primeiros Socorros</span>
+                    <span class="tag">Emergência</span>
+                    <span class="tag">Salvamento</span>
+                </div>
+            </article>
+        </section>
+    </div>
+
+    <!-- Scripts necessários -->
+    <script src="main.js"></script>
+</body>
+</html>

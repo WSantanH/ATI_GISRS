@@ -98,7 +98,7 @@ function initializeEventListeners() {
         });
     }
 
-    // Event listener para o input do chat
+    // Event listener para o input do chat (se existir)
     const chatInput = document.getElementById('chat-input');
     if (chatInput) {
         chatInput.addEventListener('keypress', function(e) {
@@ -331,11 +331,17 @@ function initializeSimuladorEventListeners() {
 window.onload = function() {
     const userLogged = localStorage.getItem('userLogged');
     const userPhoto = localStorage.getItem('userPhoto');
-    if (userLogged === 'true') {
-        document.getElementById('auth-buttons').style.display = 'none';
-        document.getElementById('user-area').style.display = 'flex';
-        if (userPhoto) {
-            document.getElementById('user-photo').src = userPhoto;
+    
+    // Verificar elementos de autenticação (se existirem)
+    const authButtons = document.getElementById('auth-buttons');
+    const userArea = document.getElementById('user-area');
+    const userPhotoEl = document.getElementById('user-photo');
+    
+    if (userLogged === 'true' && authButtons && userArea) {
+        authButtons.style.display = 'none';
+        userArea.style.display = 'flex';
+        if (userPhoto && userPhotoEl) {
+            userPhotoEl.src = userPhoto;
         }
     }
     
@@ -903,11 +909,23 @@ function simularAcao(acao) {
                 ${resultado.correto ? '✅ Ação Correta!' : '❌ Ação Incorreta!'}
             </h4>
             <p style="margin-bottom: 15px;">${resultado.feedback}</p>
-            <button onclick="proximoCenario()" style="background: #2196f3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-right: 10px;">➡️ Próximo Cenário</button>
-            <button onclick="reiniciarSimulador()" style="background: #ff9800; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">🔄 Reiniciar</button>
+            <button id="proximo-cenario-btn" class="sim-result-btn primary">➡️ Próximo Cenário</button>
+            <button id="reiniciar-simulador-btn" class="sim-result-btn secondary">🔄 Reiniciar</button>
         </div>
     `;
     resultadoDiv.style.display = 'block';
+    
+    // Adicionar event listeners aos botões
+    const proximoBtn = document.getElementById('proximo-cenario-btn');
+    const reiniciarBtn = document.getElementById('reiniciar-simulador-btn');
+    
+    if (proximoBtn) {
+        proximoBtn.addEventListener('click', proximoCenario);
+    }
+    
+    if (reiniciarBtn) {
+        reiniciarBtn.addEventListener('click', reiniciarSimulador);
+    }
     
     // Salvar simulação completada
     if (resultado.correto) {
@@ -938,10 +956,19 @@ function carregarCenario() {
         <p style="color: #666; margin-bottom: 25px; line-height: 1.6;">${cenario.descricao}</p>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 600px; margin: 0 auto;">
             ${Object.entries(cenario.acoes).map(([key, acao]) => 
-                `<button onclick="simularAcao('${key}')" style="background: #f44336; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.3s;">${acao.texto}</button>`
+                `<button data-action="${key}" class="sim-action-btn">${acao.texto}</button>`
             ).join('')}
         </div>
     `;
+    
+    // Adicionar event listeners aos botões de ação
+    const actionButtons = cenarioDiv.querySelectorAll('.sim-action-btn');
+    actionButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const action = e.target.getAttribute('data-action');
+            simularAcao(action);
+        });
+    });
     
     document.getElementById('resultado-simulacao').style.display = 'none';
 }
@@ -1222,15 +1249,23 @@ function showNotification(message) {
 
 // Sistema de Autenticação
 function showForm(tipo) {
-    document.getElementById('auth-buttons').style.display = 'none';
-    document.getElementById('auth-form').style.display = 'block';
-    document.getElementById('form-login').style.display = tipo === 'login' ? 'block' : 'none';
-    document.getElementById('form-cadastro').style.display = tipo === 'cadastro' ? 'block' : 'none';
+    const authButtons = document.getElementById('auth-buttons');
+    const authForm = document.getElementById('auth-form');
+    const formLogin = document.getElementById('form-login');
+    const formCadastro = document.getElementById('form-cadastro');
+    
+    if (authButtons) authButtons.style.display = 'none';
+    if (authForm) authForm.style.display = 'block';
+    if (formLogin) formLogin.style.display = tipo === 'login' ? 'block' : 'none';
+    if (formCadastro) formCadastro.style.display = tipo === 'cadastro' ? 'block' : 'none';
 }
 
 function submitAuth() {
-    document.getElementById('auth-form').style.display = 'none';
-    document.getElementById('user-area').style.display = 'flex';
+    const authForm = document.getElementById('auth-form');
+    const userArea = document.getElementById('user-area');
+    
+    if (authForm) authForm.style.display = 'none';
+    if (userArea) userArea.style.display = 'flex';
     localStorage.setItem('userLogged', 'true');
     return false;
 }
@@ -1240,16 +1275,22 @@ function trocarFoto(event) {
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
-            document.getElementById('user-photo').src = e.target.result;
-            localStorage.setItem('userPhoto', e.target.result);
+            const userPhoto = document.getElementById('user-photo');
+            if (userPhoto) {
+                userPhoto.src = e.target.result;
+                localStorage.setItem('userPhoto', e.target.result);
+            }
         };
         reader.readAsDataURL(file);
     }
 }
 
 function deslogar() {
-    document.getElementById('user-area').style.display = 'none';
-    document.getElementById('auth-buttons').style.display = 'flex';
+    const userArea = document.getElementById('user-area');
+    const authButtons = document.getElementById('auth-buttons');
+    
+    if (userArea) userArea.style.display = 'none';
+    if (authButtons) authButtons.style.display = 'flex';
     localStorage.removeItem('userLogged');
     localStorage.removeItem('userPhoto');
 }
@@ -1262,38 +1303,81 @@ function abrirManual() {
     // Atualizar progresso
     updateProgress();
     
-    // Verifica se é dispositivo móvel
-    const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    if (isMobile) {
-        mostrarPDFNoModal();
-    } else {
-        window.open('docs/manual-transito-2022.pdf', '_blank');
-    }
+    // Sempre mostrar o PDF no modal (para desktop e mobile)
+    mostrarPDFNoModal();
 }
 
 function mostrarPDFNoModal() {
     // Cria o conteúdo do modal com iframe do PDF
     const modalContent = document.querySelector('#manual-modal > div');
+    if (!modalContent) {
+        console.error('Modal content element not found');
+        return;
+    }
+    
     modalContent.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #fbc02d;">
-            <h3 style="margin: 0; color: #795548;">📖 Manual de Trânsito 2022</h3>
-            <button onclick="fecharManual()" style="background: #f44336; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 1.2rem;">✕</button>
+            <h3 style="margin: 0; color: #795548; font-size: 1.5rem;">📖 Manual de Trânsito 2022</h3>
+            <button id="fechar-manual-btn" class="modal-close-btn">✕</button>
         </div>
-        <iframe src="docs/manual-transito-2022.pdf" style="width: 100%; height: 70vh; border: none; border-radius: 8px;"></iframe>
-        <div style="text-align: center; margin-top: 15px;">
-            <p style="color: #666; margin: 0;">📱 Deslize para navegar pelo manual</p>
+        <div style="flex: 1; position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+            <iframe 
+                src="docs/manual-transito-2022.pdf" 
+                style="
+                    width: 100%; 
+                    height: 100%; 
+                    border: none; 
+                    min-height: 500px;
+                " 
+                title="Manual de Trânsito 2022"
+                loading="lazy">
+            </iframe>
+        </div>
+        <div style="text-align: center; margin-top: 15px; padding: 10px; background: rgba(251,192,45,0.1); border-radius: 8px;">
+            <p style="color: #795548; margin: 0; font-size: 0.9rem;">
+                � <strong>Dica:</strong> Use Ctrl+F (ou Cmd+F no Mac) para pesquisar no manual | 
+                📱 No mobile: toque e arraste para navegar
+            </p>
         </div>
     `;
     
-    // Mostra o modal
-    document.getElementById('manual-modal').style.display = 'block';
+    // Mostra o modal com animação suave
+    const modal = document.getElementById('manual-modal');
+    modal.style.display = 'block';
+    modal.style.opacity = '0';
+    
+    // Adicionar event listener ao botão de fechar
+    const fecharBtn = document.getElementById('fechar-manual-btn');
+    if (fecharBtn) {
+        fecharBtn.addEventListener('click', fecharManual);
+    }
+    
+    // Animação de entrada
+    setTimeout(() => {
+        modal.style.transition = 'opacity 0.3s ease';
+        modal.style.opacity = '1';
+    }, 10);
+    
+    // Previne scroll da página quando modal está aberto
     document.body.style.overflow = 'hidden';
+    
+    // Adiciona classe para melhor controle CSS
+    document.body.classList.add('modal-open');
 }
 
 function fecharManual() {
-    document.getElementById('manual-modal').style.display = 'none';
-    document.body.style.overflow = 'auto'; // Restaura scroll da página
+    const modal = document.getElementById('manual-modal');
+    
+    // Animação de saída
+    modal.style.transition = 'opacity 0.3s ease';
+    modal.style.opacity = '0';
+    
+    // Remove o modal após a animação
+    setTimeout(() => {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restaura scroll da página
+        document.body.classList.remove('modal-open');
+    }, 300);
 }
 
 // Fechar modal clicando fora dele
@@ -1301,6 +1385,16 @@ document.addEventListener('click', function(event) {
     const modal = document.getElementById('manual-modal');
     if (event.target === modal) {
         fecharManual();
+    }
+});
+
+// Fechar modal com a tecla ESC
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const modal = document.getElementById('manual-modal');
+        if (modal && modal.style.display === 'block') {
+            fecharManual();
+        }
     }
 });
 
@@ -1892,4 +1986,88 @@ window.addEventListener('orientationchange', () => {
         applyMobileFixes();
         fixMobileIssues();
     }, 300);
+});
+
+// ===== FUNÇÕES DE MANIPULAÇÃO DE EVENTOS INLINE =====
+
+// Função para inicializar eventos inline convertidos
+function initializeInlineEvents() {
+    // Botão Nova Dica
+    const novaDicaBtn = document.getElementById('nova-dica-btn');
+    if (novaDicaBtn) {
+        novaDicaBtn.addEventListener('click', mostrarDicaAleatoria);
+        
+        // Eventos de hover para Nova Dica
+        novaDicaBtn.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05)';
+            this.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.4)';
+        });
+        
+        novaDicaBtn.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+            this.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.3)';
+        });
+    }
+    
+    // Botão Reiniciar Contador
+    const reiniciarBtn = document.getElementById('reiniciar-dicas-btn');
+    if (reiniciarBtn) {
+        // Adiciona event listener
+        reiniciarBtn.addEventListener('click', reiniciarContadorDicas);
+        
+        // Eventos de hover para Reiniciar
+        reiniciarBtn.addEventListener('mouseenter', function() {
+            this.style.background = 'rgba(255,255,255,0.3)';
+        });
+        
+        reiniciarBtn.addEventListener('mouseleave', function() {
+            this.style.background = 'rgba(255,255,255,0.2)';
+        });
+    }
+    
+    // Cards de dicas com hover effects
+    const dicaCards = document.querySelectorAll('.dica-card');
+    dicaCards.forEach(card => {
+        // Adiciona eventos via JavaScript
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+}
+
+// Função para limpar todos os eventos inline do HTML
+function removeInlineEvents() {
+    // Remove todos os atributos onclick
+    const elementsWithOnclick = document.querySelectorAll('[onclick]');
+    elementsWithOnclick.forEach(element => {
+        element.removeAttribute('onclick');
+    });
+    
+    // Remove todos os atributos onmouseover
+    const elementsWithOnmouseover = document.querySelectorAll('[onmouseover]');
+    elementsWithOnmouseover.forEach(element => {
+        element.removeAttribute('onmouseover');
+    });
+    
+    // Remove todos os atributos onmouseout
+    const elementsWithOnmouseout = document.querySelectorAll('[onmouseout]');
+    elementsWithOnmouseout.forEach(element => {
+        element.removeAttribute('onmouseout');
+    });
+}
+
+// Inicializar eventos quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', function() {
+    initializeInlineEvents();
+});
+
+// Também executar após o carregamento completo da página
+window.addEventListener('load', function() {
+    setTimeout(() => {
+        initializeInlineEvents();
+    }, 100);
 });

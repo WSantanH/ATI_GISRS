@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso: Cidadania no Trânsito - IntegraEdu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #feca57, #ff9ff3);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .course-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #feca57;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .course-hero {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 50px;
+            text-align: center;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .module-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+        }
+
+        .module-number {
+            background: linear-gradient(135deg, #feca57, #ff9ff3);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .module-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .module-content {
+            color: #5a6c7d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .topics-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .topics-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #4a5568;
+        }
+
+        .topics-list li::before {
+            content: "🤝";
+            position: absolute;
+            left: 0;
+        }
+
+        .study-btn {
+            background: linear-gradient(135deg, #feca57, #ff9ff3);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .study-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(254, 202, 87, 0.4);
+        }
+
+        .progress-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            margin-top: 40px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .progress-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #26de81, #20bf6b);
+            height: 100%;
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .certificate-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(25px);
+            border-radius: 25px;
+            padding: 40px;
+            margin-top: 40px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .certificate-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .certificate-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .certificate-description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .certificate-btn {
+            background: linear-gradient(135deg, #feca57, #ff9ff3);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .certificate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(254, 202, 87, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .course-hero {
+                padding: 30px 20px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="course-title">🤝 Cidadania no Trânsito</div>
+            <a href="inde3.html" class="back-btn">← Voltar aos Cursos</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="course-hero">
+            <div class="hero-icon">🤝</div>
+            <h1 class="hero-title">Curso de Cidadania no Trânsito</h1>
+            <p class="hero-subtitle">
+                Desenvolva consciência cidadã e promova valores de respeito, tolerância e responsabilidade social 
+                para uma convivência harmoniosa no trânsito urbano.
+            </p>
+        </div>
+
+        <div class="modules-grid">
+            <!-- Módulo 1 -->
+            <div class="module-card">
+                <div class="module-number">1</div>
+                <h3 class="module-title">Ética e Valores no Trânsito</h3>
+                <p class="module-content">
+                    Fundamentos éticos para uma conduta responsável e respeitosa no ambiente de trânsito.
+                </p>
+                <ul class="topics-list">
+                    <li>Princípios éticos básicos</li>
+                    <li>Respeito mútuo</li>
+                    <li>Responsabilidade individual</li>
+                    <li>Valores morais no trânsito</li>
+                </ul>
+                <a href="#" class="study-btn">📚 Estudar Módulo</a>
+            </div>
+
+            <!-- Módulo 2 -->
+            <div class="module-card">
+                <div class="module-number">2</div>
+                <h3 class="module-title">Direitos e Deveres do Cidadão</h3>
+                <p class="module-content">
+                    Compreenda seus direitos e deveres como cidadão no espaço público de circulação.
+                </p>
+                <ul class="topics-list">
+                    <li>Direitos constitucionais</li>
+                    <li>Deveres cívicos</li>
+                    <li>Participação social</li>
+                    <li>Exercício da cidadania</li>
+                </ul>
+                <a href="#" class="study-btn">📚 Estudar Módulo</a>
+            </div>
+
+            <!-- Módulo 3 -->
+            <div class="module-card">
+                <div class="module-number">3</div>
+                <h3 class="module-title">Respeito à Diversidade e Inclusão</h3>
+                <p class="module-content">
+                    A importância do respeito às diferenças e promoção da inclusão no trânsito.
+                </p>
+                <ul class="topics-list">
+                    <li>Diversidade no trânsito</li>
+                    <li>Acessibilidade universal</li>
+                    <li>Respeito aos idosos</li>
+                    <li>Inclusão de pessoas com deficiência</li>
+                </ul>
+                <a href="#" class="study-btn">📚 Estudar Módulo</a>
+            </div>
+
+            <!-- Módulo 4 -->
+            <div class="module-card">
+                <div class="module-number">4</div>
+                <h3 class="module-title">Convivência Pacífica Urbana</h3>
+                <p class="module-content">
+                    Estratégias para promover harmonia e paz no ambiente urbano de trânsito.
+                </p>
+                <ul class="topics-list">
+                    <li>Comunicação não violenta</li>
+                    <li>Resolução de conflitos</li>
+                    <li>Empatia no trânsito</li>
+                    <li>Cooperação mútua</li>
+                </ul>
+                <a href="#" class="study-btn">📚 Estudar Módulo</a>
+            </div>
+
+            <!-- Módulo 5 -->
+            <div class="module-card">
+                <div class="module-number">5</div>
+                <h3 class="module-title">Responsabilidade Social Coletiva</h3>
+                <p class="module-content">
+                    O papel de cada indivíduo na construção de uma sociedade mais justa e segura.
+                </p>
+                <ul class="topics-list">
+                    <li>Consciência coletiva</li>
+                    <li>Impacto social das ações</li>
+                    <li>Voluntariado em trânsito</li>
+                    <li>Educação comunitária</li>
+                </ul>
+                <a href="#" class="study-btn">📚 Estudar Módulo</a>
+            </div>
+
+            <!-- Módulo 6 -->
+            <div class="module-card">
+                <div class="module-number">6</div>
+                <h3 class="module-title">Cultura de Paz no Trânsito</h3>
+                <p class="module-content">
+                    Promovendo uma cultura de paz e não violência nas relações de trânsito.
+                </p>
+                <ul class="topics-list">
+                    <li>Princípios da cultura de paz</li>
+                    <li>Prevenção da violência</li>
+                    <li>Mediação de conflitos</li>
+                    <li>Construção da paz social</li>
+                </ul>
+                <a href="#" class="study-btn">📚 Estudar Módulo</a>
+            </div>
+        </div>
+
+        <!-- Seção de Progresso -->
+        <div class="progress-section">
+            <h2 class="progress-title">📊 Seu Progresso</h2>
+            <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">Complete todos os módulos para obter seu certificado</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p style="color: white; font-weight: 600; font-size: 1.2rem;">
+                <span id="progressText">0 de 6 módulos concluídos (0%)</span>
+            </p>
+        </div>
+
+        <!-- Seção de Certificado -->
+        <div class="certificate-section">
+            <div class="certificate-icon">🏆</div>
+            <h2 class="certificate-title">Certificado de Conclusão</h2>
+            <p class="certificate-description">
+                Ao concluir todos os módulos do curso, você receberá um certificado 
+                oficial reconhecido pelos órgãos competentes em cidadania e trânsito.
+            </p>
+            <a href="#" class="certificate-btn" id="certificateBtn" style="opacity: 0.5; pointer-events: none;">
+                🏆 Baixar Certificado
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let completedModules = 0;
+        const totalModules = 6;
+        
+        // Simular progresso ao clicar em estudar
+        document.querySelectorAll('.study-btn').forEach((btn, index) => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Marcar como concluído
+                if (!this.classList.contains('completed')) {
+                    this.classList.add('completed');
+                    this.textContent = '✅ Módulo Concluído';
+                    this.style.background = 'linear-gradient(135deg, #26de81, #20bf6b)';
+                    
+                    completedModules++;
+                    updateProgress();
+                }
+            });
+        });
+        
+        function updateProgress() {
+            const percentage = (completedModules / totalModules) * 100;
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = 
+                `${completedModules} de ${totalModules} módulos concluídos (${Math.round(percentage)}%)`;
+            
+            // Habilitar certificado quando concluir tudo
+            if (completedModules === totalModules) {
+                const certBtn = document.getElementById('certificateBtn');
+                certBtn.style.opacity = '1';
+                certBtn.style.pointerEvents = 'auto';
+                certBtn.onclick = function() {
+                    alert('🎉 Parabéns! Seu certificado está sendo gerado. Você receberá por email em alguns minutos.');
+                };
+            }
+        }
+    </script>
+</body>
+</html>

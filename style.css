@@ -519,46 +519,44 @@ section > div[style*="background:#fff"]::before {
     }
 }
 
-/* Imagens responsivas em cards - tamanho maior */
+/* Imagens responsivas em cards - preencher espaço sem cortar */
 .video-card img,
 .card img,
 section img {
     width: 100%;
-    height: auto;
+    height: 300px;
     border-radius: var(--border-radius-small);
     object-fit: contain;
-    max-height: 400px;
-    min-height: 250px;
-    background: var(--surface-glass);
+    object-position: center;
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
     display: block;
     margin: 0 auto;
-    padding: 8px;
+    padding: 10px;
     box-sizing: border-box;
+    transition: var(--transition);
 }
 
-/* Correção específica para imagens dos cards de vídeo - tamanho maior */
+/* Correção específica para imagens dos cards de vídeo - preencher sem cortar */
 .video-card img[src*="foto"] {
     object-fit: contain !important;
-    height: auto !important;
-    max-height: 400px !important;
+    height: 300px !important;
     width: 100% !important;
-    background: rgba(255, 255, 255, 0.05) !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(240, 240, 240, 0.2)) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    min-height: 250px !important;
+    border-radius: var(--border-radius-small) !important;
+    padding: 10px !important;
 }
 
-/* Força todas as imagens a serem maiores e não cortadas */
+/* Força todas as imagens a preencherem o espaço sem cortar */
 img[src*="foto"],
 img[src*="img/"] {
     object-fit: contain !important;
     object-position: center !important;
-    height: auto !important;
-    max-height: 400px !important;
-    min-height: 250px !important;
+    height: 300px !important;
     width: 100% !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    padding: 8px !important;
-    box-sizing: border-box !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(240, 240, 240, 0.2)) !important;
+    padding: 10px !important;
+    border-radius: var(--border-radius-small) !important;
 }
 
 /* Container de vídeos responsivo */
@@ -763,6 +761,70 @@ button:hover {
     background: var(--gradient-night) !important;
     border: 2px solid var(--primary-color) !important;
     animation: pulse 3s ease-in-out infinite !important;
+}
+
+/* Botão de acesso às palestras */
+.palestras-access {
+    display: flex !important;
+    justify-content: center !important;
+    margin: 40px 0 !important;
+    padding: 20px !important;
+}
+
+.palestras-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    color: white !important;
+    text-decoration: none !important;
+    padding: 20px 40px !important;
+    border-radius: 15px !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: clamp(1rem, 2.5vw, 1.3rem) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    transform: translateY(0) !important;
+    min-width: 280px !important;
+    text-align: center !important;
+}
+
+.palestras-btn:hover {
+    transform: translateY(-5px) scale(1.05) !important;
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4) !important;
+    background: linear-gradient(135deg, #764ba2, #f093fb) !important;
+}
+
+.palestras-btn:active {
+    transform: translateY(-2px) scale(1.02) !important;
+}
+
+.palestras-btn .btn-subtitle {
+    font-size: 0.9rem !important;
+    font-weight: 400 !important;
+    opacity: 0.9 !important;
+    line-height: 1.3 !important;
+}
+
+/* Efeito de brilho no botão de palestras */
+.palestras-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+    z-index: 1;
+}
+
+.palestras-btn:hover::before {
+    left: 100%;
 }
 
 button:active {
@@ -3365,6 +3427,160 @@ nav {
 }
 
 /* Videos Section */
+/* Progress Section */
+.progress-section {
+    margin: 40px 0;
+    padding: 25px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+.progress-title {
+    color: #795548;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.progress-container {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.progress-header h4 {
+    color: #795548;
+    margin: 0;
+}
+
+.progress-percentage {
+    font-weight: bold;
+    color: #4caf50;
+    font-size: 1.2rem;
+}
+
+.progress-bar-container {
+    background: #f0f0f0;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #4caf50, #8bc34a);
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.progress-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.progress-stat-card {
+    text-align: center;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 10px;
+}
+
+.progress-stat-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.progress-stat-card h5 {
+    margin: 0 0 5px 0;
+    color: #795548;
+}
+
+.progress-stat-value {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.progress-stat-value.quiz { color: #4caf50; }
+.progress-stat-value.simulation { color: #2196f3; }
+.progress-stat-value.manual { color: #ff9800; }
+
+.progress-message-container {
+    margin-top: 20px;
+    padding: 15px;
+    background: linear-gradient(45deg, #e8f5e8, #f1f8e9);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.progress-message {
+    margin: 0;
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+/* Contact Section */
+.contact-section {
+    margin: 40px 0;
+    padding: 25px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 15px;
+    text-align: center;
+}
+
+.contact-title {
+    color: #795548;
+    margin-bottom: 20px;
+}
+
+.contact-methods {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.contact-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    min-width: 200px;
+}
+
+.contact-card h4 {
+    margin: 0 0 10px 0;
+}
+
+.contact-card h4.whatsapp { color: #4caf50; }
+.contact-card h4.email { color: #2196f3; }
+
+.contact-card p {
+    margin: 0;
+    font-weight: bold;
+    color: #795548;
+}
+
+/* Videos Section */
+.videos-section {
+    margin: 40px 0;
+    padding: 25px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
 .videos-scroll-container {
     position: relative;
     margin: 30px -25px 20px -25px;
@@ -3920,6 +4136,188 @@ nav {
     margin-bottom: 10px;
 }
 
+/* About Section */
+.about-section {
+    margin: 40px 0;
+    padding: 30px;
+    background: var(--surface);
+    backdrop-filter: blur(15px);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: var(--shadow-medium);
+}
+
+.about-title {
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.about-icon-safety {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--accent-color), #66bb6a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.about-icon-lives {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #2196f3, #64b5f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.about-icon-education {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ff9800, #ffb74d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.about-card h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.about-card p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Calculator Result Values */
+.calculator-result #valor-multa {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #f44336;
+    margin-bottom: 10px;
+}
+
+.calculator-result p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Tips Section Styles */
+.tips-section {
+    margin: 40px 0;
+    padding: 30px;
+    background: var(--surface);
+    backdrop-filter: blur(15px);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: var(--shadow-medium);
+}
+
+.tips-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.tips-title {
+    color: var(--secondary-color);
+    margin: 0;
+}
+
+.dica-counter {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    display: none;
+}
+
+.dica-card-icon-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.dica-card-icon {
+    font-size: 2rem;
+    margin-right: 15px;
+}
+
+.dica-card h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.dica-card h4.orange { color: #ff9800; }
+.dica-card h4.blue { color: #2196f3; }
+.dica-card h4.green { color: #4caf50; }
+
+.dica-card p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+/* Tips Section */
+.nova-dica-button {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.reiniciar-dicas-button {
+    background: rgba(255,255,255,0.2);
+    color: var(--text-secondary);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 5px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-left: 15px;
+    transition: all 0.3s ease;
+}
+
+.dica-card {
+    padding: 25px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+}
+
+.dica-card-orange {
+    background: linear-gradient(135deg, rgba(255,152,0,0.1), rgba(255,152,0,0.05));
+    border-left: 6px solid #ff9800;
+}
+
+.dica-card-blue {
+    background: linear-gradient(135deg, rgba(33,150,243,0.1), rgba(33,150,243,0.05));
+    border-left: 6px solid #2196f3;
+}
+
+.dica-card-green {
+    background: linear-gradient(135deg, rgba(76,175,80,0.1), rgba(76,175,80,0.05));
+    border-left: 6px solid #4caf50;
+}
+
 .resultado-simulacao {
     display: none;
     margin-top: 25px;
@@ -3940,8 +4338,273 @@ nav {
     border: 2px solid rgba(251,192,45,0.1);
 }
 
+.video-card.wide img {
+    height: 300px;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(240, 240, 240, 0.2));
+}
+
 .play-video-btn:hover {
     background: linear-gradient(135deg, #ff6666, #ff8888);
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(255,68,68,0.4);
+}
+
+/* ============================================= */
+/* ESTILOS ADICIONAIS PARA O MODAL DO MANUAL */
+/* ============================================= */
+
+/* Modal do Manual do Trânsito */
+#manual-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#manual-modal > div {
+    background-color: #fff;
+    margin: 2% auto;
+    padding: 20px;
+    border-radius: 12px;
+    width: 95%;
+    max-width: 1200px;
+    height: 90%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Responsividade para o modal */
+@media (max-width: 768px) {
+    #manual-modal > div {
+        margin: 5% auto !important;
+        width: 98% !important;
+        height: 85% !important;
+        padding: 15px !important;
+    }
+}
+
+/* Melhora a experiência em telas muito pequenas */
+@media (max-width: 480px) {
+    #manual-modal > div {
+        margin: 2% auto !important;
+        width: 100% !important;
+        height: 96% !important;
+        padding: 10px !important;
+        border-radius: 0 !important;
+    }
+}
+
+/* Animação suave para o modal */
+.modal-open {
+    overflow: hidden !important;
+}
+
+/* Melhor scroll no iframe para mobile */
+#manual-modal iframe {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ============================================= */
+/* ESTILOS DO FOOTER */
+/* ============================================= */
+
+.site-footer {
+    background: rgba(121, 85, 72, 0.9);
+    color: #fffde7;
+    padding: 40px 20px 20px 20px;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    color: #fbc02d;
+    margin-bottom: 15px;
+}
+
+.footer-section p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 5px 0;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.footer-links a {
+    color: #fffde7;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #fbc02d;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(251,192,45,0.3);
+    padding-top: 20px;
+}
+
+.footer-bottom p:first-child {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #ffe082;
+}
+
+.footer-bottom p:last-child {
+    margin: 10px 0 0 0;
+    font-size: 0.8rem;
+    color: #ffecb3;
+}
+
+/* ============================================= */
+/* ESTILOS PARA ELEMENTOS ESPECÍFICOS */
+/* ============================================= */
+
+.current-category {
+    font-weight: bold;
+}
+
+.special-video-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    min-width: 380px;
+    max-width: 420px;
+    flex-shrink: 0;
+    border: 2px solid rgba(251,192,45,0.1);
+    transition: all 0.3s ease;
+}
+
+.special-video-img {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(240, 240, 240, 0.2));
+    padding: 10px;
+}
+
+/* Estilos para elementos de animação de fundo */
+.cone-position {
+    left: 40vw !important;
+    top: 80vh !important;
+}
+
+.arvore-position {
+    left: 10vw !important;
+    top: 60vh !important;
+}
+
+/* ============================================= */
+/* ESTILOS PARA BOTÕES DO SIMULADOR */
+/* ============================================= */
+
+.sim-result-btn {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.sim-result-btn.primary {
+    background: #2196f3;
+    color: white;
+}
+
+.sim-result-btn.primary:hover {
+    background: #1976d2;
+    transform: translateY(-1px);
+}
+
+.sim-result-btn.secondary {
+    background: #ff9800;
+    color: white;
+}
+
+.sim-result-btn.secondary:hover {
+    background: #f57c00;
+    transform: translateY(-1px);
+}
+
+.sim-action-btn {
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin: 5px;
+}
+
+.sim-action-btn:hover {
+    background: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(244,67,54,0.3);
+}
+
+/* ============================================= */
+/* ESTILOS PARA BOTÃO DE FECHAR MODAL */
+/* ============================================= */
+
+.modal-close-btn {
+    background: #f44336;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(244,67,54,0.3);
+}
+
+.modal-close-btn:hover {
+    background: #d32f2f;
+    transform: scale(1.05);
 }
